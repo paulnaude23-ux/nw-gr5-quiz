@@ -13,7 +13,16 @@ button.teal{background:linear-gradient(90deg,#43c6c0,#7fd8f0);color:#fff;text-al
 .fb{min-height:1.5em;font-weight:700;margin-top:6px}.ex{font-size:.92em;color:#5b3a8c;margin-top:4px}
 .badge{display:inline-block;background:#fff0fa;border:2px solid #ff8fc8;border-radius:14px;padding:6px 10px;margin:4px}
 .center{text-align:center}canvas{position:fixed;inset:0;pointer-events:none}
-.pic svg{width:100%;height:auto;max-height:230px;display:block;margin-bottom:8px}</style></head><body><canvas id="cf"></canvas><div class="wrap">
+.pic svg{width:100%;height:auto;max-height:230px;display:block;margin-bottom:8px}.path{position:relative;width:320px;margin:10px auto}.nd{position:absolute;width:72px;height:72px;margin:-36px 0 0 -36px;border-radius:50%;background:linear-gradient(145deg,#ff8fc8,#c77dff);box-shadow:0 6px 0 #8a4fc0,0 8px 18px #0005;display:flex;align-items:center;justify-content:center;font-size:30px;cursor:pointer;border:4px solid #fff}
+.nd.gt{background:linear-gradient(145deg,#ffd166,#ff8fc8)}.nd.lk{background:#9a8fb0;box-shadow:0 6px 0 #6d6385;border-color:#c8c0d8}.nd.cur{animation:pl 1.4s infinite}
+@keyframes pl{50%{transform:scale(1.1)}}.nl{position:absolute;transform:translateX(-50%);color:#fff;font-size:.8em;font-weight:700;text-align:center;width:130px;text-shadow:0 1px 3px #0008}.st{font-size:1.05em}
+.masc{display:flex;align-items:center;gap:8px;margin-bottom:6px}.bub{background:#e0f7f6;color:#21706c;border-radius:14px;padding:7px 10px;font-weight:600;font-size:.92em;position:relative;flex:1;text-align:left}
+.wm.happy{animation:hop .5s}.wm.sad{animation:sh .4s}@keyframes hop{50%{transform:translateY(-8px)}}@keyframes sh{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.dz{position:relative}.tg{position:absolute;transform:translate(-50%,-50%);min-width:64px;padding:4px 8px;border:2px dashed #fff;background:#ffffffcc;color:#5b3a8c;border-radius:10px;font-size:.78em;font-weight:700;text-align:center;white-space:nowrap}
+.tg.ok{background:#b9f5d8;border-style:solid;border-color:#2e9e6a}.tg.bad{background:#ffc9d6;border-color:#e0406a}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}.chip{touch-action:none;user-select:none;-webkit-user-select:none;background:linear-gradient(90deg,#c77dff,#ff8fc8);color:#fff;font-weight:700;padding:10px 14px;border-radius:14px;cursor:grab}
+.chip.sel{outline:3px solid #43c6c0}.chip.done,.chip.drag{opacity:.3}.chip.ghost{position:fixed;transform:translate(-50%,-50%);pointer-events:none;z-index:9;box-shadow:0 6px 14px #0006}
+.x{width:auto;padding:2px 10px;margin:0;background:#ffffff30;color:#fff}.lnk{background:none;color:#8a4fc0;text-align:center;text-decoration:underline;font-size:.9em}.big3{font-size:2.2em}.top{align-items:center}</style></head><body><canvas id="cf"></canvas><div class="wrap">
 <h1>🌍 Planeet Aarde Quiz 🚀</h1><div class="sub">Natuurwetenskap Gr. 5</div><div id="app"></div></div>
 <script>
 // [vraag, opsies, korrek-indeks, verduideliking, onderwerp]  A=Aarde beweeg, G=Oppervlak/grond
@@ -76,31 +85,85 @@ const Q=[
 ["Hoekom moet boere gronderosie voorkom?",["Bogrond kan nie vervang word nie en ons kweek kos daarin","Dit maak die plaas mooi","Erosie maak reën"],0,"Bogrond kan nie vervang word nie en ons het dit nodig vir kos.","G"]];
 const GOOD=["Fantasties! 🌟","Wow, slim kop! 🧠","Jy's 'n ster! ⭐","Uitstekend! 🎉","Super! 💖","Reg so! 🚀"],
 BAD=["Amper! Probeer weer 💪","Nie heeltemal nie, jy kry dit! 🌈","Oeps! Kyk weer 👀","Hou aan, jy leer! 💜"];
-const app=document.getElementById('app');let S;const pick=a=>a[Math.floor(Math.random()*a.length)];
+const LV=[
+{n:"Wentel & roteer",ic:"🌍",t:"A",q:[0,1,6,7,8,10,12,15],d:["orbit"]},
+{n:"Die as & tyd",ic:"⏰",t:"A",q:[2,3,11,13,14,16,17],d:["axis"]},
+{n:"Dag/nag & seisoene",ic:"🌗",t:"A",q:[4,5,9,18,19,20,21,22]},
+{n:"Kors & lewe",ic:"🪨",t:"G",q:[23,24,25,26,35]},
+{n:"Grondlae",ic:"🟫",t:"G",q:[27,28,29,30,31,32,33,34],d:["soil"]},
+{n:"Grondsoorte",ic:"🔬",t:"G",q:[36,37,38,40,41,42,43,44]},
+{n:"Organismes & erosie",ic:"🐛",t:"G",q:[39,45,46,47,48,49]},
+{n:"Groot Toets",ic:"🏆",t:"X",test:true}];
+const DR={
+orbit:{s:"orbit",lab:[["Son",50,50],["Aarde",88,50],["Wentelbaan",20,84]]},
+axis:{s:"axis",lab:[["As",47,33],["Noordpool",30,9],["Suidpool",70,93]]},
+soil:{s:"soil",lab:[["Bogrond",45,23],["Ondergrond",45,42],["Stukke rots en grond",45,62],["Soliede rots",45,83]]}};
+const app=document.getElementById('app');let S,SEL=null;const pick=a=>a[Math.floor(Math.random()*a.length)];
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const best=()=>JSON.parse(localStorage.getItem('nwBest')||'{}');
-function home(){const b=best();app.innerHTML=`<div class="card center"><div style="font-size:3em">🪐</div>
-<p>Kies 'n onderwerp en 'n modus. Elke regte antwoord gee jou 'n ⭐!</p>
-<button class="big" onclick="start('A','o')">🌍 Die Aarde beweeg: Oefenmodus</button>
-<button class="big" onclick="start('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button>
-<button class="teal" onclick="start('X','t')">📝 Toetsmodus: alles gemeng (punte aan die einde)</button>
-<p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Toets ${b.X??'-'}%</p></div>`}
-function start(t,m){stopCf();S={t,m,qs:shuf(Q.filter(q=>t=='X'||q[4]==t)).map(q=>{const o=q[1].map((x,i)=>[x,i==q[2]]);return [q[0],q[1].length==2?o:shuf(o),q[3],q[4],q[5]]}),i:0,sc:0,st:0,max:0,tried:false};show()}
-function show(){const q=S.qs[S.i],n=S.qs.length;S.tried=false;app.innerHTML=`<div class="top"><span>Vraag ${S.i+1}/${n}</span><span>🔥 ${S.st} · ⭐ ${S.sc}</span></div>
-<div class="bar"><div class="fill" style="width:${S.i/n*100}%"></div></div><div class="card"><span class="tag">${q[3]=='A'?'🌍 Die Aarde beweeg':'🌱 Oppervlak van die Aarde'}</span>
-${q[4]?`<div class="pic">${q[4]}</div>`:""}<div class="q">${q[0]}</div>${q[1].map((o,k)=>`<button id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
-function ans(k){const q=S.qs[S.i],b=document.getElementById('b'+k),fb=document.getElementById('fb');if(b.disabled)return;const right=q[1][k][1];
-if(S.m=='o'){if(right){b.classList.add('ok');if(!S.tried){S.sc++;S.st++;S.max=Math.max(S.max,S.st)}fb.innerHTML=pick(GOOD)+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[2]}</div>`;lock();next()}
-else{b.classList.add('bad');b.disabled=true;S.tried=true;S.st=0;fb.textContent=pick(BAD)}}
-else{if(right){S.sc++;S.st++;S.max=Math.max(S.max,S.st)}else S.st=0;S.i++;S.i<S.qs.length?show():end()}}
-function lock(){document.querySelectorAll('.card button').forEach(x=>x.disabled=true)}
-function next(){document.getElementById('nx').innerHTML=`<button class="big" onclick="S.i++;S.i<S.qs.length?show():end()">Volgende ➜</button>`}
-function end(){const n=S.qs.length,p=Math.round(S.sc/n*100),b=best(),nb=p>(b[S.t]??-1);if(nb){b[S.t]=p;localStorage.setItem('nwBest',JSON.stringify(b))}
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},sv=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const best=()=>ld('nwBest',{}),stars=()=>ld('nwStars',{}),foute=()=>ld('nwFoute',[]);
+function addFout(i){const f=foute();if(!f.includes(i)){f.push(i);sv('nwFoute',f)}}
+function delFout(i){sv('nwFoute',foute().filter(x=>x!==i))}
+const unlocked=i=>i==0||(stars()[i-1]||0)>=1;
+function wurm(m){const mouth=m=='happy'?'<path d="M84,44 q8,9 16,0" stroke="#5b3a8c" stroke-width="3" fill="none"/>':m=='sad'?'<path d="M84,50 q8,-8 16,0" stroke="#5b3a8c" stroke-width="3" fill="none"/><ellipse cx="80" cy="44" rx="2.5" ry="4" fill="#7fd8f0"/>':'<path d="M85,46 h14" stroke="#5b3a8c" stroke-width="3"/>';
+return `<svg class="wm ${m}" viewBox="0 0 120 70" width="84" height="49"><g fill="#ff8fc8" stroke="#e86aa8" stroke-width="2"><circle cx="18" cy="56" r="11"/><circle cx="36" cy="52" r="12"/><circle cx="55" cy="46" r="13"/><circle cx="74" cy="40" r="14"/></g><circle cx="92" cy="36" r="20" fill="#ff9fd0" stroke="#e86aa8" stroke-width="2"/><circle cx="86" cy="31" r="4" fill="#2a1b4d"/><circle cx="99" cy="31" r="4" fill="#2a1b4d"/><circle cx="87" cy="30" r="1.3" fill="#fff"/><circle cx="100" cy="30" r="1.3" fill="#fff"/><circle cx="81" cy="40" r="3" fill="#ffc2e0"/><circle cx="104" cy="40" r="3" fill="#ffc2e0"/>${mouth}<path d="M92,16 q4,-10 10,-8" stroke="#43c6c0" stroke-width="3" fill="none"/></svg>`}
+function masc(m,t){return `<div class="masc" id="masc">${wurm(m)}<div class="bub" id="bub">${t}</div></div>`}
+function mood(m,t){const e=document.getElementById('masc');if(e)e.outerHTML=masc(m,t)}
+function home(){stopCf();const b=best(),st=stars(),f=foute().length,offs=[0,70,95,70,0,-70,-95,-70],H=118,W=320;
+let pts=[],nodes='';LV.forEach((l,i)=>{const x=W/2+offs[i%8],y=50+i*H;pts.push(x+','+y);const u=unlocked(i),s=st[i]||0,cur=u&&!s;
+nodes+=`<div class="nd ${u?'':'lk'} ${cur?'cur':''} ${l.test?'gt':''}" style="left:${x}px;top:${y}px" data-lv="${i}" onclick="${u?`startLevel(${i})`:`mood('sad','Eers die vorige vlak! 🔒')`}"><span>${u?l.ic:'🔒'}</span></div>
+<div class="nl" style="left:${x}px;top:${y+40}px"><div class="st">${[1,2,3].map(k=>k<=s?'⭐':'☆').join('')}</div>${l.n}</div>`});
+app.innerHTML=`<div class="card">${masc('happy',f?`Hallo! Kom ons leer! Jy het ${f} foute om te oefen 💪`:'Hallo! Ek is Wurmpie. Kom ons leer saam! 🌱')}</div>
+<div class="path" style="height:${LV.length*H+30}px"><svg width="${W}" height="${LV.length*H+30}" style="position:absolute;left:0;top:0"><polyline points="${pts.join(' ')}" fill="none" stroke="#ffd6f0" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round"/></svg>${nodes}</div>
+<div class="card center"><button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
+<p><b>Vrye oefening</b></p><button class="teal" onclick="startFree('A','o')">🌍 Die Aarde beweeg: Oefenmodus</button><button class="teal" onclick="startFree('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button><button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
+<p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Toets ${b.X??'-'}%</p><button class="lnk" onclick="reset()">↺ Herstel vordering</button></div>`}
+function reset(){if(confirm('Is jy seker? Al jou sterre, foute en beste tellings word uitgevee.')){['nwBest','nwStars','nwFoute'].forEach(k=>localStorage.removeItem(k));home()}}
+function begin(o){stopCf();S=Object.assign({i:0,sc:0,st:0,max:0,tried:false},o);show()}
+const qi=a=>shuf(a).map(i=>({k:'q',i}));
+function startLevel(li){const l=LV[li];if(!unlocked(li))return;begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:qi(Q.map((_,i)=>i))}:{mode:'lvl',lv:li,t:l.t,m:'o',items:qi(l.q).concat((l.d||[]).map(d=>({k:'d',d})))})}
+function startFree(t,m){begin({mode:'free',t,m,items:qi(Q.map((_,i)=>i).filter(i=>t=='X'||Q[i][4]==t))})}
+function startFoute(){const f=foute();if(!f.length)return;begin({mode:'foute',t:'X',m:'o',items:qi(f)})}
+function hdr(){const n=S.items.length;return `<div class="top"><button class="x" onclick="home()">✕</button><span>${S.mode=='lvl'?LV[S.lv].n:S.mode=='foute'?'My foute':'Vrye oefening'} · ${S.i+1}/${n}</span><span>🔥 ${S.st} · ⭐ ${S.sc}</span></div><div class="bar"><div class="fill" style="width:${S.i/n*100}%"></div></div>`}
+function show(){S.tried=false;SEL=null;const it=S.items[S.i];if(it.k=='d')return showDrag(it.d);const q=Q[it.i];
+const o=q[1].map((x,k)=>[x,k==q[2]]);S.cur=q[1].length==2?o:shuf(o);
+app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi... 🤔')}<span class="tag">${q[4]=='A'?'🌍 Die Aarde beweeg':'🌱 Oppervlak van die Aarde'}</span>
+${q[5]?`<div class="pic">${q[5]}</div>`:''}<div class="q">${q[0]}</div>${S.cur.map((o,k)=>`<button class="op" id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
+function hit(){S.sc++;S.st++;S.max=Math.max(S.max,S.st)}
+function ans(k){const it=S.items[S.i],q=Q[it.i],b=document.getElementById('b'+k),fb=document.getElementById('fb');if(b.disabled)return;const right=S.cur[k][1];
+if(!right&&!S.tried)addFout(it.i);
+if(S.m=='o'){if(right){b.classList.add('ok');if(!S.tried){hit();if(S.mode=='foute')delFout(it.i)}const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[3]}</div>`;lock();next()}
+else{b.classList.add('bad');b.disabled=true;S.tried=true;S.st=0;const m=pick(BAD);mood('sad',m);fb.textContent=m}}
+else{if(right)hit();else S.st=0;adv()}}
+function lock(){document.querySelectorAll('.card button.op').forEach(x=>x.disabled=true)}
+function adv(){S.i++;S.i<S.items.length?show():end()}
+function next(){document.getElementById('nx').innerHTML=`<button class="big" id="nxb" onclick="adv()">Volgende ➜</button>`}
+function showDrag(d){const D=DR[d];
+app.innerHTML=hdr()+`<div class="card">${masc('neutral','Sleep elke naam na die regte plek, of tik die naam en dan die plek! 👆')}<span class="tag">✋ Sleep en benoem</span>
+<div class="dz"><div class="pic">${SV[D.s]}</div>${D.lab.map(l=>`<div class="tg" data-l="${l[0]}" style="left:${l[1]}%;top:${l[2]}%">?</div>`).join('')}</div>
+<div class="chips">${shuf(D.lab).map(l=>`<div class="chip" data-l="${l[0]}">${l[0]}</div>`).join('')}</div><div class="fb" id="fb"></div><div id="nx"></div></div>`;
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('pointerdown',chipDown));
+document.querySelectorAll('.tg').forEach(t=>t.addEventListener('click',()=>{if(SEL)drop(SEL,t)}))}
+function chipDown(e){const c=e.currentTarget;if(c.classList.contains('done'))return;e.preventDefault();const sx=e.clientX,sy=e.clientY;let gh=null;try{c.setPointerCapture(e.pointerId)}catch(_){}
+const mv=ev=>{if(!gh&&Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){gh=c.cloneNode(true);gh.className='chip ghost';document.body.appendChild(gh);c.classList.add('drag')}if(gh){gh.style.left=ev.clientX+'px';gh.style.top=ev.clientY+'px'}};
+const up=ev=>{c.removeEventListener('pointermove',mv);c.removeEventListener('pointerup',up);c.removeEventListener('pointercancel',up);c.classList.remove('drag');
+if(gh){gh.remove();const el=document.elementFromPoint(ev.clientX,ev.clientY),t=el&&el.closest('.tg');if(t&&ev.type=='pointerup')drop(c,t)}else sel(c)};
+c.addEventListener('pointermove',mv);c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up)}
+function sel(c){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));if(SEL===c){SEL=null;return}SEL=c;c.classList.add('sel')}
+function drop(c,t){SEL=null;c.classList.remove('sel');if(t.classList.contains('ok'))return;
+if(t.dataset.l==c.dataset.l){t.textContent=c.dataset.l;t.classList.add('ok');c.classList.add('done');
+if(document.querySelectorAll('.tg:not(.ok)').length==0){if(!S.tried)hit();const g=pick(GOOD);mood('happy',g);document.getElementById('fb').innerHTML=g+'<div class="ex">Alles is reg benoem!</div>';next()}else mood('happy','Reg! 👍 Nog een...')}
+else{S.tried=true;S.st=0;t.classList.add('bad');setTimeout(()=>t.classList.remove('bad'),600);mood('sad',pick(BAD))}}
+function end(){const n=S.items.length,p=Math.round(S.sc/n*100);let extra='',nb=false;
+if(S.mode!='foute'&&(S.mode=='free'||LV[S.lv].test)){const b=best();if(p>(b[S.t]??-1)){b[S.t]=p;sv('nwBest',b);nb=true}}
+let s=0;if(S.mode=='lvl'){s=p==100?3:p>=80?2:p>=50?1:0;const st=stars();if(s>(st[S.lv]||0)){st[S.lv]=s;sv('nwStars',st)}
+extra=`<div class="big3">${[1,2,3].map(k=>k<=s?'⭐':'☆').join('')}</div>`+(s?(S.lv+1<LV.length?`<p>🔓 Volgende vlak oop: <b>${LV[S.lv+1].n}</b></p><button class="big" onclick="startLevel(${S.lv+1})">Volgende vlak ➜</button>`:''):'<p>Kry minstens 50% om die volgende vlak oop te sluit.</p>')}
+if(S.mode=='foute')extra=`<p>Foute oor: ${foute().length}</p>`;
 const bd=[];if(p>=80&&S.t!='G')bd.push('🌟 Ruimte-Ster');if(p>=80&&S.t!='A')bd.push('🌱 Grond-Genie');if(S.max>=5)bd.push(`🔥 Vuurstreep (${S.max} op 'n ry)`);if(p==100)bd.push('👑 Perfek!');
 const msg=p>=80?'Jy is fantasties! 🎉':p>=50?'Mooi so! Oefen nog \'n bietjie 💜':'Goeie poging! Probeer weer, jy gaan dit kry 💪';
-app.innerHTML=`<div class="bar"><div class="fill" style="width:100%"></div></div><div class="card center"><div style="font-size:3em">${p>=80?'🏆':p>=50?'🌈':'💪'}</div>
-<h2>${S.sc} / ${n} (${p}%)</h2><p>${msg}</p>${nb?'<p>✨ Nuwe beste telling!</p>':''}<div>${bd.map(x=>`<span class="badge">${x}</span>`).join('')}</div>
-<button class="big" onclick="start('${S.t}','${S.m}')">Probeer weer 🔁</button><button class="teal" onclick="home()">Tuis 🏠</button></div>`;if(p>=80)confetti()}
+app.innerHTML=`<div class="bar"><div class="fill" style="width:100%"></div></div><div class="card center">${masc(p>=50?'happy':'sad',msg)}
+<h2>${S.sc} / ${n} (${p}%)</h2>${extra}${nb?'<p>✨ Nuwe beste telling!</p>':''}<div>${bd.map(x=>`<span class="badge">${x}</span>`).join('')}</div>
+<button class="teal" onclick="${S.mode=='lvl'?`startLevel(${S.lv})`:S.mode=='foute'?'startFoute()':`startFree('${S.t}','${S.m}')`}">Probeer weer 🔁</button><button class="teal" onclick="home()">Tuis 🏠</button></div>`;if(p>=80)confetti()}
 let CF=0;function stopCf(){cancelAnimationFrame(CF);const c=document.getElementById('cf');c.getContext('2d').clearRect(0,0,c.width,c.height)}
 function confetti(){stopCf();const c=document.getElementById('cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const col=['#c77dff','#ff8fc8','#43c6c0','#ffd166','#fff'];
 let P=Array.from({length:150},()=>({x:Math.random()*c.width,y:-Math.random()*c.height,r:4+Math.random()*5,v:2+Math.random()*3,s:Math.random()*6,c:pick(col)})),t=0;
