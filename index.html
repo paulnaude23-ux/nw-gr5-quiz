@@ -13,12 +13,23 @@ button.teal{background:linear-gradient(90deg,#43c6c0,#7fd8f0);color:#fff;text-al
 .fb{min-height:1.5em;font-weight:700;margin-top:6px}.ex{font-size:.92em;color:#5b3a8c;margin-top:4px}
 .badge{display:inline-block;background:#fff0fa;border:2px solid #ff8fc8;border-radius:14px;padding:6px 10px;margin:4px}
 .center{text-align:center}canvas{position:fixed;inset:0;pointer-events:none}
-</style></head><body><canvas id="cf"></canvas><div class="wrap">
+.pic svg{width:100%;height:auto;max-height:230px;display:block;margin-bottom:8px}</style></head><body><canvas id="cf"></canvas><div class="wrap">
 <h1>🌍 Planeet Aarde Quiz 🚀</h1><div class="sub">Natuurwetenskap Gr. 5</div><div id="app"></div></div>
 <script>
 // [vraag, opsies, korrek-indeks, verduideliking, onderwerp]  A=Aarde beweeg, G=Oppervlak/grond
+const ARW='<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#ff5fa8"/></marker></defs>';
+const SV={
+orbit:`<svg viewBox="0 0 320 200">${ARW}<rect width="320" height="200" rx="16" fill="#2a1b4d"/><ellipse cx="160" cy="100" rx="125" ry="65" fill="none" stroke="#7fd8f0" stroke-width="3" stroke-dasharray="6 5"/><path d="M265,62 A125,65 0 0 0 200,38" fill="none" stroke="#ff5fa8" stroke-width="4" marker-end="url(#ah)"/><circle cx="160" cy="100" r="28" fill="#ffd166"/><text x="160" y="108" text-anchor="middle" font-size="22" font-weight="700" fill="#2a1b4d">A</text><circle cx="285" cy="100" r="13" fill="#43c6c0" stroke="#fff" stroke-width="2"/><text x="285" y="106" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">B</text><text x="60" y="170" font-size="20" font-weight="700" fill="#ffd6f0">C</text></svg>`,
+soil:`<svg viewBox="0 0 320 220"><rect width="320" height="220" rx="16" fill="#fff0fa"/><g font-size="22" font-weight="700"><path d="M40,30 q10,-20 15,0 M80,30 q12,-22 16,0 M230,30 q10,-20 15,0" stroke="#3a9a4a" stroke-width="4" fill="none"/><rect x="20" y="30" width="250" height="40" fill="#5a3a22"/><path d="M50,32 v25 M88,32 v30 M238,32 v22" stroke="#d9b38c" stroke-width="2"/><text x="290" y="58" fill="#5b3a8c">A</text><rect x="20" y="70" width="250" height="45" fill="#a0714a"/><text x="290" y="100" fill="#5b3a8c">B</text><rect x="20" y="115" width="250" height="45" fill="#c9a77d"/><g fill="#8a8a8a"><ellipse cx="60" cy="137" rx="16" ry="9"/><ellipse cx="140" cy="140" rx="20" ry="11"/><ellipse cx="220" cy="135" rx="14" ry="8"/></g><text x="290" y="145" fill="#5b3a8c">C</text><rect x="20" y="160" width="250" height="45" fill="#6f6f7a"/><text x="290" y="190" fill="#5b3a8c">D</text></g></svg>`,
+axis:`<svg viewBox="0 0 320 220">${ARW}<rect width="320" height="220" rx="16" fill="#2a1b4d"/><circle cx="160" cy="110" r="70" fill="#43c6c0"/><path d="M120,80 q20,-20 40,0 q10,20 -10,30 z M175,130 q25,-10 30,15 q-15,15 -30,-15 z" fill="#3a9a4a"/><line x1="130" y1="15" x2="190" y2="205" stroke="#fff" stroke-width="3" stroke-dasharray="7 6"/><text x="118" y="22" fill="#ffd6f0" font-size="13">N</text><text x="196" y="208" fill="#ffd6f0" font-size="13">S</text><path d="M95,160 A80,25 -18 0 0 235,110" fill="none" stroke="#ff5fa8" stroke-width="4" marker-end="url(#ah)"/></svg>`,
+months:`<svg viewBox="0 0 320 210"><rect width="320" height="210" rx="16" fill="#2a1b4d"/><ellipse cx="160" cy="105" rx="120" ry="65" fill="none" stroke="#7fd8f0" stroke-width="3" stroke-dasharray="6 5"/><circle cx="160" cy="105" r="24" fill="#ffd166"/><text x="160" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="#2a1b4d">Son</text><g fill="#43c6c0" stroke="#fff" stroke-width="2"><circle cx="280" cy="105" r="10"/><circle cx="160" cy="40" r="10"/><circle cx="40" cy="105" r="10"/><circle cx="160" cy="170" r="10"/></g><g fill="#ffd6f0" font-size="14" font-weight="700" text-anchor="middle"><text x="282" y="135">Maart</text><text x="160" y="24">Junie</text><text x="42" y="135">September</text><text x="160" y="198">Desember</text></g></svg>`};
 const Q=[
-["Wat stel A en B in die prent voor?",["A = die Son, B = die Aarde","A = die Aarde, B = die Maan","A = die Maan, B = die Son"],0,"A is die Son en B is die Aarde.","A"],
+["Kyk na die prent. Wat stel A en B voor?",["A = die Son, B = die Aarde","A = die Aarde, B = die Maan","A = die Maan, B = die Son"],0,"A is die Son en B is die Aarde.","A",SV.orbit],
+["Kyk na die prent. Wat noem ons die baan by C?",["Die wentelbaan","Die as","Die kors"],0,"C is die wentelbaan van die Aarde.","A",SV.orbit],
+["Kyk na die prent. Wat stel die stippellyn voor?",["Die ewenaar","Die as","Die wentelbaan"],1,"Die stippellyn is die Aarde se denkbeeldige as.","A",SV.axis],
+["Kyk na die prent. Watter beweging wys die pienk pyltjie?",["Rotasie (draai om sy as)","Omwenteling om die Son","Erosie"],0,"Die Aarde roteer om sy eie as.","A",SV.axis],
+["Kyk na die prent. Watter seisoen is dit in Desember in Suid-Afrika?",["Winter","Somer","Herfs"],1,"In Desember is dit somer in Suid-Afrika.","A",SV.months],
+["Kyk na die prent. Watter seisoen is dit in Junie in Suid-Afrika?",["Winter","Somer","Lente"],0,"In Junie is dit winter in Suid-Afrika.","A",SV.months],
 ["Wat noem ons die baan waarop die Aarde om die Son beweeg?",["Die as","Die wentelbaan","Die ewenaar"],1,"Dit is die wentelbaan.","A"],
 ["Wat noem ons die beweging van die Aarde om die Son?",["Rotasie","Omwenteling","Erosie"],1,"Omwenteling: die Aarde wentel om die Son.","A"],
 ["Op watter ander manier beweeg die Aarde ook?",["Dit roteer (draai) om sy eie as","Dit spring op en af","Dit staan stil"],0,"Die Aarde roteer om sy eie as.","A"],
@@ -42,6 +53,9 @@ const Q=[
 ["Water, lug, grond en sonlig → voedsel vir ... → voedsel vir ...",["diere → plante","plante → diere","rotse → plante"],1,"Plante maak voedsel, en diere eet plante.","G"],
 ["Wat is die tweede laag grond?",["Bogrond","Ondergrond","Soliede rots"],1,"Ondergrond.","G"],
 ["Watter volgorde is reg (van bo na onder)?",["Bogrond, ondergrond, stukke rots en grond, soliede rots","Ondergrond, bogrond, soliede rots, stukke rots","Soliede rots, ondergrond, bogrond, stukke rots"],0,"Bogrond → ondergrond → stukke rots en grond → soliede rots.","G"],
+["Kyk na die prent. Watter laag is B?",["Bogrond","Ondergrond","Soliede rots"],1,"B is die ondergrond.","G",SV.soil],
+["Kyk na die prent. In watter laag groei plante die beste?",["A","C","D"],0,"A is die bogrond: dit bevat humus.","G",SV.soil],
+["Kyk na die prent. Wat is laag D?",["Bogrond","Stukke rots en grond","Soliede rots"],2,"D is die soliede rots.","G",SV.soil],
 ["Waarom is bogrond donker en vrugbaar?",["Dit is nat","Dit bevat humus wat voedingstowwe gee","Dit is vol klippe"],1,"Humus (reste van dooie plante en diere) gee voedingstowwe.","G"],
 ["Wat gebeur met voedingstowwe in die bogrond as dit reën?",["Dit word tot in die ondergrond gespoel","Dit verdwyn in die lug","Dit word klip"],0,"Dit spoel tot in die ondergrond.","G"],
 ["Wat beteken ontbind?",["Om vas te bind","Om tot kleiner dele af te breek","Om te groei"],1,"Om tot kleiner dele af te breek.","G"],
@@ -71,10 +85,10 @@ function home(){const b=best();app.innerHTML=`<div class="card center"><div styl
 <button class="big" onclick="start('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button>
 <button class="teal" onclick="start('X','t')">📝 Toetsmodus: alles gemeng (punte aan die einde)</button>
 <p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Toets ${b.X??'-'}%</p></div>`}
-function start(t,m){stopCf();S={t,m,qs:shuf(Q.filter(q=>t=='X'||q[4]==t)).map(q=>{const o=q[1].map((x,i)=>[x,i==q[2]]);return [q[0],q[1].length==2?o:shuf(o),q[3],q[4]]}),i:0,sc:0,st:0,max:0,tried:false};show()}
+function start(t,m){stopCf();S={t,m,qs:shuf(Q.filter(q=>t=='X'||q[4]==t)).map(q=>{const o=q[1].map((x,i)=>[x,i==q[2]]);return [q[0],q[1].length==2?o:shuf(o),q[3],q[4],q[5]]}),i:0,sc:0,st:0,max:0,tried:false};show()}
 function show(){const q=S.qs[S.i],n=S.qs.length;S.tried=false;app.innerHTML=`<div class="top"><span>Vraag ${S.i+1}/${n}</span><span>🔥 ${S.st} · ⭐ ${S.sc}</span></div>
 <div class="bar"><div class="fill" style="width:${S.i/n*100}%"></div></div><div class="card"><span class="tag">${q[3]=='A'?'🌍 Die Aarde beweeg':'🌱 Oppervlak van die Aarde'}</span>
-<div class="q">${q[0]}</div>${q[1].map((o,k)=>`<button id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
+${q[4]?`<div class="pic">${q[4]}</div>`:""}<div class="q">${q[0]}</div>${q[1].map((o,k)=>`<button id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
 function ans(k){const q=S.qs[S.i],b=document.getElementById('b'+k),fb=document.getElementById('fb');if(b.disabled)return;const right=q[1][k][1];
 if(S.m=='o'){if(right){b.classList.add('ok');if(!S.tried){S.sc++;S.st++;S.max=Math.max(S.max,S.st)}fb.innerHTML=pick(GOOD)+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[2]}</div>`;lock();next()}
 else{b.classList.add('bad');b.disabled=true;S.tried=true;S.st=0;fb.textContent=pick(BAD)}}
