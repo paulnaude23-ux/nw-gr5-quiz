@@ -22,7 +22,57 @@ button.teal{background:linear-gradient(90deg,#43c6c0,#7fd8f0);color:#fff;text-al
 .tg.ok{background:#b9f5d8;border-style:solid;border-color:#2e9e6a}.tg.bad{background:#ffc9d6;border-color:#e0406a}
 .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}.chip{touch-action:none;user-select:none;-webkit-user-select:none;background:linear-gradient(90deg,#c77dff,#ff8fc8);color:#fff;font-weight:700;padding:10px 14px;border-radius:14px;cursor:grab}
 .chip.sel{outline:3px solid #43c6c0}.chip.done,.chip.drag{opacity:.3}.chip.ghost{position:fixed;transform:translate(-50%,-50%);pointer-events:none;z-index:9;box-shadow:0 6px 14px #0006}
-.x{width:auto;padding:2px 10px;margin:0;background:#ffffff30;color:#fff}.lnk{background:none;color:#8a4fc0;text-align:center;text-decoration:underline;font-size:.9em}.big3{font-size:2.2em}.top{align-items:center}</style></head><body><canvas id="cf"></canvas><div class="wrap">
+.x{width:auto;padding:2px 10px;margin:0;background:#ffffff30;color:#fff}.lnk{background:none;color:#8a4fc0;text-align:center;text-decoration:underline;font-size:.9em}.big3{font-size:2.2em}.top{align-items:center}
+:root{--pk:#ff8fc8;--pu:#c77dff;--tl:#43c6c0;--ink:#2a1b4d}
+body{font-family:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,system-ui,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at 20% 10%,#7b4fc0 0,transparent 45%),radial-gradient(circle at 85% 60%,#c2508f 0,transparent 40%),radial-gradient(circle at 30% 95%,#2f9a9a 0,transparent 45%),#241640;background-attachment:fixed;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+#bg{position:fixed;inset:0;z-index:-2;pointer-events:none}#cf{z-index:20}
+.planet{position:fixed;z-index:-1;border-radius:50%;pointer-events:none;opacity:.55;will-change:transform}
+.p1{width:90px;height:90px;left:-20px;top:30%;background:radial-gradient(circle at 30% 30%,#ffc2e0,#c77dff);animation:drift 26s ease-in-out infinite alternate}
+.p2{width:46px;height:46px;right:6%;top:12%;background:radial-gradient(circle at 30% 30%,#b9fff7,#2f9a9a);animation:drift 19s ease-in-out infinite alternate-reverse}
+.p2::after{content:"";position:absolute;left:-14px;top:18px;width:74px;height:10px;border-radius:50%;border:2px solid #ffffff88;transform:rotate(-18deg)}
+@keyframes drift{to{transform:translate(40px,-60px) rotate(25deg)}}
+h1{font-size:1.75em;letter-spacing:.2px;text-shadow:0 3px 14px #0006;margin-top:14px}.sub{font-weight:600}
+.card{background:rgba(255,250,254,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid #ffffffaa;border-radius:26px;padding:20px;box-shadow:0 12px 40px #1a0d3555,inset 0 1px 0 #fff}
+button{transition:transform .12s,box-shadow .12s;font-weight:600;border-radius:18px;box-shadow:0 3px 0 #d6c6f5}
+button:active{transform:scale(.96) translateY(2px);box-shadow:0 1px 0 #d6c6f5}
+button.big{box-shadow:0 4px 0 #a45bd6,0 8px 18px #c77dff55}button.teal{box-shadow:0 4px 0 #2a9a95}
+button.op{position:relative;border:2px solid #e5d8ff;background:#fff}
+button.op.ok{border-color:#2e9e6a;color:#1d6b46;animation:bnc .5s}button.op.bad{border-color:#e0406a;color:#a0284a;animation:shk .4s}
+button.op.ok::after{content:"✓";position:absolute;right:14px;top:50%;width:28px;height:28px;margin-top:-14px;border-radius:50%;background:#2e9e6a;color:#fff;text-align:center;line-height:28px;font-weight:900;animation:burst .45s cubic-bezier(.2,1.6,.4,1)}
+button.op.ok::before{content:"";position:absolute;right:8px;top:50%;width:40px;height:40px;margin-top:-20px;border-radius:50%;border:3px solid #2e9e6a;opacity:0;animation:ring .6s}
+@keyframes bnc{30%{transform:scale(1.05)}60%{transform:scale(.98)}}@keyframes shk{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+@keyframes burst{from{transform:scale(0)}}@keyframes ring{0%{opacity:.8;transform:scale(.4)}100%{opacity:0;transform:scale(1.6)}}
+.in>*{animation:scrIn .38s cubic-bezier(.2,.8,.2,1) both}.in>*:nth-child(2){animation-delay:.04s}.in>*:nth-child(3){animation-delay:.08s}
+@keyframes scrIn{from{opacity:0;transform:translateX(36px)}}
+.bar{height:14px;background:#ffffff30;border-radius:10px;overflow:hidden}.fill{position:relative;overflow:hidden;transition:width .6s cubic-bezier(.2,.8,.2,1);border-radius:10px}
+.fill::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,#ffffff99 50%,transparent 80%);transform:translateX(-100%);animation:shim 2.2s infinite}
+@keyframes shim{to{transform:translateX(100%)}}
+.fl{display:inline-block;animation:flk .9s infinite alternate;transform-origin:50% 90%}@keyframes flk{to{transform:scale(1.12) rotate(4deg)}}
+.tick{display:inline-block;animation:tk .45s}@keyframes tk{40%{transform:scale(1.6);color:#ffd166}}
+.wm{overflow:visible}.wm .bd{transform-box:fill-box;transform-origin:50% 100%}.wm.neutral .bd{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-3px)}}.wm .eye{transform-box:fill-box;transform-origin:center;animation:blink 4s infinite}@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.wm.happy{animation:jump .6s cubic-bezier(.3,1.5,.5,1)}@keyframes jump{40%{transform:translateY(-16px) scale(1.05)}}
+.wm.sad{animation:droop .7s forwards}@keyframes droop{to{transform:translateY(4px) rotate(4deg)}}
+.bub{box-shadow:0 3px 10px #21706c22;animation:bubIn .35s cubic-bezier(.2,1.4,.4,1)}@keyframes bubIn{from{transform:scale(.7);opacity:0}}
+.bub::before{content:"";position:absolute;left:-7px;top:50%;margin-top:-7px;border:7px solid transparent;border-right-color:#e0f7f6;border-left:0}
+.nd{transition:transform .2s}.nd:active{transform:scale(.92)}.nd.cur{animation:none;box-shadow:0 6px 0 #8a4fc0,0 0 0 0 #ff8fc8aa;animation:glow 1.6s infinite}
+@keyframes glow{0%{box-shadow:0 6px 0 #8a4fc0,0 0 0 0 #ffd6f0cc}70%{box-shadow:0 6px 0 #8a4fc0,0 0 0 18px #ffd6f000}100%{box-shadow:0 6px 0 #8a4fc0,0 0 0 0 #ffd6f000}}
+.nd.cur span{animation:pl 1.6s infinite}.nd.done{background:linear-gradient(145deg,#ffe08a,#ffb347);box-shadow:0 6px 0 #c98516,0 8px 18px #0005}
+.nd.lk{filter:grayscale(.6);opacity:.85}.nd.lk span{font-size:24px}
+.nl{width:112px;transform:translateY(-50%);text-align:left;font-size:.82em;line-height:1.2}.nl.r{text-align:right}
+.st span{display:inline-block;animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}.st span:nth-child(2){animation-delay:.12s}.st span:nth-child(3){animation-delay:.24s}
+@keyframes pop{from{transform:scale(0) rotate(-40deg);opacity:0}}@keyframes popIn{from{transform:scale(0) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
+.big3 span{display:inline-block;opacity:0;animation:popIn .55s cubic-bezier(.2,1.6,.4,1) forwards}
+.badge{opacity:0;animation:popIn .5s cubic-bezier(.2,1.6,.4,1) forwards;box-shadow:0 0 18px #ff8fc8aa}
+.score{font-size:2.6em;font-weight:800;color:#5b3a8c;margin:6px 0}
+.chip{transition:transform .15s,opacity .2s;box-shadow:0 4px 0 #a45bd6}.chip:active{transform:scale(.95)}
+.chip.ghost{transform:translate(-50%,-50%) scale(1.1) rotate(-3deg);box-shadow:0 16px 30px #2a1b4d66;opacity:.95}
+.tg{transition:transform .15s,background .15s}.tg.hov{transform:translate(-50%,-50%) scale(1.15);background:#fff6c2;border-color:#ffb347}
+.tg.ok{animation:snap .4s cubic-bezier(.2,1.6,.4,1)}@keyframes snap{from{transform:translate(-50%,-50%) scale(1.4)}to{transform:translate(-50%,-50%) scale(1)}}
+.tg.bad{animation:tshk .4s}@keyframes tshk{25%{margin-left:-6px}75%{margin-left:6px}}
+.q{font-size:1.22em;line-height:1.35;margin:10px 0}h2{font-size:1.4em}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition:none!important}.big3 span,.badge{opacity:1}}
+</style></head><body><canvas id="bg"></canvas><div class="planet p1"></div><div class="planet p2"></div><canvas id="cf"></canvas><div class="wrap">
 <h1>🌍 Planeet Aarde Quiz 🚀</h1><div class="sub">Natuurwetenskap Gr. 5</div><div id="app"></div></div>
 <script>
 // [vraag, opsies, korrek-indeks, verduideliking, onderwerp]  A=Aarde beweeg, G=Oppervlak/grond
@@ -106,15 +156,17 @@ function addFout(i){const f=foute();if(!f.includes(i)){f.push(i);sv('nwFoute',f)
 function delFout(i){sv('nwFoute',foute().filter(x=>x!==i))}
 const unlocked=i=>i==0||(stars()[i-1]||0)>=1;
 function wurm(m){const mouth=m=='happy'?'<path d="M84,44 q8,9 16,0" stroke="#5b3a8c" stroke-width="3" fill="none"/>':m=='sad'?'<path d="M84,50 q8,-8 16,0" stroke="#5b3a8c" stroke-width="3" fill="none"/><ellipse cx="80" cy="44" rx="2.5" ry="4" fill="#7fd8f0"/>':'<path d="M85,46 h14" stroke="#5b3a8c" stroke-width="3"/>';
-return `<svg class="wm ${m}" viewBox="0 0 120 70" width="84" height="49"><g fill="#ff8fc8" stroke="#e86aa8" stroke-width="2"><circle cx="18" cy="56" r="11"/><circle cx="36" cy="52" r="12"/><circle cx="55" cy="46" r="13"/><circle cx="74" cy="40" r="14"/></g><circle cx="92" cy="36" r="20" fill="#ff9fd0" stroke="#e86aa8" stroke-width="2"/><circle cx="86" cy="31" r="4" fill="#2a1b4d"/><circle cx="99" cy="31" r="4" fill="#2a1b4d"/><circle cx="87" cy="30" r="1.3" fill="#fff"/><circle cx="100" cy="30" r="1.3" fill="#fff"/><circle cx="81" cy="40" r="3" fill="#ffc2e0"/><circle cx="104" cy="40" r="3" fill="#ffc2e0"/>${mouth}<path d="M92,16 q4,-10 10,-8" stroke="#43c6c0" stroke-width="3" fill="none"/></svg>`}
+return `<svg class="wm ${m}" viewBox="0 0 120 70" width="84" height="49"><g class="bd"><g fill="#ff8fc8" stroke="#e86aa8" stroke-width="2"><circle cx="18" cy="56" r="11"/><circle cx="36" cy="52" r="12"/><circle cx="55" cy="46" r="13"/><circle cx="74" cy="40" r="14"/></g><circle cx="92" cy="36" r="20" fill="#ff9fd0" stroke="#e86aa8" stroke-width="2"/><circle class="eye" cx="86" cy="31" r="4" fill="#2a1b4d"/><circle class="eye" cx="99" cy="31" r="4" fill="#2a1b4d"/><circle cx="87" cy="30" r="1.3" fill="#fff"/><circle cx="100" cy="30" r="1.3" fill="#fff"/><circle cx="81" cy="40" r="3" fill="#ffc2e0"/><circle cx="104" cy="40" r="3" fill="#ffc2e0"/>${mouth}<path d="M92,16 q4,-10 10,-8" stroke="#43c6c0" stroke-width="3" fill="none"/></g></svg>`}
 function masc(m,t){return `<div class="masc" id="masc">${wurm(m)}<div class="bub" id="bub">${t}</div></div>`}
 function mood(m,t){const e=document.getElementById('masc');if(e)e.outerHTML=masc(m,t)}
+function curve(p){p=p.map(s=>s.split(',').map(Number));let d=`M${p[0]}`;for(let i=1;i<p.length;i++){const a=p[i-1],b=p[i],m=(a[1]+b[1])/2;d+=` C${a[0]},${m} ${b[0]},${m} ${b[0]},${b[1]}`}return d}
+const vib=m=>{try{navigator.vibrate&&navigator.vibrate(m)}catch(e){}};
 function home(){stopCf();const b=best(),st=stars(),f=foute().length,offs=[0,70,95,70,0,-70,-95,-70],H=118,W=320;
-let pts=[],nodes='';LV.forEach((l,i)=>{const x=W/2+offs[i%8],y=50+i*H;pts.push(x+','+y);const u=unlocked(i),s=st[i]||0,cur=u&&!s;
-nodes+=`<div class="nd ${u?'':'lk'} ${cur?'cur':''} ${l.test?'gt':''}" style="left:${x}px;top:${y}px" data-lv="${i}" onclick="${u?`startLevel(${i})`:`mood('sad','Eers die vorige vlak! 🔒')`}"><span>${u?l.ic:'🔒'}</span></div>
-<div class="nl" style="left:${x}px;top:${y+40}px"><div class="st">${[1,2,3].map(k=>k<=s?'⭐':'☆').join('')}</div>${l.n}</div>`});
+let pts=[],nodes='',cur0=false;LV.forEach((l,i)=>{const x=W/2+offs[i%8],y=50+i*H;pts.push(x+','+y);const u=unlocked(i),s=st[i]||0,cur=u&&!s&&!cur0;if(cur)cur0=true;const lr=offs[i%8]>0;
+nodes+=`<div class="nd ${u?'':'lk'} ${cur?'cur':''} ${s?'done':''} ${l.test&&!s?'gt':''}" style="left:${x}px;top:${y}px" data-lv="${i}" onclick="${u?`startLevel(${i})`:`mood('sad','Eers die vorige vlak! 🔒')`}"><span>${u?l.ic:'🔒'}</span></div>
+<div class="nl ${lr?'r':''}" style="${lr?`left:${x-48-112}px`:`left:${x+48}px`};top:${y}px"><div class="st">${[1,2,3].map(k=>`<span>${k<=s?'⭐':'☆'}</span>`).join('')}</div>${l.n}</div>`});
 app.innerHTML=`<div class="card">${masc('happy',f?`Hallo! Kom ons leer! Jy het ${f} foute om te oefen 💪`:'Hallo! Ek is Wurmpie. Kom ons leer saam! 🌱')}</div>
-<div class="path" style="height:${LV.length*H+30}px"><svg width="${W}" height="${LV.length*H+30}" style="position:absolute;left:0;top:0"><polyline points="${pts.join(' ')}" fill="none" stroke="#ffd6f0" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round"/></svg>${nodes}</div>
+<div class="path" style="height:${LV.length*H+30}px"><svg width="${W}" height="${LV.length*H+30}" style="position:absolute;left:0;top:0"><path d="${curve(pts)}" fill="none" stroke="#ffffff22" stroke-width="16" stroke-linecap="round"/><path d="${curve(pts)}" fill="none" stroke="#ffd6f0" stroke-width="5" stroke-dasharray="1 13" stroke-linecap="round"/></svg>${nodes}</div>
 <div class="card center"><button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
 <p><b>Vrye oefening</b></p><button class="teal" onclick="startFree('A','o')">🌍 Die Aarde beweeg: Oefenmodus</button><button class="teal" onclick="startFree('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button><button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
 <p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Toets ${b.X??'-'}%</p><button class="lnk" onclick="reset()">↺ Herstel vordering</button></div>`}
@@ -124,16 +176,16 @@ const qi=a=>shuf(a).map(i=>({k:'q',i}));
 function startLevel(li){const l=LV[li];if(!unlocked(li))return;begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:qi(Q.map((_,i)=>i))}:{mode:'lvl',lv:li,t:l.t,m:'o',items:qi(l.q).concat((l.d||[]).map(d=>({k:'d',d})))})}
 function startFree(t,m){begin({mode:'free',t,m,items:qi(Q.map((_,i)=>i).filter(i=>t=='X'||Q[i][4]==t))})}
 function startFoute(){const f=foute();if(!f.length)return;begin({mode:'foute',t:'X',m:'o',items:qi(f)})}
-function hdr(){const n=S.items.length;return `<div class="top"><button class="x" onclick="home()">✕</button><span>${S.mode=='lvl'?LV[S.lv].n:S.mode=='foute'?'My foute':'Vrye oefening'} · ${S.i+1}/${n}</span><span>🔥 ${S.st} · ⭐ ${S.sc}</span></div><div class="bar"><div class="fill" style="width:${S.i/n*100}%"></div></div>`}
+function hdr(){const n=S.items.length;return `<div class="top"><button class="x" onclick="home()">✕</button><span>${S.mode=='lvl'?LV[S.lv].n:S.mode=='foute'?'My foute':'Vrye oefening'} · ${S.i+1}/${n}</span><span><span class="fl">🔥</span> ${S.st} · ⭐ <span id="scv">${S.sc}</span></span></div><div class="bar"><div class="fill" style="width:${Math.max(0,S.i-1)/n*100}%" data-w="${S.i/n*100}"></div></div>`}
 function show(){S.tried=false;SEL=null;const it=S.items[S.i];if(it.k=='d')return showDrag(it.d);const q=Q[it.i];
 const o=q[1].map((x,k)=>[x,k==q[2]]);S.cur=q[1].length==2?o:shuf(o);
 app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi... 🤔')}<span class="tag">${q[4]=='A'?'🌍 Die Aarde beweeg':'🌱 Oppervlak van die Aarde'}</span>
 ${q[5]?`<div class="pic">${q[5]}</div>`:''}<div class="q">${q[0]}</div>${S.cur.map((o,k)=>`<button class="op" id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
-function hit(){S.sc++;S.st++;S.max=Math.max(S.max,S.st)}
+function hit(){S.sc++;S.st++;S.max=Math.max(S.max,S.st);vib(25);const e=document.getElementById('scv');if(e){e.textContent=S.sc;e.classList.remove('tick');void e.offsetWidth;e.classList.add('tick')}}
 function ans(k){const it=S.items[S.i],q=Q[it.i],b=document.getElementById('b'+k),fb=document.getElementById('fb');if(b.disabled)return;const right=S.cur[k][1];
 if(!right&&!S.tried)addFout(it.i);
 if(S.m=='o'){if(right){b.classList.add('ok');if(!S.tried){hit();if(S.mode=='foute')delFout(it.i)}const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[3]}</div>`;lock();next()}
-else{b.classList.add('bad');b.disabled=true;S.tried=true;S.st=0;const m=pick(BAD);mood('sad',m);fb.textContent=m}}
+else{b.classList.add('bad');b.disabled=true;vib([40,40,40]);S.tried=true;S.st=0;const m=pick(BAD);mood('sad',m);fb.textContent=m}}
 else{if(right)hit();else S.st=0;adv()}}
 function lock(){document.querySelectorAll('.card button.op').forEach(x=>x.disabled=true)}
 function adv(){S.i++;S.i<S.items.length?show():end()}
@@ -145,28 +197,33 @@ app.innerHTML=hdr()+`<div class="card">${masc('neutral','Sleep elke naam na die 
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('pointerdown',chipDown));
 document.querySelectorAll('.tg').forEach(t=>t.addEventListener('click',()=>{if(SEL)drop(SEL,t)}))}
 function chipDown(e){const c=e.currentTarget;if(c.classList.contains('done'))return;e.preventDefault();const sx=e.clientX,sy=e.clientY;let gh=null;try{c.setPointerCapture(e.pointerId)}catch(_){}
-const mv=ev=>{if(!gh&&Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){gh=c.cloneNode(true);gh.className='chip ghost';document.body.appendChild(gh);c.classList.add('drag')}if(gh){gh.style.left=ev.clientX+'px';gh.style.top=ev.clientY+'px'}};
+const mv=ev=>{if(!gh&&Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){gh=c.cloneNode(true);gh.className='chip ghost';document.body.appendChild(gh);c.classList.add('drag')}if(gh){gh.style.left=ev.clientX+'px';gh.style.top=ev.clientY+'px';const h=document.elementFromPoint(ev.clientX,ev.clientY),ht=h&&h.closest('.tg');document.querySelectorAll('.tg.hov').forEach(x=>x!==ht&&x.classList.remove('hov'));if(ht&&!ht.classList.contains('ok'))ht.classList.add('hov')}};
 const up=ev=>{c.removeEventListener('pointermove',mv);c.removeEventListener('pointerup',up);c.removeEventListener('pointercancel',up);c.classList.remove('drag');
-if(gh){gh.remove();const el=document.elementFromPoint(ev.clientX,ev.clientY),t=el&&el.closest('.tg');if(t&&ev.type=='pointerup')drop(c,t)}else sel(c)};
+document.querySelectorAll('.tg.hov').forEach(x=>x.classList.remove('hov'));if(gh){gh.remove();const el=document.elementFromPoint(ev.clientX,ev.clientY),t=el&&el.closest('.tg');if(t&&ev.type=='pointerup')drop(c,t)}else sel(c)};
 c.addEventListener('pointermove',mv);c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up)}
 function sel(c){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));if(SEL===c){SEL=null;return}SEL=c;c.classList.add('sel')}
 function drop(c,t){SEL=null;c.classList.remove('sel');if(t.classList.contains('ok'))return;
 if(t.dataset.l==c.dataset.l){t.textContent=c.dataset.l;t.classList.add('ok');c.classList.add('done');
 if(document.querySelectorAll('.tg:not(.ok)').length==0){if(!S.tried)hit();const g=pick(GOOD);mood('happy',g);document.getElementById('fb').innerHTML=g+'<div class="ex">Alles is reg benoem!</div>';next()}else mood('happy','Reg! 👍 Nog een...')}
-else{S.tried=true;S.st=0;t.classList.add('bad');setTimeout(()=>t.classList.remove('bad'),600);mood('sad',pick(BAD))}}
+else{S.tried=true;S.st=0;vib([40,40,40]);t.classList.add('bad');setTimeout(()=>t.classList.remove('bad'),600);mood('sad',pick(BAD))}}
 function end(){const n=S.items.length,p=Math.round(S.sc/n*100);let extra='',nb=false;
 if(S.mode!='foute'&&(S.mode=='free'||LV[S.lv].test)){const b=best();if(p>(b[S.t]??-1)){b[S.t]=p;sv('nwBest',b);nb=true}}
 let s=0;if(S.mode=='lvl'){s=p==100?3:p>=80?2:p>=50?1:0;const st=stars();if(s>(st[S.lv]||0)){st[S.lv]=s;sv('nwStars',st)}
-extra=`<div class="big3">${[1,2,3].map(k=>k<=s?'⭐':'☆').join('')}</div>`+(s?(S.lv+1<LV.length?`<p>🔓 Volgende vlak oop: <b>${LV[S.lv+1].n}</b></p><button class="big" onclick="startLevel(${S.lv+1})">Volgende vlak ➜</button>`:''):'<p>Kry minstens 50% om die volgende vlak oop te sluit.</p>')}
+extra=`<div class="big3">${[1,2,3].map(k=>`<span style="animation-delay:${.5+k*.35}s">${k<=s?'⭐':'☆'}</span>`).join('')}</div>`+(s?(S.lv+1<LV.length?`<p>🔓 Volgende vlak oop: <b>${LV[S.lv+1].n}</b></p><button class="big" onclick="startLevel(${S.lv+1})">Volgende vlak ➜</button>`:''):'<p>Kry minstens 50% om die volgende vlak oop te sluit.</p>')}
 if(S.mode=='foute')extra=`<p>Foute oor: ${foute().length}</p>`;
 const bd=[];if(p>=80&&S.t!='G')bd.push('🌟 Ruimte-Ster');if(p>=80&&S.t!='A')bd.push('🌱 Grond-Genie');if(S.max>=5)bd.push(`🔥 Vuurstreep (${S.max} op 'n ry)`);if(p==100)bd.push('👑 Perfek!');
 const msg=p>=80?'Jy is fantasties! 🎉':p>=50?'Mooi so! Oefen nog \'n bietjie 💜':'Goeie poging! Probeer weer, jy gaan dit kry 💪';
 app.innerHTML=`<div class="bar"><div class="fill" style="width:100%"></div></div><div class="card center">${masc(p>=50?'happy':'sad',msg)}
-<h2>${S.sc} / ${n} (${p}%)</h2>${extra}${nb?'<p>✨ Nuwe beste telling!</p>':''}<div>${bd.map(x=>`<span class="badge">${x}</span>`).join('')}</div>
-<button class="teal" onclick="${S.mode=='lvl'?`startLevel(${S.lv})`:S.mode=='foute'?'startFoute()':`startFree('${S.t}','${S.m}')`}">Probeer weer 🔁</button><button class="teal" onclick="home()">Tuis 🏠</button></div>`;if(p>=80)confetti()}
+<div class="score"><span id="cu" data-to="${S.sc}">0</span> / ${n}</div><h2>${p}%</h2>${extra}${nb?'<p>✨ Nuwe beste telling!</p>':''}<div>${bd.map((x,k)=>`<span class="badge" style="animation-delay:${1.7+k*.25}s">${x}</span>`).join('')}</div>
+<button class="teal" onclick="${S.mode=='lvl'?`startLevel(${S.lv})`:S.mode=='foute'?'startFoute()':`startFree('${S.t}','${S.m}')`}">Probeer weer 🔁</button><button class="teal" onclick="home()">Tuis 🏠</button></div>`;countUp();if(p>=80)setTimeout(confetti,600)}
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function countUp(){const e=document.getElementById('cu');if(!e)return;const to=+e.dataset.to;if(RM||!to){e.textContent=to;return}const t0=performance.now(),D=900;(function f(t){const k=Math.min(1,(t-t0)/D);e.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0)}
 let CF=0;function stopCf(){cancelAnimationFrame(CF);const c=document.getElementById('cf');c.getContext('2d').clearRect(0,0,c.width,c.height)}
 function confetti(){stopCf();const c=document.getElementById('cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const col=['#c77dff','#ff8fc8','#43c6c0','#ffd166','#fff'];
 let P=Array.from({length:150},()=>({x:Math.random()*c.width,y:-Math.random()*c.height,r:4+Math.random()*5,v:2+Math.random()*3,s:Math.random()*6,c:pick(col)})),t=0;
 (function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.v;p.x+=Math.sin(t/20+p.s);x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r*1.6)});if(++t<240)CF=requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})()}
+new MutationObserver(()=>{app.classList.remove('in');void app.offsetWidth;app.classList.add('in');requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.fill[data-w]').forEach(f=>f.style.width=f.dataset.w+'%')))}).observe(app,{childList:true});
+(function(){const c=document.getElementById('bg'),x=c.getContext('2d');let W,H,St;function rs(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(d,0,0,d,0,0);St=Array.from({length:Math.round(W*H/5000)},()=>({x:Math.random()*W,y:Math.random()*H,r:.5+Math.random()*1.4,p:Math.random()*6,s:.5+Math.random()*1.5}))}
+rs();addEventListener('resize',rs);let last=0;function f(t){if(t-last>66){last=t;x.clearRect(0,0,W,H);for(const s of St){x.globalAlpha=RM?.7:.35+.65*Math.abs(Math.sin(s.p+t/1000*s.s));x.fillStyle='#fff';x.beginPath();x.arc(s.x,s.y,s.r,0,6.3);x.fill()}}if(!RM&&!document.hidden)requestAnimationFrame(f)}requestAnimationFrame(f);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!RM)requestAnimationFrame(f)})})();
 home();
 </script></body></html>
