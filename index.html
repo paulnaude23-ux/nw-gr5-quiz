@@ -72,6 +72,10 @@ button.op.ok::before{content:"";position:absolute;right:8px;top:50%;width:40px;h
 .tg.bad{animation:tshk .4s}@keyframes tshk{25%{margin-left:-6px}75%{margin-left:6px}}
 .q{font-size:1.22em;line-height:1.35;margin:10px 0}h2{font-size:1.4em}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition:none!important}.big3 span,.badge{opacity:1}}
+.tg.w{width:78%;white-space:normal;min-height:30px;font-size:.74em;line-height:1.2;padding:4px 6px}.tg.w b{color:#a45bd6}
+.tg.bin{width:44%;height:80%;transform:translate(-50%,-46%);background:transparent;border:none;color:#fff;padding:0}.tg.bin.ok{background:transparent;animation:none}.tg.bin.hov{transform:translate(-50%,-46%);background:#ffffff22}.tg.bin.bad{background:#ff4d7a44}
+.bi{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-content:flex-start;padding-top:22px;height:100%}.bi span{background:#b9f5d8;color:#1d6b47;border-radius:8px;padding:3px 7px;font-size:.95em;animation:snapb .35s}@keyframes snapb{from{transform:scale(1.4)}to{transform:scale(1)}}
+.chip.done{display:none}
 </style></head><body><canvas id="bg"></canvas><div class="planet p1"></div><div class="planet p2"></div><canvas id="cf"></canvas><div class="wrap">
 <h1>🌍 Planeet Aarde Quiz 🚀</h1><div class="sub">Natuurwetenskap Gr. 5</div><div id="app"></div></div>
 <script>
@@ -135,6 +139,78 @@ const Q=[
 ["Hoekom moet boere gronderosie voorkom?",["Bogrond kan nie vervang word nie en ons kweek kos daarin","Dit maak die plaas mooi","Erosie maak reën"],0,"Bogrond kan nie vervang word nie en ons het dit nodig vir kos.","G"]];
 const GOOD=["Fantasties! 🌟","Wow, slim kop! 🧠","Jy's 'n ster! ⭐","Uitstekend! 🎉","Super! 💖","Reg so! 🚀"],
 BAD=["Amper! Probeer weer 💪","Nie heeltemal nie, jy kry dit! 🌈","Oeps! Kyk weer 👀","Hou aan, jy leer! 💜"];
+
+Object.assign(SV,{
+sed:`<svg viewBox="0 0 320 210" width="100%"><rect width="320" height="210" rx="14" fill="#1d1346"/><rect x="10" y="10" width="300" height="46" rx="6" fill="#4fb3e8" opacity=".75"/><text x="160" y="38" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">see of meer</text><rect x="10" y="56" width="300" height="34" fill="#e8c27a"/><rect x="10" y="90" width="300" height="34" fill="#b98b55"/><rect x="10" y="124" width="300" height="34" fill="#d9a35c"/><rect x="10" y="158" width="300" height="42" fill="#8a5a3a"/><g fill="#fff8e6" stroke="#5b3a8c" stroke-width="1.5"><path d="M240,141 a9,9 0 1,1 9,-9 a5,5 0 1,0 -5,5" fill="none"/><path d="M90,180 h40 M98,172 v16 M110,172 v16 M122,172 v16" fill="none"/><ellipse cx="200" cy="106" rx="12" ry="5"/></g><g fill="#fff" font-size="15" font-weight="800"><text x="22" y="79">A</text><text x="22" y="113">B</text><text x="22" y="147">C</text><text x="22" y="185">D</text></g></svg>`,
+steps:`<svg viewBox="0 0 320 270" width="100%"><rect width="320" height="270" rx="14" fill="#1d1346"/>${[0,1,2,3,4].map(i=>`<circle cx="24" cy="${31+i*52}" r="14" fill="#ff8fc8"/><text x="24" y="${36+i*52}" text-anchor="middle" fill="#fff" font-weight="800" font-size="15">${i+1}</text><rect x="44" y="${12+i*52}" width="266" height="38" rx="10" fill="#ffffff14" stroke="#ffffff44" stroke-dasharray="4 4"/>`).join('')}</svg>`,
+sort:`<svg viewBox="0 0 320 250" width="100%"><rect width="320" height="250" rx="14" fill="#1d1346"/><rect x="8" y="8" width="148" height="234" rx="12" fill="#c77dff33" stroke="#c77dff"/><rect x="164" y="8" width="148" height="234" rx="12" fill="#43c6c033" stroke="#43c6c0"/><text x="82" y="32" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">🦴 Liggaams-</text><text x="238" y="32" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">👣 Spoor-</text></svg>`,
+tl:`<svg viewBox="0 0 320 280" width="100%"><rect width="320" height="280" rx="14" fill="#1d1346"/><line x1="30" y1="20" x2="30" y2="262" stroke="#ffd6f0" stroke-width="4"/><text x="30" y="14" text-anchor="middle" fill="#ffd6f0" font-size="10">ouer</text><text x="30" y="276" text-anchor="middle" fill="#ffd6f0" font-size="10">jonger</text>${[0,1,2,3,4].map(i=>`<circle cx="30" cy="${36+i*52}" r="7" fill="#ff8fc8"/>`).join('')}</svg>`,
+fish:`<svg viewBox="0 0 320 170" width="100%"><rect width="320" height="170" rx="14" fill="#123a6b"/><g stroke="#1b2b4a" stroke-width="2"><path d="M60,85 q90,-70 190,-5 l40,-30 v70 l-40,-30 q-100,65 -190,-5z" fill="#3d5f9c"/><path d="M120,58 l-12,-26 l30,18z M180,58 l6,-30 l14,30z M140,112 l-14,30 l26,-18z M200,110 l10,28 l8,-30z" fill="#4f74b8"/></g><g fill="#fff" opacity=".85"><circle cx="120" cy="80" r="4"/><circle cx="160" cy="95" r="5"/><circle cx="200" cy="75" r="4"/><circle cx="230" cy="92" r="3"/></g><circle cx="82" cy="78" r="6" fill="#fff"/><circle cx="82" cy="78" r="3" fill="#000"/><text x="160" y="160" text-anchor="middle" fill="#bfe3ff" font-size="11">'n Vis met vlesige vinne soos klein bene</text></svg>`});
+SV.sedL=SV.sed.replace('</svg>','<g font-size="12" font-weight="800" fill="#fff" text-anchor="end"><text x="302" y="78">nuutste laag ⬆</text><text x="302" y="184">oudste laag ⬇</text></g></svg>');
+const TAG={A:'🌍 Die Aarde beweeg',G:'🌱 Oppervlak van die Aarde',S:'🧱 Sedimentgesteentes',F:'🦴 Fossiele'};
+Q.push(
+["Wat is <b>sedimentgesteentes</b>?",["Rots wat vorm wanneer sedimente in lae neergelê word en dan verhard","Rots wat uit gesmelte lawa vorm","Grond met baie humus in"],0,"Sedimente word in lae neergelê, saamgepers en verhard.","S"],
+["Die naam kom van die Latynse woord <i>sedere</i>. Wat beteken dit?",["om te sit","om te breek","om te vloei"],0,"Die lae sit bo-op mekaar – daarom die naam.","S"],
+["Wat is <b>sedimente</b>?",["Grond en stukke gebreekte rots wat deur 'n rivier of die wind afgeset is","Klein seediertjies wat nog lewe","Water in 'n meer"],0,"Sedimente = klein korrels sand, stof en modder wat afgeset is.","S"],
+["Wat beteken <b>afgeset</b>?",["Op 'n sekere plek neergesit of laat val","Deur die wind opgetel","Styf saamgedruk"],0,"Wind en riviere laat die stukkies val – hulle word afgeset.","S"],
+["Wat beteken <b>saamgepers</b>?",["Styf saamgedruk","Los en sag","Weggespoel"],0,"Die gewig van boonste lae druk die onderste lae styf saam.","S"],
+["Wat laat rotse in klein korreltjies opbreek?",["Plantwortels groei in die krake, en lug en water laat die rots verswak","Diere eet die rots op","Die maan trek die rots uitmekaar"],0,"Wortels druk krake groter; lug en water laat rots verkrummel.","S"],
+["Waar of onwaar? Dit neem net 'n paar dae vir rots om in klein korreltjies op te breek.",["Waar","Onwaar"],1,"Dit kan <b>duisende jare</b> neem.","S"],
+["Wanneer set die wind die sand en stof wat dit dra, af?",["Wanneer dit spoed verloor of ophou waai","Wanneer dit al hoe harder waai","Net wanneer dit reën"],0,"Stadiger wind kan die korrels nie meer dra nie.","S"],
+["Waar set 'n rivier sy vrag sand en modder af?",["Waar dit stadiger vloei, naby die see of 'n groot meer","Bo-op 'n hoë berg","Waar dit die vinnigste vloei"],0,"'n Rivier vloei stadiger oor laagliggende gebiede en laat sy vrag val.","S"],
+["Wat gebeur oor tyd met die onderste lae sediment?",["Die gewig van die boonste lae druk hulle saam en hulle verhard","Hulle word al hoe sagter","Hulle dryf na bo"],0,"Saamgepers en verhard → sedimentgesteente.","S"],
+["Kyk na die prent. Watter laag is die <b>oudste</b>?",["A","C","D"],2,"Die oudste laag is altyd heel onder (D).","S",SV.sed],
+["Kyk na die prent. Watter laag is die <b>nuutste</b>?",["A","B","D"],0,"Nuwe lae word bo-op afgeset, so A bo is die nuutste.","S",SV.sed],
+["Waar of onwaar? Die lae in sedimentgesteentes is altyd ewe dik en van dieselfde kleur.",["Waar","Onwaar"],1,"Die lae is nie altyd ewe dik of dieselfde kleur nie.","S"],
+["Watter stap kom heel <b>eerste</b> in die vorming van sedimentgesteentes?",["Rotse breek in klein stukkies op","Sedimente word saamgepers en verhard","Lae modder en sand bou bo-op mekaar op"],0,"Eers moet rots in klein korreltjies opbreek.","S"],
+["Watter sedimentgesteente vorm uit <b>modder (klei)</b>?",["Skalie","Sandsteen","Kalksteen"],0,"Skalie = verharde modder/klei.","S"],
+["Watter sedimentgesteente vorm uit <b>sand</b>?",["Skalie","Sandsteen","Kalksteen"],1,"Sandsteen = verharde sand.","S"],
+["Watter sedimentgesteente vorm uit die <b>skulpe en bene van klein seediertjies</b>?",["Skalie","Sandsteen","Kalksteen"],2,"Kalksteen bestaan uit die reste van dooie seediertjies.","S"],
+["In watter rots kan jy die korrels met jou oë sien?",["Sandsteen","Skalie","Kalksteen"],0,"In skalie is die kleikorrels te klein om te sien.","S"],
+["Waar of onwaar? Kalksteen word uit stukkies gebreekte rots gevorm.",["Waar","Onwaar"],1,"Kalksteen vorm uit die reste van dooie seediertjies.","S"],
+["Waarvan word <b>sement</b> gemaak?",["Kalksteen","Sandsteen","Skalie"],0,"Kalksteen word fyngedruk, met 'n bietjie klei gemeng en verhit.","S"],
+["Tot ongeveer watter temperatuur word die kalksteen-mengsel in 'n oond verhit om sement te maak?",["150 °C","1 500 °C","15 000 °C"],1,"Amper 1 500 °C in 'n hoogoond.","S"],
+["Wat is <b>beton</b>?",["Sement gemeng met gruis en sand","Net klei en water","Gebakte skalie"],0,"Brûe word dikwels van beton gebou.","S"],
+["Waarvan word <b>bakstene</b> gemaak?",["Klei wat van skalie gemaak is","Kalksteen","Sout"],0,"Skalie word fyngemaal en met water gemeng om klei te maak; die klei word gebak.","S"],
+["Hoe word sandsteen in geboue gebruik?",["As boublokke en dun gesnyde teëls","Om sement te maak","Om glas te maak"],0,"Groot stukke sandsteen word boublokke of teëls.","S"],
+["Waar of onwaar? Skalie kan fyngemaal en met water gemeng word om klei te maak.",["Waar","Onwaar"],0,"Die klei word gevorm en gebak om bakstene te maak.","S"],
+["Wat is die belangrikste verskil tussen kalksteen en skalie?",["Kalksteen kom van dooie seediertjies, skalie van modder (klei)","Kalksteen is altyd swart en skalie wit","Skalie kom van sand af"],0,"Kalksteen = seediertjies; skalie = modder.","S"],
+["Waarmee word sement gemeng om pleister vir bakstene te maak?",["Water","Olie","Melk"],0,"Pleister word gemaak deur sement en water te meng.","S"],
+["Wat is <b>fossiele</b>?",["Die tekens of reste van antieke plante en diere wat in rots bewaar is","Nuwe plante wat in rots groei","Blink klippe"],0,"Fossiele is reste of tekens van lewe van miljoene jare gelede.","F"],
+["Wat beteken <b>antiek</b>?",["Van baie lank gelede","Splinternuut","Baie groot"],0,"Antieke plante en diere het lank gelede geleef.","F"],
+["Wat beteken <b>bewaar</b> in hierdie onderwerp?",["Het nie weggevrot nie","Het weggespoel","Is opgeëet"],0,"Bewaar = het nie weggevrot nie.","F"],
+["Wat beteken <b>uitgestorwe</b>?",["Al die individue van 'n soort het gesterf en daar is niks meer oor nie","Die dier slaap in die winter","Die dier woon in die see"],0,"Ons weet van uitgestorwe organismes weens hul fossiele.","F"],
+["In watter soort rots word fossiele meestal gevorm?",["Sedimentgesteentes","Gesmelte lawa","Diamante"],0,"Organismes word in lae sediment vasgevang.","F"],
+["Waar of onwaar? Fossiele in die onderste lae is jonger as fossiele in die boonste lae.",["Waar","Onwaar"],1,"Die onderste lae is die oudste, so daardie fossiele is die oudste.","F"],
+["Kyk na die prent. In watter laag sal jy die <b>oudste</b> fossiel kry?",["A","B","D"],2,"Die onderste laag (D) is die oudste.","F",SV.sed],
+["Wat is die twee hoofsoorte fossiele?",["Liggaamsfossiele en spoorfossiele","Grond- en waterfossiele","Groot en klein fossiele"],0,"Liggaams- en spoorfossiele.","F"],
+["Wat is <b>liggaamsfossiele</b>?",["Bewaarde harde dele van plante en diere, soos bene, tande, skulpe en blare","Voetspore van diere","Neste van voëls"],0,"Hulle vertel ons van die plant of dier se liggaamstruktuur.","F"],
+["Hoekom word sagte dele soos spiere en vel gewoonlik nie fossiele nie?",["Hulle vrot weg of word deur ander diere geëet","Hulle is te swaar","Hulle word te hard"],0,"Net harde dele bly oor.","F"],
+["Watter een is 'n <b>spoorfossiel</b>?",["Fossielvoetspore","'n Fossielskedel","'n Fossielblaar"],0,"Spoorfossiele is tekens: voetspore, neste, eiers, gate en mis.","F"],
+["Wat kan <b>fossielmis</b> vir ons sê?",["Wat die dier geëet het","Watter kleur die dier was","Hoe hard die dier kon brul"],0,"Spoorfossiele wys hoe die dier geleef het.","F"],
+["Wat kan fossielvoetspore ons vertel?",["Of die dier op twee of vier bene geloop het","Wat die dier se naam was","Hoe oud die dier geword het"],0,"Voetspore wys hoe die dier beweeg het.","F"],
+["Watter plant lyk amper presies soos sy fossiel van miljoene jare gelede?",["Die broodboom","Die roos","Die mielie"],0,"Broodbome het oor miljoene jare nie veel verander nie.","F"],
+["Watter voël se heupbene lyk soos dié van 'n dinosourus?",["Die kiwi","Die pikkewyn","Die mossie"],0,"Die kiwi van Nieu-Seeland – sommige dinosourusse was soortgelyk aan voëls.","F"],
+["Waar of onwaar? Die eerste insekte was miljoene jare gelede baie groter as vandag s'n.",["Waar","Onwaar"],0,"Fossiele wys hoe lewende dinge verander het.","F"],
+["Hoeveel fossielterreine is daar in Suid-Afrika?",["Meer as 30","Net 3","Presies 10"],0,"Duisende fossiele is al op hierdie terreine gevind.","F"],
+["Wat is 'n <b>fossielrekord</b>?",["Die fossiele wat op een plek ontdek is, met inligting soos hul ouderdom","'n Musiekplaat","'n Lys van alle rotse"],0,"Suid-Afrika se fossielrekord is baie ryk.","F"],
+["Wat is 'n <b>hominied</b>?",["Mense en hul fossielvoorvaders","'n Soort dinosourus","'n Fossielplant"],0,"Hominiede = mense en hul voorvaders.","F"],
+["Omtrent hoe lank gelede het <i>Glossopteris</i>-woude in die Karoo en KwaZulu-Natal gegroei?",["280 miljoen jaar gelede","5 miljoen jaar gelede","2 000 jaar gelede"],0,"Hulle het baie van die steenkoollae gevorm.","F"],
+["Wat beteken die naam <b>dinosourus</b>?",["Verskriklike akkedis","Groot voël","Ou vis"],0,"Dinosourus = \"verskriklike akkedis\".","F"],
+["Tussen wanneer het dinosourusse geleef?",["220 en 65 miljoen jaar gelede","5 en 2 miljoen jaar gelede","100 en 10 jaar gelede"],0,"Hulle was verwant aan akkedisse, krokodille en voëls.","F"],
+["Waarna is die kleinste dinosourus, <i>Lesothosaurus</i>, vernoem?",["Lesotho, waar sy fossiele eerste ontdek is","'n Beroemde wetenskaplike","'n Rivier in die Karoo"],0,"Lesothosaurus → Lesotho.","F"],
+["Watter fossiele is by <b>Langebaanweg</b> gevind?",["Bere, sabeltandkatte en kortnek-kameelperde","Dinosourusse","Selakante"],0,"Hulle is omtrent vyf miljoen jaar oud.","F"],
+["<i>Aulacephalodon</i> (250 miljoen jaar gelede) was omtrent so groot soos...",["'n jong seekoei","'n muis","'n olifant"],0,"Een van die eerste soogdiere – gevind in die Oos-Kaap en Lesotho.","F"],
+["Waar is die <b>Wieg van die Mensdom</b>?",["By die Sterkfonteingrotte naby Johannesburg","By Kaapstad","In die Karoo"],0,"Dit is 'n Wêrelderfenisgebied.","F"],
+["Hoe het die aapmense (hominiede) van ons verskil?",["Kleiner brein, groter tande en meer aapagtig","Groter brein as ons","Hulle kon vlieg"],0,"Hulle het regop geloop maar was meer aapagtig.","F"],
+["Waar of onwaar? Mev. Ples is die skedel van 'n volwasse vrou.",["Waar","Onwaar"],1,"Wetenskaplikes dink nou dit is die skedel van 'n <b>jong seun</b>.","F"],
+["Hoe oud is <b>Klein Voetjie</b>?",["Tussen 3 en 4 miljoen jaar","Omtrent 2,5 miljoen jaar","Omtrent 100 jaar"],0,"Klein Voetjie is 'n byna volledige skelet in die Sterkfonteingrotte.","F"],
+["Kyk na die prent. Hierdie vis is 'n 'lewende fossiel'. Wat is dit?",["'n Selakant","'n Haai","'n Goudvis"],0,"Wetenskaplikes het die selakant net uit fossiele in rotse geken.","F",SV.fish],
+["Hoekom word die selakant 'n <b>lewende fossiel</b> genoem?",["Mense het gedink dit het lank gelede uitgesterf, maar dit leef nog","Dit is van klip gemaak","Dit leef op land"],0,"In 1938 is 'n lewende een gevang!","F"],
+["Wanneer en waar is die eerste lewende selakant gevang?",["Desember 1938, naby Oos-Londen","1838, naby Durban","2008, in Kaapstad"],0,"Die museum in Oos-Londen het dit as 'n selakant uitgeken.","F"],
+["Na wie is die selakant (<i>Latimeria</i>) vernoem?",["Marjorie Courtney-Latimer","Prof. J.L.B. Smith","Mev. Ples"],0,"Sy het besef dit is 'n belangrike vonds en dit gehou tot prof. Smith kon kom.","F"],
+["Hoe lank het dit geneem om die volgende lewende selakant te kry?",["Veertien jaar","Een week","Honderd jaar"],0,"Dit het 14 jaar geneem.","F"],
+["Kyk na die prent. Waar of onwaar? Die oudste laag is heel onder en die nuutste laag heel bo.",["Waar","Onwaar"],0,"Nuwe lae sediment word altyd bo-op bestaande lae afgeset.","S",SV.sedL]);
 const LV=[
 {n:"Wentel & roteer",ic:"🌍",t:"A",q:[0,1,6,7,8,10,12,15],d:["orbit"]},
 {n:"Die as & tyd",ic:"⏰",t:"A",q:[2,3,11,13,14,16,17],d:["axis"]},
@@ -143,18 +219,26 @@ const LV=[
 {n:"Grondlae",ic:"🟫",t:"G",q:[27,28,29,30,31,32,33,34],d:["soil"]},
 {n:"Grondsoorte",ic:"🔬",t:"G",q:[36,37,38,40,41,42,43,44]},
 {n:"Organismes & erosie",ic:"🐛",t:"G",q:[39,45,46,47,48,49]},
+{n:"Sedimentgesteentes vorm",ic:"🏜️",t:"S",q:[50,51,52,53,54,55,56,57,58,59,60,61,62,63,111],d:["steps"]},
+{n:"Skalie, sandsteen & kalksteen",ic:"🧱",t:"S",q:[64,65,66,67,68,69,70,71,72,73,74,75,76]},
+{n:"Fossiele & soorte",ic:"🦴",t:"F",q:[77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92],d:["sort"]},
+{n:"SA fossiele & Wieg van die Mensdom",ic:"🦕",t:"F",q:[93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110],d:["tl"]},
 {n:"Groot Toets",ic:"🏆",t:"X",test:true}];
 const DR={
 orbit:{s:"orbit",lab:[["Son",50,50],["Aarde",88,50],["Wentelbaan",20,84]]},
 axis:{s:"axis",lab:[["As",47,33],["Noordpool",30,9],["Suidpool",70,93]]},
-soil:{s:"soil",lab:[["Bogrond",45,23],["Ondergrond",45,42],["Stukke rots en grond",45,62],["Soliede rots",45,83]]}};
+soil:{s:"soil",lab:[["Bogrond",45,23],["Ondergrond",45,42],["Stukke rots en grond",45,62],["Soliede rots",45,83]]},
+steps:{s:"steps",w:1,msg:"Sleep die stappe in die regte volgorde (1 tot 5)! 👆",lab:[["Rotse breek in klein stukkies op",56,11.5],["Wind en water verskuif sand en modder",56,30.7],["Modder en sand word afgeset",56,50],["Nuwe lae bou bo-op mekaar op",56,69.3],["Lae word saamgepers en verhard",56,88.5]]},
+sort:{s:"sort",bin:1,msg:"Sorteer: is dit 'n liggaamsfossiel of 'n spoorfossiel? 👆",lab:[["L",25.5,56,"Liggaamsfossiel"],["P",74.5,56,"Spoorfossiel"]],ch:[["Bene","L"],["Tande","L"],["Skulpe","L"],["Blare","L"],["Voetspore","P"],["Eiers","P"],["Neste","P"],["Mis","P"]]},
+tl:{s:"tl",w:1,msg:"Pas elke fossiel by sy ouderdom! 👆",lab:[["g",58,13,"280 miljoen jaar"],["a",58,31.5,"250 miljoen jaar"],["e",58,50,"220 miljoen jaar"],["k",58,68.5,"200 miljoen jaar"],["l",58,87,"5 miljoen jaar"]],ch:[["Glossopteris-plant","g"],["Aulacephalodon","a"],["Euskelosaurus","e"],["Kakkerlak","k"],["Kortnek-kameelperd","l"]]}};
 const app=document.getElementById('app');let S,SEL=null;const pick=a=>a[Math.floor(Math.random()*a.length)];
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},sv=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const best=()=>ld('nwBest',{}),stars=()=>ld('nwStars',{}),foute=()=>ld('nwFoute',[]);
 function addFout(i){const f=foute();if(!f.includes(i)){f.push(i);sv('nwFoute',f)}}
 function delFout(i){sv('nwFoute',foute().filter(x=>x!==i))}
-const unlocked=i=>i==0||(stars()[i-1]||0)>=1;
+(()=>{if(!localStorage.getItem('nwV5')){const st=ld('nwStars',{});if(st[7]!=null){st[LV.length-1]=st[7];delete st[7];sv('nwStars',st)}localStorage.setItem('nwV5','1')}})();
+const unlocked=i=>i==0||(stars()[i-1]||0)>=1||(stars()[i]||0)>=1;
 function wurm(m){const mouth=m=='happy'?'<path d="M84,44 q8,9 16,0" stroke="#5b3a8c" stroke-width="3" fill="none"/>':m=='sad'?'<path d="M84,50 q8,-8 16,0" stroke="#5b3a8c" stroke-width="3" fill="none"/><ellipse cx="80" cy="44" rx="2.5" ry="4" fill="#7fd8f0"/>':'<path d="M85,46 h14" stroke="#5b3a8c" stroke-width="3"/>';
 return `<svg class="wm ${m}" viewBox="0 0 120 70" width="84" height="49"><g class="bd"><g fill="#ff8fc8" stroke="#e86aa8" stroke-width="2"><circle cx="18" cy="56" r="11"/><circle cx="36" cy="52" r="12"/><circle cx="55" cy="46" r="13"/><circle cx="74" cy="40" r="14"/></g><circle cx="92" cy="36" r="20" fill="#ff9fd0" stroke="#e86aa8" stroke-width="2"/><circle class="eye" cx="86" cy="31" r="4" fill="#2a1b4d"/><circle class="eye" cx="99" cy="31" r="4" fill="#2a1b4d"/><circle cx="87" cy="30" r="1.3" fill="#fff"/><circle cx="100" cy="30" r="1.3" fill="#fff"/><circle cx="81" cy="40" r="3" fill="#ffc2e0"/><circle cx="104" cy="40" r="3" fill="#ffc2e0"/>${mouth}<path d="M92,16 q4,-10 10,-8" stroke="#43c6c0" stroke-width="3" fill="none"/></g></svg>`}
 function masc(m,t){return `<div class="masc" id="masc">${wurm(m)}<div class="bub" id="bub">${t}</div></div>`}
@@ -168,9 +252,9 @@ nodes+=`<div class="nd ${u?'':'lk'} ${cur?'cur':''} ${s?'done':''} ${l.test&&!s?
 app.innerHTML=`<div class="card">${masc('happy',f?`Hallo! Kom ons leer! Jy het ${f} foute om te oefen 💪`:'Hallo! Ek is Wurmpie. Kom ons leer saam! 🌱')}</div>
 <div class="path" style="height:${LV.length*H+30}px"><svg width="${W}" height="${LV.length*H+30}" style="position:absolute;left:0;top:0"><path d="${curve(pts)}" fill="none" stroke="#ffffff22" stroke-width="16" stroke-linecap="round"/><path d="${curve(pts)}" fill="none" stroke="#ffd6f0" stroke-width="5" stroke-dasharray="1 13" stroke-linecap="round"/></svg>${nodes}</div>
 <div class="card center"><button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
-<p><b>Vrye oefening</b></p><button class="teal" onclick="startFree('A','o')">🌍 Die Aarde beweeg: Oefenmodus</button><button class="teal" onclick="startFree('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button><button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
-<p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Toets ${b.X??'-'}%</p><button class="lnk" onclick="reset()">↺ Herstel vordering</button></div>`}
-function reset(){if(confirm('Is jy seker? Al jou sterre, foute en beste tellings word uitgevee.')){['nwBest','nwStars','nwFoute'].forEach(k=>localStorage.removeItem(k));home()}}
+<p><b>Vrye oefening</b></p><button class="teal" onclick="startFree('A','o')">🌍 Die Aarde beweeg: Oefenmodus</button><button class="teal" onclick="startFree('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button><button class="teal" onclick="startFree('S','o')">🧱 Sedimentgesteentes: Oefenmodus</button><button class="teal" onclick="startFree('F','o')">🦴 Fossiele: Oefenmodus</button><button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
+<p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Gesteentes ${b.S??'-'}% · Fossiele ${b.F??'-'}% · Toets ${b.X??'-'}%</p><button class="lnk" onclick="reset()">↺ Herstel vordering</button></div>`}
+function reset(){if(confirm('Is jy seker? Al jou sterre, foute en beste tellings word uitgevee.')){['nwBest','nwStars','nwFoute','nwV5'].forEach(k=>localStorage.removeItem(k));home()}}
 function begin(o){stopCf();S=Object.assign({i:0,sc:0,st:0,max:0,tried:false},o);show()}
 const qi=a=>shuf(a).map(i=>({k:'q',i}));
 function startLevel(li){const l=LV[li];if(!unlocked(li))return;begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:qi(Q.map((_,i)=>i))}:{mode:'lvl',lv:li,t:l.t,m:'o',items:qi(l.q).concat((l.d||[]).map(d=>({k:'d',d})))})}
@@ -179,7 +263,7 @@ function startFoute(){const f=foute();if(!f.length)return;begin({mode:'foute',t:
 function hdr(){const n=S.items.length;return `<div class="top"><button class="x" onclick="home()">✕</button><span>${S.mode=='lvl'?LV[S.lv].n:S.mode=='foute'?'My foute':'Vrye oefening'} · ${S.i+1}/${n}</span><span><span class="fl">🔥</span> ${S.st} · ⭐ <span id="scv">${S.sc}</span></span></div><div class="bar"><div class="fill" style="width:${Math.max(0,S.i-1)/n*100}%" data-w="${S.i/n*100}"></div></div>`}
 function show(){S.tried=false;SEL=null;const it=S.items[S.i];if(it.k=='d')return showDrag(it.d);const q=Q[it.i];
 const o=q[1].map((x,k)=>[x,k==q[2]]);S.cur=q[1].length==2?o:shuf(o);
-app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi... 🤔')}<span class="tag">${q[4]=='A'?'🌍 Die Aarde beweeg':'🌱 Oppervlak van die Aarde'}</span>
+app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi... 🤔')}<span class="tag">${TAG[q[4]]}</span>
 ${q[5]?`<div class="pic">${q[5]}</div>`:''}<div class="q">${q[0]}</div>${S.cur.map((o,k)=>`<button class="op" id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
 function hit(){S.sc++;S.st++;S.max=Math.max(S.max,S.st);vib(25);const e=document.getElementById('scv');if(e){e.textContent=S.sc;e.classList.remove('tick');void e.offsetWidth;e.classList.add('tick')}}
 function ans(k){const it=S.items[S.i],q=Q[it.i],b=document.getElementById('b'+k),fb=document.getElementById('fb');if(b.disabled)return;const right=S.cur[k][1];
@@ -190,10 +274,10 @@ else{if(right)hit();else S.st=0;adv()}}
 function lock(){document.querySelectorAll('.card button.op').forEach(x=>x.disabled=true)}
 function adv(){S.i++;S.i<S.items.length?show():end()}
 function next(){document.getElementById('nx').innerHTML=`<button class="big" id="nxb" onclick="adv()">Volgende ➜</button>`}
-function showDrag(d){const D=DR[d];
-app.innerHTML=hdr()+`<div class="card">${masc('neutral','Sleep elke naam na die regte plek, of tik die naam en dan die plek! 👆')}<span class="tag">✋ Sleep en benoem</span>
-<div class="dz"><div class="pic">${SV[D.s]}</div>${D.lab.map(l=>`<div class="tg" data-l="${l[0]}" style="left:${l[1]}%;top:${l[2]}%">?</div>`).join('')}</div>
-<div class="chips">${shuf(D.lab).map(l=>`<div class="chip" data-l="${l[0]}">${l[0]}</div>`).join('')}</div><div class="fb" id="fb"></div><div id="nx"></div></div>`;
+function showDrag(d){const D=DR[d],ch=D.ch||D.lab.map(l=>[l[0],l[0]]);
+app.innerHTML=hdr()+`<div class="card">${masc('neutral',D.msg||'Sleep elke naam na die regte plek, of tik die naam en dan die plek! 👆')}<span class="tag">✋ ${D.bin?'Sorteer':D.w?'Sleep en pas':'Sleep en benoem'}</span>
+<div class="dz"><div class="pic">${SV[D.s]}</div>${D.lab.map(l=>`<div class="tg ${D.w?'w':''} ${D.bin?'bin':''}" data-l="${l[0]}" data-n="${ch.filter(c=>c[1]==l[0]).length}" data-c="0" style="left:${l[1]}%;top:${l[2]}%">${D.bin?'<div class="bi"></div>':l[3]?`<b>${l[3]}</b>`:'?'}</div>`).join('')}</div>
+<div class="chips">${shuf(ch).map(c=>`<div class="chip" data-l="${c[1]}">${c[0]}</div>`).join('')}</div><div class="fb" id="fb"></div><div id="nx"></div></div>`;
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('pointerdown',chipDown));
 document.querySelectorAll('.tg').forEach(t=>t.addEventListener('click',()=>{if(SEL)drop(SEL,t)}))}
 function chipDown(e){const c=e.currentTarget;if(c.classList.contains('done'))return;e.preventDefault();const sx=e.clientX,sy=e.clientY;let gh=null;try{c.setPointerCapture(e.pointerId)}catch(_){}
@@ -202,16 +286,18 @@ const up=ev=>{c.removeEventListener('pointermove',mv);c.removeEventListener('poi
 document.querySelectorAll('.tg.hov').forEach(x=>x.classList.remove('hov'));if(gh){gh.remove();const el=document.elementFromPoint(ev.clientX,ev.clientY),t=el&&el.closest('.tg');if(t&&ev.type=='pointerup')drop(c,t)}else sel(c)};
 c.addEventListener('pointermove',mv);c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up)}
 function sel(c){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));if(SEL===c){SEL=null;return}SEL=c;c.classList.add('sel')}
-function drop(c,t){SEL=null;c.classList.remove('sel');if(t.classList.contains('ok'))return;
-if(t.dataset.l==c.dataset.l){t.textContent=c.dataset.l;t.classList.add('ok');c.classList.add('done');
-if(document.querySelectorAll('.tg:not(.ok)').length==0){if(!S.tried)hit();const g=pick(GOOD);mood('happy',g);document.getElementById('fb').innerHTML=g+'<div class="ex">Alles is reg benoem!</div>';next()}else mood('happy','Reg! 👍 Nog een...')}
+function drop(c,t){SEL=null;c.classList.remove('sel');if(t.classList.contains('ok')||c.classList.contains('done'))return;
+if(t.dataset.l==c.dataset.l){const n=+t.dataset.c+1;t.dataset.c=n;c.classList.add('done');const bi=t.querySelector('.bi');
+if(bi)bi.insertAdjacentHTML('beforeend',`<span>${c.textContent}</span>`);else if(t.querySelector('b'))t.innerHTML+=` ✅ ${c.textContent}`;else t.textContent=c.textContent;
+if(n>=+t.dataset.n)t.classList.add('ok');
+if(document.querySelectorAll('.chip:not(.done)').length==0){if(!S.tried)hit();const g=pick(GOOD);mood('happy',g);document.getElementById('fb').innerHTML=g+'<div class="ex">Alles is reg!</div>';next()}else mood('happy','Reg! 👍 Nog een...')}
 else{S.tried=true;S.st=0;vib([40,40,40]);t.classList.add('bad');setTimeout(()=>t.classList.remove('bad'),600);mood('sad',pick(BAD))}}
 function end(){const n=S.items.length,p=Math.round(S.sc/n*100);let extra='',nb=false;
 if(S.mode!='foute'&&(S.mode=='free'||LV[S.lv].test)){const b=best();if(p>(b[S.t]??-1)){b[S.t]=p;sv('nwBest',b);nb=true}}
 let s=0;if(S.mode=='lvl'){s=p==100?3:p>=80?2:p>=50?1:0;const st=stars();if(s>(st[S.lv]||0)){st[S.lv]=s;sv('nwStars',st)}
 extra=`<div class="big3">${[1,2,3].map(k=>`<span style="animation-delay:${.5+k*.35}s">${k<=s?'⭐':'☆'}</span>`).join('')}</div>`+(s?(S.lv+1<LV.length?`<p>🔓 Volgende vlak oop: <b>${LV[S.lv+1].n}</b></p><button class="big" onclick="startLevel(${S.lv+1})">Volgende vlak ➜</button>`:''):'<p>Kry minstens 50% om die volgende vlak oop te sluit.</p>')}
 if(S.mode=='foute')extra=`<p>Foute oor: ${foute().length}</p>`;
-const bd=[];if(p>=80&&S.t!='G')bd.push('🌟 Ruimte-Ster');if(p>=80&&S.t!='A')bd.push('🌱 Grond-Genie');if(S.max>=5)bd.push(`🔥 Vuurstreep (${S.max} op 'n ry)`);if(p==100)bd.push('👑 Perfek!');
+const bd=[],BG={A:'🌟 Ruimte-Ster',G:'🌱 Grond-Genie',S:'🧱 Rots-Ridder',F:'🦕 Fossiel-Speurder'};if(p>=80)Object.keys(BG).forEach(k=>{if(S.t==k||S.t=='X')bd.push(BG[k])});if(S.max>=5)bd.push(`🔥 Vuurstreep (${S.max} op 'n ry)`);if(p==100)bd.push('👑 Perfek!');
 const msg=p>=80?'Jy is fantasties! 🎉':p>=50?'Mooi so! Oefen nog \'n bietjie 💜':'Goeie poging! Probeer weer, jy gaan dit kry 💪';
 app.innerHTML=`<div class="bar"><div class="fill" style="width:100%"></div></div><div class="card center">${masc(p>=50?'happy':'sad',msg)}
 <div class="score"><span id="cu" data-to="${S.sc}">0</span> / ${n}</div><h2>${p}%</h2>${extra}${nb?'<p>✨ Nuwe beste telling!</p>':''}<div>${bd.map((x,k)=>`<span class="badge" style="animation-delay:${1.7+k*.25}s">${x}</span>`).join('')}</div>
