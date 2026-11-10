@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="af"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><!-- nw-v9 --><!-- nw-v10 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
+<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><!-- nw-v9 --><!-- nw-v10 --><!-- nw-v11 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#2a1b4d,#5b3a8c 50%,#2f7f86);color:#2a1b4d;min-height:100vh}
 .wrap{max-width:560px;margin:auto;padding:14px}.card{background:#fff8fd;border-radius:22px;padding:18px;box-shadow:0 8px 30px #0004;margin-top:12px}
 h1{color:#fff;text-align:center;font-size:1.5em;margin:10px 0 0}.sub{color:#ffd6f0;text-align:center;margin:4px 0}
@@ -603,13 +603,14 @@ if(S.att>=maxTries()){S.done=1;addFout(S.items[S.i]);
 document.querySelectorAll('.chip:not(.done)').forEach(ch=>{const tg=[...document.querySelectorAll('.tg')].find(x=>x.dataset.l==ch.dataset.l&&!x.classList.contains('ok')||x.dataset.l==ch.dataset.l);if(!tg)return;const n=+tg.dataset.c+1;tg.dataset.c=n;ch.classList.add('done');const bi=tg.querySelector('.bi');if(bi)bi.insertAdjacentHTML('beforeend',`<span>${ch.textContent}</span>`);else if(tg.querySelector('b'))tg.innerHTML+=` ✅ ${ch.textContent}`;else tg.textContent=ch.textContent;if(n>=+tg.dataset.n)tg.classList.add('ok')});
 mood('sad','Kyk mooi na die regte antwoord 💡');fb.innerHTML=`Die regte antwoord word nou gewys 💡<div class="ex">Elke naam hoort by sy plek op die prent.</div>`;next();return}
 paintRetry(fb)}}
-function end(){const n=S.items.length,p=Math.round(S.sc/n*100);let extra='',nb=false;
-if(S.mode!='foute'&&(S.mode=='free'||LVS()[S.lv].test)){const b=best();if(p>(b[S.t]??-1)){b[S.t]=p;sv('nwBest',b);nb=true}}
-let s=0;if(S.mode=='lvl'){s=p==100?3:p>=80?2:p>=50?1:0;const st=stars();if(s>(st[S.lv]||0)){st[S.lv]=s;sv('nwStars',st)}
-extra=`<div class="big3">${[1,2,3].map(k=>`<span style="animation-delay:${.5+k*.35}s">${k<=s?'⭐':'☆'}</span>`).join('')}</div>`+(s?(S.lv+1<LVS().length?`<p>🔓 Volgende vlak oop: <b>${LVS()[S.lv+1].n}</b></p><button class="big" onclick="startLevel(${S.lv+1})">Volgende vlak ➜</button>`:''):'<p>Kry minstens 50% om die volgende vlak oop te sluit.</p>')}
+function end(){const n=S.items.length,p=n?Math.round(S.sc/n*100):0;let extra='',nb=false;
+const pfx=(typeof _pfx==='function'?_pfx():(SUB==='wk'?'wk':'nw'));
+if(S.mode!='foute'&&(S.mode=='free'||(LVS()[S.lv]&&LVS()[S.lv].test))){const b=best();if(p>(b[S.t]??-1)){b[S.t]=p;sv(pfx+'Best',b);nb=true}}
+let s=0;if(S.mode=='lvl'){s=p==100?3:p>=80?2:p>=50?1:0;if(n>0)s=Math.max(s,1);const st=stars();if(s>(st[S.lv]||0)){st[S.lv]=s;sv(pfx+'Stars',st)}
+extra=`<div class="big3">${[1,2,3].map(k=>`<span style="animation-delay:${.5+k*.35}s">${k<=s?'⭐':'☆'}</span>`).join('')}</div>`+(S.lv+1<LVS().length?`<p>🔓 Volgende vlak oop: <b>${LVS()[S.lv+1].n}</b></p><button class="big" onclick="startLevel(${S.lv+1})">Volgende vlak ➜</button>`:'<p>🏆 Jy het die laaste vlak voltooi!</p>')}
 if(S.mode=='foute')extra=`<p>Foute oor: ${foute().length}</p>`;
 const bd=[],BG={A:'🌟 Ruimte-Ster',G:'🌱 Grond-Genie',S:'🧱 Rots-Ridder',F:'🦕 Fossiel-Speurder'};if(p>=80)Object.keys(BG).forEach(k=>{if(S.t==k||S.t=='X')bd.push(BG[k])});if(S.max>=5)bd.push(`🔥 Vuurstreep (${S.max} op 'n ry)`);if(p==100)bd.push('👑 Perfek!');
-const msg=p>=80?'Jy is fantasties! 🎉':p>=50?'Mooi so! Oefen nog \'n bietjie 💜':'Goeie poging! Probeer weer, jy gaan dit kry 💪';
+const msg=p>=80?'Jy is fantasties! 🎉':p>=50?'Mooi so! Oefen nog \'n bietjie 💜':'Goeie poging! Jy het die vlak voltooi — oefen nog vir meer sterre 💜';
 app.innerHTML=`<div class="bar"><div class="fill" style="width:100%"></div></div><div class="card center">${masc(p>=50?'happy':'sad',msg)}
 <div class="score"><span id="cu" data-to="${S.sc}">0</span> / ${n}</div><h2>${p}%</h2>${extra}${nb?'<p>✨ Nuwe beste telling!</p>':''}<div>${bd.map((x,k)=>`<span class="badge" style="animation-delay:${1.7+k*.25}s">${x}</span>`).join('')}</div>
 <button class="teal" onclick="${S.mode=='lvl'?`startLevel(${S.lv})`:S.mode=='foute'?'startFoute()':`startFree('${S.t}','${S.m}')`}">Probeer weer 🔁</button><button class="teal" onclick="home()">Tuis 🏠</button></div>`;countUp();if(p>=80)setTimeout(confetti,600)}
@@ -866,6 +867,23 @@ function finishW(right,it){
   S.tried=true;S.st=0;S.att=(S.att||0)+1;vib([40,40,40]);
   if(S.att>=maxTries()){S.done=true;addFout(it);revealW(it);mood('sad','Kyk mooi na die regte antwoord 💡');fb.innerHTML=`Die regte antwoord word nou gewys 💡<div class="ex">${it.exp||''}</div>`;document.querySelectorAll('.card button.op,.card button.big,.symbar button').forEach(x=>{if(x.id!=='nxb')x.disabled=true});const inp=document.getElementById('wa');if(inp)inp.disabled=true;next();return}
   paintRetry(fb);wRetryKeep(it)}
+
+
+function repairUnlocks(){
+  [{'pfx':'nw','levels':LV},{'pfx':'wk','levels':(typeof WLV!=='undefined'?WLV:[])}].forEach(({pfx,levels})=>{
+    const st=ld(pfx+'Stars',{})||{};
+    const out={};
+    Object.keys(st).forEach(k=>{const i=+k,v=+st[k];if(isFinite(i)&&i>=0&&v>=1)out[i]=Math.max(+out[i]||0,v)});
+    const done=Object.keys(out).map(Number).filter(i=>(+out[i]||0)>=1);
+    if(!done.length)return;
+    const max=Math.max(...done);
+    let changed=false;
+    for(let i=0;i<max && i<levels.length;i++){if((+out[i]||0)<1){out[i]=1;changed=true}}
+    const same=Object.keys(st).length===Object.keys(out).length&&Object.keys(out).every(k=>+st[k]===+out[k]);
+    if(changed||!same)sv(pfx+'Stars',out);
+  });
+}
+repairUnlocks();
 
 subjects();
 </script></body></html>
