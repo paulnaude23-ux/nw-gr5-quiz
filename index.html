@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="af"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- nw-v6 --><!-- nw-v7 --><title>NW Gr. 5 Planeet Aarde Quiz 🚀</title><style>
+<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#2a1b4d,#5b3a8c 50%,#2f7f86);color:#2a1b4d;min-height:100vh}
 .wrap{max-width:560px;margin:auto;padding:14px}.card{background:#fff8fd;border-radius:22px;padding:18px;box-shadow:0 8px 30px #0004;margin-top:12px}
 h1{color:#fff;text-align:center;font-size:1.5em;margin:10px 0 0}.sub{color:#ffd6f0;text-align:center;margin:4px 0}
@@ -119,8 +119,16 @@ button.op.ok::before{content:"";position:absolute;right:8px;top:50%;width:40px;h
 .w3.wave .arm{transform-origin:20% 100%;animation:wWv .6s ease-in-out infinite alternate}@keyframes wWv{from{transform:rotate(-18deg)}to{transform:rotate(22deg)}}
 .w3.wave .wb{animation:wHi 2s ease-in-out infinite}@keyframes wHi{50%{transform:rotate(-3deg)}}
 @media (prefers-reduced-motion:reduce){.w3 *,.w3 .wb{animation:none!important}.w3 .lid{transform:scaleY(0)}.w3.sad .lid{transform:scaleY(.5)}}
+
+.vakke{display:flex;flex-direction:column;gap:8px}
+button.vak{display:flex;flex-direction:column;align-items:center;gap:2px;padding:18px 14px;text-align:center;line-height:1.25}
+button.vak .vakic{font-size:2em;line-height:1}
+button.vak small{display:block;font-weight:600;opacity:.95;font-size:.8em;margin-top:4px;white-space:normal}
+.winp input{width:100%;font:inherit;font-size:1.25em;font-weight:700;text-align:center;padding:12px;border:2px solid #e5d8ff;border-radius:14px;margin:8px 0;background:#fff;color:#2a1b4d}
+.mini{width:92px;height:92px;display:block;margin:8px auto}
+.wseq{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:44px;margin:8px 0}
 </style></head><body><canvas id="bg"></canvas><div class="planet p1"></div><div class="planet p2"></div><canvas id="cf"></canvas><div class="wrap">
-<h1>🌍 Planeet Aarde Quiz 🚀</h1><div class="sub">Natuurwetenskap Gr. 5</div><div id="app"></div></div>
+<h1 id="ttl">🌟 Graad 5 Quiz</h1><div class="sub" id="subh">Kies jou vak</div><div id="app"></div></div>
 <script>
 // [vraag, opsies, korrek-indeks, verduideliking, onderwerp]  A=Aarde beweeg, G=Oppervlak/grond
 const ARW='<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#ff5fa8"/></marker></defs>';
@@ -277,9 +285,10 @@ tl:{s:"tl",w:1,msg:"Pas elke fossiel by sy ouderdom! 👆",lab:[["g",58,13,"280 
 const app=document.getElementById('app');let S,SEL=null;const pick=a=>a[Math.floor(Math.random()*a.length)];
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},sv=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
-const best=()=>ld('nwBest',{}),stars=()=>ld('nwStars',{}),foute=()=>ld('nwFoute',[]);
-function addFout(i){const f=foute();if(!f.includes(i)){f.push(i);sv('nwFoute',f)}}
-function delFout(i){sv('nwFoute',foute().filter(x=>x!==i))}
+let SUB='nw';
+const best=()=>ld((SUB==='wk'?'wk':'nw')+'Best',{}),stars=()=>ld((SUB==='wk'?'wk':'nw')+'Stars',{}),foute=()=>ld((SUB==='wk'?'wk':'nw')+'Foute',[]);
+function addFout(i){if(SUB==='wk'){const it=(i&&i.k)?i:S.items[S.i];const f=foute();f.push(JSON.parse(JSON.stringify(it)));sv('wkFoute',f);return}const f=foute();if(!f.includes(i)){f.push(i);sv('nwFoute',f)}}
+function delFout(i){if(SUB==='wk'){const it=(i&&i.k)?i:S.items[S.i];sv('wkFoute',foute().filter(x=>x.q!==it.q));return}sv('nwFoute',foute().filter(x=>x!==i))}
 (()=>{if(!localStorage.getItem('nwV5')){const st=ld('nwStars',{});if(st[7]!=null){st[LV.length-1]=st[7];delete st[7];sv('nwStars',st)}localStorage.setItem('nwV5','1')}})();
 const unlocked=i=>i==0||(stars()[i-1]||0)>=1||(stars()[i]||0)>=1;
 function wurm(m){const sad=m=='sad',hap=m=='happy'||m=='dance';
@@ -453,23 +462,24 @@ function xLock(){S.lock=1;document.querySelectorAll('.card.xi button:not(#nxb),.
 function combo(n){const d=document.createElement('div');d.className='combo';d.innerHTML=`🔥 ${n} op 'n ry!${n>=10?' 🏆':n>=5?' ⚡':''}`;document.body.appendChild(d);setTimeout(()=>d.remove(),1700);setTimeout(()=>{const m=document.getElementById('masc');m&&m.classList.add('dance')},60)}
 addEventListener('resize',()=>{if(X.c&&X.c.t=='match')mDraw()});
 
-function home(){stopCf();const b=best(),st=stars(),f=foute().length,offs=[0,70,95,70,0,-70,-95,-70],H=118,W=320;
+function home(){if(SUB==='wk')return homeW();homeNW()}
+function homeNW(){stopCf();const b=best(),st=stars(),f=foute().length,offs=[0,70,95,70,0,-70,-95,-70],H=118,W=320;
 let pts=[],nodes='',cur0=false;LV.forEach((l,i)=>{const x=W/2+offs[i%8],y=50+i*H;pts.push(x+','+y);const u=unlocked(i),s=st[i]||0,cur=u&&!s&&!cur0;if(cur)cur0=true;const lr=offs[i%8]>0;
 nodes+=`<div class="nd ${u?'':'lk'} ${cur?'cur':''} ${s?'done':''} ${l.test&&!s?'gt':''}" style="left:${x}px;top:${y}px" data-lv="${i}" onclick="${u?`startLevel(${i})`:`mood('sad','Eers die vorige vlak! 🔒')`}"><span>${u?l.ic:'🔒'}</span></div>
 <div class="nl ${lr?'r':''}" style="${lr?`left:${x-48-112}px`:`left:${x+48}px`};top:${y}px"><div class="st">${[1,2,3].map(k=>`<span>${k<=s?'⭐':'☆'}</span>`).join('')}</div>${l.n}</div>`});
 app.innerHTML=`<div class="card">${masc('wave',f?`Hallo! Kom ons leer! Jy het ${f} foute om te oefen 💪`:'Hallo! Ek is Wurmpie. Kom ons leer saam! 🌱')}</div>
 <div class="path" style="height:${LV.length*H+30}px"><svg width="${W}" height="${LV.length*H+30}" style="position:absolute;left:0;top:0"><path d="${curve(pts)}" fill="none" stroke="#ffffff22" stroke-width="16" stroke-linecap="round"/><path d="${curve(pts)}" fill="none" stroke="#ffd6f0" stroke-width="5" stroke-dasharray="1 13" stroke-linecap="round"/></svg>${nodes}</div>
-<div class="card center"><button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
+<div class="card center">${vakBtn()}<button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
 <p><b>Vrye oefening</b></p><button class="teal" onclick="startFree('A','o')">🌍 Die Aarde beweeg: Oefenmodus</button><button class="teal" onclick="startFree('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button><button class="teal" onclick="startFree('S','o')">🧱 Sedimentgesteentes: Oefenmodus</button><button class="teal" onclick="startFree('F','o')">🦴 Fossiele: Oefenmodus</button><button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
 <p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Gesteentes ${b.S??'-'}% · Fossiele ${b.F??'-'}% · Toets ${b.X??'-'}%</p><button class="lnk" onclick="reset()">↺ Herstel vordering</button></div>`}
-function reset(){if(confirm('Is jy seker? Al jou sterre, foute en beste tellings word uitgevee.')){['nwBest','nwStars','nwFoute','nwV5'].forEach(k=>localStorage.removeItem(k));home()}}
+function reset(){if(confirm(SUB==='wk'?'Is jy seker? Jou Wiskunde-sterre, foute en beste tellings word uitgevee.':'Is jy seker? Al jou sterre, foute en beste tellings word uitgevee.')){(SUB==='wk'?['wkBest','wkStars','wkFoute']:['nwBest','nwStars','nwFoute','nwV5']).forEach(k=>localStorage.removeItem(k));home()}}
 function begin(o){stopCf();S=Object.assign({i:0,sc:0,st:0,max:0,tried:false},o);show()}
 const qi=a=>shuf(a).map(i=>({k:'q',i}));
-function startLevel(li){const l=LV[li];if(!unlocked(li))return;begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:qi(Q.map((_,i)=>i))}:{mode:'lvl',lv:li,t:l.t,m:'o',items:qi(l.q).concat((l.d||[]).map(d=>({k:'d',d})))})}
-function startFree(t,m){begin({mode:'free',t,m,items:qi(Q.map((_,i)=>i).filter(i=>t=='X'||Q[i][4]==t))})}
-function startFoute(){const f=foute();if(!f.length)return;begin({mode:'foute',t:'X',m:'o',items:qi(f)})}
-function hdr(){const n=S.items.length;return `<div class="top"><button class="x" onclick="home()">✕</button><span>${S.mode=='lvl'?LV[S.lv].n:S.mode=='foute'?'My foute':'Vrye oefening'} · ${S.i+1}/${n}</span><span><span class="fl">🔥</span> ${S.st} · ⭐ <span id="scv">${S.sc}</span></span></div><div class="bar"><div class="fill" style="width:${Math.max(0,S.i-1)/n*100}%" data-w="${S.i/n*100}"></div></div>`}
-function show(){S.tried=false;SEL=null;const it=S.items[S.i];if(it.k=='d')return showDrag(it.d);const q=Q[it.i];const cv=CV[it.i];if(cv&&cv.t!='mc')return showX(it.i,cv);
+function startLevel(li){const l=LVS()[li];if(!unlocked(li))return;if(SUB==='wk'){begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:genAllTest(12)}:{mode:'lvl',lv:li,t:l.t,m:'o',items:genLevel(l)});return}begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:qi(Q.map((_,i)=>i))}:{mode:'lvl',lv:li,t:l.t,m:'o',items:qi(l.q).concat((l.d||[]).map(d=>({k:'d',d})))})}
+function startFree(t,m){if(SUB==='wk'){begin({mode:'free',t,m,items:t==='X'?genAllTest(12):genByTag(t,10)});return}begin({mode:'free',t,m,items:qi(Q.map((_,i)=>i).filter(i=>t=='X'||Q[i][4]==t))})}
+function startFoute(){const f=foute();if(!f.length)return;begin({mode:'foute',t:'X',m:'o',items:SUB==='wk'?shuf(f.slice()):qi(f)})}
+function hdr(){const n=S.items.length;return `<div class="top"><button class="x" onclick="home()">✕</button><span>${S.mode=='lvl'?LVS()[S.lv].n:S.mode=='foute'?'My foute':'Vrye oefening'} · ${S.i+1}/${n}</span><span><span class="fl">🔥</span> ${S.st} · ⭐ <span id="scv">${S.sc}</span></span></div><div class="bar"><div class="fill" style="width:${Math.max(0,S.i-1)/n*100}%" data-w="${S.i/n*100}"></div></div>`}
+function show(){S.tried=false;S.done=false;SEL=null;const it=S.items[S.i];if(it.k=='w')return showW();if(it.k=='d')return showDrag(it.d);const q=Q[it.i];const cv=CV[it.i];if(cv&&cv.t!='mc')return showX(it.i,cv);
 const o=q[1].map((x,k)=>[x,k==q[2]]);S.cur=q[1].length==2?o:shuf(o);
 app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi... 🤔')}<span class="tag">${TAG[q[4]]}</span>
 ${mcPic(it.i)?`<div class="pic">${mcPic(it.i)}</div>`:''}<div class="q">${q[0]}</div>${S.cur.map((o,k)=>`<button class="op" id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
@@ -501,9 +511,9 @@ if(n>=+t.dataset.n)t.classList.add('ok');
 if(document.querySelectorAll('.chip:not(.done)').length==0){if(!S.tried)hit();const g=pick(GOOD);mood('happy',g);document.getElementById('fb').innerHTML=g+'<div class="ex">Alles is reg!</div>';next()}else mood('happy','Reg! 👍 Nog een...')}
 else{S.tried=true;S.st=0;vib([40,40,40]);t.classList.add('bad');setTimeout(()=>t.classList.remove('bad'),600);mood('sad',pick(BAD))}}
 function end(){const n=S.items.length,p=Math.round(S.sc/n*100);let extra='',nb=false;
-if(S.mode!='foute'&&(S.mode=='free'||LV[S.lv].test)){const b=best();if(p>(b[S.t]??-1)){b[S.t]=p;sv('nwBest',b);nb=true}}
+if(S.mode!='foute'&&(S.mode=='free'||LVS()[S.lv].test)){const b=best();if(p>(b[S.t]??-1)){b[S.t]=p;sv('nwBest',b);nb=true}}
 let s=0;if(S.mode=='lvl'){s=p==100?3:p>=80?2:p>=50?1:0;const st=stars();if(s>(st[S.lv]||0)){st[S.lv]=s;sv('nwStars',st)}
-extra=`<div class="big3">${[1,2,3].map(k=>`<span style="animation-delay:${.5+k*.35}s">${k<=s?'⭐':'☆'}</span>`).join('')}</div>`+(s?(S.lv+1<LV.length?`<p>🔓 Volgende vlak oop: <b>${LV[S.lv+1].n}</b></p><button class="big" onclick="startLevel(${S.lv+1})">Volgende vlak ➜</button>`:''):'<p>Kry minstens 50% om die volgende vlak oop te sluit.</p>')}
+extra=`<div class="big3">${[1,2,3].map(k=>`<span style="animation-delay:${.5+k*.35}s">${k<=s?'⭐':'☆'}</span>`).join('')}</div>`+(s?(S.lv+1<LVS().length?`<p>🔓 Volgende vlak oop: <b>${LVS()[S.lv+1].n}</b></p><button class="big" onclick="startLevel(${S.lv+1})">Volgende vlak ➜</button>`:''):'<p>Kry minstens 50% om die volgende vlak oop te sluit.</p>')}
 if(S.mode=='foute')extra=`<p>Foute oor: ${foute().length}</p>`;
 const bd=[],BG={A:'🌟 Ruimte-Ster',G:'🌱 Grond-Genie',S:'🧱 Rots-Ridder',F:'🦕 Fossiel-Speurder'};if(p>=80)Object.keys(BG).forEach(k=>{if(S.t==k||S.t=='X')bd.push(BG[k])});if(S.max>=5)bd.push(`🔥 Vuurstreep (${S.max} op 'n ry)`);if(p==100)bd.push('👑 Perfek!');
 const msg=p>=80?'Jy is fantasties! 🎉':p>=50?'Mooi so! Oefen nog \'n bietjie 💜':'Goeie poging! Probeer weer, jy gaan dit kry 💪';
@@ -519,5 +529,229 @@ let P=Array.from({length:150},()=>({x:Math.random()*c.width,y:-Math.random()*c.h
 new MutationObserver(()=>{app.classList.remove('in');void app.offsetWidth;app.classList.add('in');requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.fill[data-w]').forEach(f=>f.style.width=f.dataset.w+'%')))}).observe(app,{childList:true});
 (function(){const c=document.getElementById('bg'),x=c.getContext('2d');let W,H,St;function rs(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(d,0,0,d,0,0);St=Array.from({length:Math.round(W*H/5000)},()=>({x:Math.random()*W,y:Math.random()*H,r:.5+Math.random()*1.4,p:Math.random()*6,s:.5+Math.random()*1.5}))}
 rs();addEventListener('resize',rs);let last=0;function f(t){if(t-last>66){last=t;x.clearRect(0,0,W,H);for(const s of St){x.globalAlpha=RM?.7:.35+.65*Math.abs(Math.sin(s.p+t/1000*s.s));x.fillStyle='#fff';x.beginPath();x.arc(s.x,s.y,s.r,0,6.3);x.fill()}}if(!RM&&!document.hidden)requestAnimationFrame(f)}requestAnimationFrame(f);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!RM)requestAnimationFrame(f)})})();
-home();
+
+/* ==== Wiskunde v8 ==== */
+const LVS=()=>SUB==='wk'?WLV:LV;
+const _pfx=()=>SUB==='wk'?'wk':'nw';
+function setHead(t,s){const h=document.getElementById('ttl'),u=document.getElementById('subh');if(h)h.innerHTML=t;if(u)u.textContent=s}
+function subjects(){stopCf();SUB='nw';setHead('🌟 Graad 5 Quiz','Kies jou vak');
+app.innerHTML=`<div class="card">${masc('wave','Hallo! Ek is Wurmpie. Kies Wiskunde of Natuurwetenskap — kom ons oefen saam! 🌱')}</div>
+<div class="card center vakke">
+<button class="big vak" onclick="openWK()"><span class="vakic">✏️</span><span>Wiskunde</span><small>Oefen vir jou eksamen — heelgetalle, breuke, meting en meer</small></button>
+<button class="teal vak" onclick="openNW()"><span class="vakic">🌍</span><span>Natuurwetenskap</span><small>Planeet Aarde — wentel, grond, gesteentes en fossiele</small></button>
+</div>`}
+function openNW(){SUB='nw';setHead('🌍 Planeet Aarde Quiz 🚀','Natuurwetenskap Gr. 5');home()}
+function openWK(){SUB='wk';setHead('✏️ Wiskunde Quiz','Wiskunde · Graad 5 · CAPS');home()}
+function vakBtn(){return `<button class="lnk" onclick="subjects()">← Terug na vakke</button>`}
+
+const WLV=[
+{n:"Heelgetalle",ic:"🔢",t:"H",gen:"heel"},
+{n:"Getalsinne",ic:"🧮",t:"S",gen:"sin"},
+{n:"Optel & aftrek",ic:"➕",t:"O",gen:"optel"},
+{n:"Vermenigvuldig",ic:"✖️",t:"V",gen:"verm"},
+{n:"Deling",ic:"➗",t:"D",gen:"deel"},
+{n:"Patrone",ic:"🔁",t:"P",gen:"pat"},
+{n:"Breuke",ic:"🍕",t:"B",gen:"breuk"},
+{n:"2D- & 3D-vorms",ic:"📐",t:"W",gen:"vorm"},
+{n:"Meting: lengte, tyd, massa, kapasiteit",ic:"📏",t:"M",gen:"meting"},
+{n:"Omtrek, data & transformasie",ic:"📊",t:"R",gen:"omtrek"},
+{n:"Groot Toets",ic:"🏆",t:"X",test:true}];
+
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const rp=a=>a[Math.floor(Math.random()*a.length)];
+function fmt(n){const neg=n<0;n=Math.abs(n);const [i,d]=String(n).split('.');const g=i.replace(/\B(?=(\d{3})+(?!\d))/g,' ');return (neg?'-':'')+g+(d!==undefined?','+d:'')}
+function parseAns(s){s=(''+s).trim().toLowerCase().replace(/\s+/g,'').replace(/^r/,'').replace(/r$/,'');
+ s=s.replace(/cm\^?3|cm³|cm2|cm²|ml|mm|cm|km|kg|g|ℓ|l$|min|uur/g,'').replace(',','.');
+ if(/restant|oorskot|r(?=\d)/.test(s)){const m=s.match(/(-?\d+(?:\.\d+)?)(?:restant|oorskot|r)(-?\d+)/);if(m)return {n:+m[1],r:+m[2],kind:'rem'}}
+ if(s.includes('/')){const p=s.split('/');if(p.length===2&&+p[1])return {n:+p[0]/+p[1],kind:'num',raw:s}}
+ const n=Number(s);return {n,kind:'num',raw:s}}
+function numEq(user,exp){const u=parseAns(user);if(typeof exp==='object'&&exp.rem!=null){if(u.kind==='rem')return u.n===exp.q&&u.r===exp.rem;if(u.kind==='num'&&exp.rem===0)return u.n===exp.q;return false}
+ if(typeof exp==='string'){const es=exp.trim().toLowerCase().replace(/\s+/g,'');const us=(''+user).trim().toLowerCase().replace(/\s+/g,'');if(us===es)return true;if(Array.isArray(exp))return exp.some(e=>numEq(user,e))}
+ if(Array.isArray(exp))return exp.some(e=>numEq(user,e));
+ const ev=typeof exp==='number'?exp:parseAns(exp).n;
+ if(u.kind==='num'&&isFinite(u.n)&&isFinite(ev))return Math.abs(u.n-ev)<1e-9;
+ return false}
+
+function Witem(o){return Object.assign({k:'w',tag:'Wiskunde'},o)}
+
+/* ---- generators ---- */
+function gSyfers(){const n=ri(100000,999999);return Witem({typ:'type',tag:'Heelgetalle',q:`Skryf in syfers: <b>${fmt(n)}</b> is alreeds in syfers… wag, wat is die getal as jy dit so lees: <b>${fmt(n)}</b>? Skryf die getal.`,a:n,exp:`Die getal is ${fmt(n)}.`,easy:1})}
+function gPlek(){const n=ri(100000,999999);const s=String(n);const i=ri(0,s.length-1);const dig=+s[i];const val=dig*Math.pow(10,s.length-1-i);
+  const plek=['honderdduisende','tienduisende','duisende','honderde','tiene','eenhede'][i];
+  return Witem({typ:'type',tag:'Plekwaarde',q:'Wat is die plekwaarde van die syfer <b>'+dig+'</b> in <b>'+fmt(n)+'</b>?',a:[val,fmt(val)],exp:'Die '+dig+' staan in die '+plek+'-plek, dus is die plekwaarde '+fmt(val)+'.'})}
+function gRang(){let a=[];while(a.length<4){const n=ri(10000,99999);if(!a.includes(n))a.push(n)}
+  const up=Math.random()<.5;const sorted=a.slice().sort((x,y)=>up?x-y:y-x);
+  return Witem({typ:'order',tag:'Rangskik',q:`Tik die getalle van die <b>${up?'kleinste na die grootste':'grootste na die kleinste'}</b>.`,opts:a.map(fmt),a:sorted.map(fmt),exp:`Die regte volgorde is ${sorted.map(fmt).join(' ; ')}.`})}
+function gAfrond(){const kind=rp([10,100,1000]);const n=ri(1000,99999);const a=kind*Math.round(n/kind);
+  return Witem({typ:'type',tag:'Afronding',q:`Rond <b>${fmt(n)}</b> af tot die naaste ${fmt(kind)}.`,a:[a,fmt(a)],exp:`${fmt(n)} afgerond tot die naaste ${fmt(kind)} is ${fmt(a)}.`})}
+function gTel(){const st=rp([25,50,100,1000]);const start=st*ri(8,40);const dir=rp([1,-1]);const seq=[start,start+dir*st,start+2*dir*st];
+  const ans1=start+3*dir*st,ans2=start+4*dir*st;
+  return Witem({typ:'type',tag:'Tel',q:`Tel ${dir>0?'vorentoe':'agteruit'} in ${st}’s: <b>${seq.map(fmt).join(' ; ')} ; ________ ; ________</b><br>Skryf die twee ontbrekende getalle, geskei met ’n kommapunt of spasie.`,a:{two:[ans1,ans2]},exp:`Die volgende twee getalle is ${fmt(ans1)} en ${fmt(ans2)}.`})}
+function gVergelyk(){let a=ri(10000,99999),b=ri(10000,99999);if(Math.random()<.2)b=a;
+  const sym=a>b?'>':a<b?'<':'=';
+  return Witem({typ:'choice',tag:'Vergelyk',q:`Kies die regte teken: <b>${fmt(a)}  ☐  ${fmt(b)}</b>`,opts:['>','<','='],ai:['>','<','='].indexOf(sym),exp:`${fmt(a)} ${sym} ${fmt(b)}`})}
+function gUitrek(){const n=ri(10000,99999);const s=String(n);const parts=[];for(let i=0;i<s.length;i++){if(s[i]!='0')parts.push(+s[i]*10**(s.length-1-i))}
+  return Witem({typ:'type',tag:'Uitgerekte notasie',q:`Skryf <b>${fmt(n)}</b> in uitgerekte notasie. (bv. 300 000 + 4 000 + 20)`,a:parts.join('+'),exp:`${fmt(n)} = ${parts.map(fmt).join(' + ')}.`,check:'expand'})}
+
+function gSin(){const typ=ri(0,3);
+  if(typ===0){const a=ri(2000,8000)*10,s=ri(1000,4000)*10;return Witem({typ:'type',tag:'Getalsin',q:`${fmt(a)} + ________ = ${fmt(a+s)}. Wat is die ontbrekende getal?`,a:s,exp:`${fmt(a)} + ${fmt(s)} = ${fmt(a+s)}.`})}
+  if(typ===1){const b=ri(6,12),p=ri(8,20);return Witem({typ:'type',tag:'Getalsin',q:`${b} × ________ = ${b*p}. Wat is die ontbrekende getal?`,a:p,exp:`${b} × ${p} = ${b*p}.`})}
+  if(typ===2){const b=ri(6,12),p=ri(8,20);return Witem({typ:'type',tag:'Getalsin',q:`________ ÷ ${b} = ${p}. Wat is die ontbrekende getal?`,a:b*p,exp:`${b*p} ÷ ${b} = ${p}.`})}
+  const pak=ri(3,8),elk=ri(12,36),weg=ri(5,20);return Witem({typ:'type',tag:'Getalsin',q:`Thabo het ${pak} pakke met ${elk} potlode elk. Hy gee ${weg} weg. Hoeveel het hy oor?`,a:pak*elk-weg,exp:`(${pak} × ${elk}) − ${weg} = ${pak*elk-weg}.`})}
+
+function gOptel(){const typ=ri(0,2);
+  if(typ===0){const a=ri(10000,89999),b=ri(10000,99999-a);return Witem({typ:'type',tag:'Optel',q:`Bereken: <b>${fmt(a)} + ${fmt(b)}</b>`,a:a+b,exp:`${fmt(a)} + ${fmt(b)} = ${fmt(a+b)}.`})}
+  if(typ===1){const a=ri(20000,90000),b=ri(10000,a-1000);return Witem({typ:'type',tag:'Aftrek',q:`Bereken: <b>${fmt(a)} − ${fmt(b)}</b>`,a:a-b,exp:`${fmt(a)} − ${fmt(b)} = ${fmt(a-b)}.`})}
+  const spaar=ri(15000,40000),kos=ri(5000,spaar-1000);return Witem({typ:'type',tag:'Woordsom',q:`Lisa het R${fmt(spaar)} gespaar. Sy koop iets vir R${fmt(kos)}. Hoeveel het sy oor?`,a:spaar-kos,exp:`R${fmt(spaar)} − R${fmt(kos)} = R${fmt(spaar-kos)}.`})}
+
+function gVerm(){const typ=ri(0,2);
+  if(typ===0){const a=ri(12,99),b=ri(3,9);return Witem({typ:'type',tag:'Vermenigvuldig',q:`Bereken: <b>${a} × ${b}</b>`,a:a*b,exp:`${a} × ${b} = ${fmt(a*b)}.`})}
+  if(typ===1){const a=ri(101,499),b=ri(12,28);return Witem({typ:'type',tag:'Vermenigvuldig',q:`Bereken: <b>${fmt(a)} × ${b}</b> (jy mag op papier werk).`,a:a*b,exp:`${fmt(a)} × ${b} = ${fmt(a*b)}.`})}
+  const dos=ri(24,48),aant=ri(25,125);return Witem({typ:'type',tag:'Woordsom',q:`’n Doos bevat ${dos} potlode. Die skool koop ${aant} dosies. Hoeveel potlode is dit altesaam?`,a:dos*aant,exp:`${aant} × ${dos} = ${fmt(dos*aant)}.`})}
+
+function gDeel(){const typ=ri(0,2);
+  if(typ===0){const b=ri(6,12),q=ri(12,40);return Witem({typ:'type',tag:'Deling',q:`Bereken: <b>${b*q} ÷ ${b}</b>`,a:q,exp:`${b*q} ÷ ${b} = ${q}.`})}
+  if(typ===1){const b=ri(11,18),q=ri(21,55),r=ri(1,b-1);const n=b*q+r;return Witem({typ:'type',tag:'Deling',q:`Bereken: <b>${fmt(n)} ÷ ${b}</b><br>Skryf die antwoord as <b>kwosiënt restant …</b> (bv. 23 restant 4).`,a:{q,rem:r},exp:`${fmt(n)} ÷ ${b} = ${q} restant ${r} (kontrole: ${b} × ${q} + ${r} = ${n}).`})}
+  const b=ri(8,15),q=ri(20,60),r=ri(0,b-1),n=b*q+r;
+  return Witem({typ:'type',tag:'Woordsom',q:`${fmt(n)} leerders word in groepe van ${b} verdeel. Hoeveel <b>volle groepe</b> is daar, en hoeveel leerders bly oor?<br>Skryf bv. <b>${q} restant ${r}</b>.`,a:{q,rem:r},exp:`${q} volle groepe en ${r} oorbly.`})}
+
+function gPat(){const typ=ri(0,2);
+  if(typ===0){const s=ri(3,9),a=ri(2,20);const seq=[a,a+s,a+2*s,a+3*s];return Witem({typ:'type',tag:'Numeriese patroon',q:`Voltooi die patroon: <b>${seq.join(' ; ')} ; ________ ; ________</b>`,a:{two:[a+4*s,a+5*s]},exp:`Die verskil is +${s}, dus ${a+4*s} en ${a+5*s}.`})}
+  if(typ===1){const m=ri(2,5),c=ri(1,9);const ins=[3,5,7,10];const outs=ins.map(x=>x*m+c);
+    return Witem({typ:'type',tag:'Intree/uittree',q:`Die reël is: vermenigvuldig met ${m} en tel ${c} by. Wat is die uittree vir intree <b>10</b>?<br><small>Kontrole: 3 → ${outs[0]}, 5 → ${outs[1]}, 7 → ${outs[2]}.</small>`,a:outs[3],exp:`10 × ${m} + ${c} = ${outs[3]}.`})}
+  const n=ri(6,12);return Witem({typ:'type',tag:'Meetkundige patroon',q:`’n Stokkiepatroon: Figuur 1 het 3 stokkies, Figuur 2 het 5, Figuur 3 het 7 (tel telkens 2 by). Hoeveel stokkies het <b>Figuur ${n}</b>?`,a:2*n+1,exp:`Stokkies = 2 × ${n} + 1 = ${2*n+1}.`})}
+
+function gBreuk(){const typ=ri(0,4);
+  if(typ===0){const k=rp([2,3,4,5]);const n=2;const den=k*n;const num=rp([1,2])*n; if(num>=den)return gBreuk();
+    return Witem({typ:'type',tag:'Gelykwaardige breuke',q:`Skryf ’n breuk wat gelykwaardig is aan <b>${num/n}/${k}</b> (maar nie dieselfde nie). Skryf as teller/noemer, bv. 4/6.`,a:{eq:[num/n,k]},exp:`Bv. ${num}/${den} is gelykwaardig aan ${num/n}/${k}.`,check:'eq'})}
+  if(typ===1){const dens=[[1,8],[3,8],[1,2],[3,4]];const sh=shuf(dens.slice());
+    const lab=sh.map(([a,b])=>`${a}/${b}`);
+    const sorted=dens.slice().sort((p,q)=>p[0]/p[1]-q[0]/q[1]).map(([a,b])=>`${a}/${b}`);
+    return Witem({typ:'order',tag:'Rangskik breuke',q:`Rangskik van die kleinste na die grootste.`,opts:lab,a:sorted,exp:`Die volgorde is ${sorted.join(' ; ')}.`})}
+  if(typ===2){const d=rp([6,8,10,12]);const a=ri(1,d-2),b=ri(1,d-a-0);if(a+b>d)return gBreuk();
+    return Witem({typ:'type',tag:'Tel breuke by',q:`Bereken: <b>${a}/${d} + ${b}/${d}</b>. Skryf as ’n breuk (jy mag vereenvoudig).`,a:{frac:[a+b,d]},exp:`${a}/${d} + ${b}/${d} = ${a+b}/${d}.`,check:'frac'})}
+  if(typ===3){const d=rp([5,6,8]);const a=ri(2,d-1),b=ri(1,a-1);
+    return Witem({typ:'type',tag:'Trek breuke af',q:`Bereken: <b>${a}/${d} − ${b}/${d}</b>. Skryf as ’n breuk (jy mag vereenvoudig).`,a:{frac:[a-b,d]},exp:`${a}/${d} − ${b}/${d} = ${a-b}/${d}.`,check:'frac'})}
+  const wh=rp([12,16,20,24,32,36]);
+  const k=rp([2,3,4].filter(function(x){return wh%x===0}));
+  const num=k===4?3:1, den=k===4?4:k, ans=num*wh/den;
+  return Witem({typ:'type',tag:'Breuk van ’n getal',q:'Wat is <b>'+num+'/'+den+'</b> van <b>'+wh+'</b>?',a:ans,exp:num+'/'+den+' van '+wh+' = '+ans+'.'})}
+function gVorm(){const typ=ri(0,3);
+  if(typ===0){const shapes=[['Vierkant',sqSVG()],['Reghoek',rectSVG()],['Driehoek',triSVG()],['Seshoek',hexSVG()]];
+    const i=ri(0,3);const sh=shuf(shapes.slice());
+    return Witem({typ:'choice',tag:'2D-vorms',q:`Wat is die naam van hierdie vorm?<br>${shapes[i][1]}`,opts:sh.map(s=>s[0]),ai:sh.findIndex(s=>s[0]===shapes[i][0]),exp:`Dit is ’n ${shapes[i][0].toLowerCase()}.`})}
+  if(typ===1){const names=['Kubus','Reghoekige prisma','Silinder','Keël'];
+    const pics=[cubeSVG(),prismSVG(),cylSVG(),coneSVG()];
+    const i=ri(0,3);const or=shuf([0,1,2,3]);
+    return Witem({typ:'choice',tag:'3D-vorms',q:`Wat is die naam van hierdie voorwerp?<br>${pics[i]}`,opts:or.map(k=>names[k]),ai:or.indexOf(i),exp:`Dit is ’n ${names[i].toLowerCase()}.`})}
+  if(typ===2)return Witem({typ:'type',tag:'3D-eienskappe',q:`’n Kubus het hoeveel vlakke, rande en hoekpunte? Skryf drie getalle, bv. <b>6 12 8</b>.`,a:{three:[6,12,8]},exp:`’n Kubus het 6 vlakke, 12 rande en 8 hoekpunte.`});
+  return Witem({typ:'choice',tag:'Hoeke',q:`’n Hoek van 90° noem ons ’n …`,opts:['regte hoek','skerp hoek','stomphoek','reguit hoek'],ai:0,exp:`’n Hoek van 90° is ’n regte hoek.`})}
+
+function gMeting(){const typ=ri(0,5);
+  if(typ===0){const m=ri(2,9);return Witem({typ:'type',tag:'Lengte',q:`Skakel om: <b>${m} m = ________ cm</b>`,a:m*100,exp:`1 m = 100 cm, dus ${m} m = ${m*100} cm.`})}
+  if(typ===1){const cm=rp([30,45,60,80,120]);return Witem({typ:'type',tag:'Lengte',q:`Skakel om: <b>${cm} cm = ________ mm</b>`,a:cm*10,exp:`1 cm = 10 mm, dus ${cm} cm = ${cm*10} mm.`})}
+  if(typ===2){const km=rp([2,3,4,5]);return Witem({typ:'type',tag:'Lengte',q:`Skakel om: <b>${km*1000} m = ________ km</b>`,a:km,exp:`1 km = 1 000 m, dus ${fmt(km*1000)} m = ${km} km.`})}
+  if(typ===3){const l=rp([1,2,3,4]);const cup=rp([200,250,500]);return Witem({typ:'type',tag:'Kapasiteit',q:`’n Bottel hou ${l} ℓ. Hoeveel koppies van ${cup} ml elk kan jy uit die volle bottel skink?`,a:(l*1000)/cup,exp:`${l} ℓ = ${fmt(l*1000)} ml; ${fmt(l*1000)} ÷ ${cup} = ${(l*1000)/cup}.`})}
+  if(typ===4){const kg=rp([1,2,3]);const g=rp([250,500,750]);return Witem({typ:'type',tag:'Massa',q:`${kg} kg ${g>0?`+ ${g} g`:''} = ________ g`,a:kg*1000+g,exp:`${kg} kg = ${fmt(kg*1000)} g, plus ${g} g = ${fmt(kg*1000+g)} g.`})}
+  const h=ri(13,16),m=rp([0,10,15,20,30,40,45]);
+  const addh=1,addm=rp([20,30,40,50,55]);
+  let nh=h+addh,nm=m+addm;if(nm>=60){nh++;nm-=60}
+  const pad=x=>String(x).padStart(2,'0');
+  return Witem({typ:'type',tag:'Tyd',q:`’n Film begin om <b>${h}:${pad(m)}</b> en duur ${addh} uur ${addm} minute. Wanneer is dit verby? Skryf as uu:mm (24-uur-tyd).`,a:`${nh}:${pad(nm)}`,exp:`${h}:${pad(m)} + ${addh} uur ${addm} min = ${nh}:${pad(nm)}.`,check:'time'})}
+
+function gOmtrek(){const typ=ri(0,4);
+  if(typ===0){const l=ri(5,15),b=ri(3,10);return Witem({typ:'type',tag:'Omtrek',q:`’n Reghoek is ${l} cm lank en ${b} cm breed. Wat is die omtrek in cm?`,a:2*(l+b),exp:`Omtrek = 2 × (${l} + ${b}) = ${2*(l+b)} cm.`})}
+  if(typ===1){const l=ri(4,12),b=ri(3,10);return Witem({typ:'type',tag:'Oppervlakte',q:`’n Reghoek is ${l} cm lank en ${b} cm breed. Wat is die oppervlakte in cm²?`,a:l*b,exp:`Oppervlakte = ${l} × ${b} = ${l*b} cm².`})}
+  if(typ===2){const l=ri(2,5),b=ri(2,4),h=ri(2,4);return Witem({typ:'type',tag:'Volume',q:`’n Reghoekige prisma is ${l} cm lank, ${b} cm breed en ${h} cm hoog. Wat is die volume in cm³? (Jy mag die kubusies tel: l × b × h.)`,a:l*b*h,exp:`Volume = ${l} × ${b} × ${h} = ${l*b*h} cm³.`})}
+  if(typ===3){const vals=[ri(5,12),ri(5,12),ri(8,16),ri(3,8),ri(6,14)];const names=['Appels','Piesangs','Lemoene','Druiwe','Spanspek'];
+    const qtyp=rp(['max','sum','diff']);
+    if(qtyp==='max'){const mx=Math.max(...vals),nm=names[vals.indexOf(mx)];return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Watter vrug is die modus (die meeste gekies)? Skryf die naam.`,a:nm.toLowerCase(),exp:`Die modus is ${nm} (${mx}).`,check:'text'})}
+    if(qtyp==='sum'){const s=vals.reduce((a,b)=>a+b,0);return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Hoeveel leerders het in die geheel gestem?`,a:s,exp:`Totaal = ${vals.join(' + ')} = ${s}.`})}
+    const i=0,j=2;const d=Math.abs(vals[i]-vals[j]);return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Hoeveel meer leerders het ${vals[j]>=vals[i]?names[j]:names[i]} as ${vals[j]>=vals[i]?names[i]:names[j]} gekies?`,a:d,exp:`${Math.max(vals[i],vals[j])} − ${Math.min(vals[i],vals[j])} = ${d}.`})}
+  return Witem({typ:'choice',tag:'Transformasie',q:`As jy ’n vorm oor ’n simmetrielyn <b>spiegel</b>, noem ons dit ’n …`,opts:['weerkaatsing','verskuiwing','rotasie','vergroting'],ai:0,exp:`’n Spiegeling oor ’n lyn is ’n weerkaatsing.`})}
+
+/* SVG miniatures */
+function sqSVG(){return `<svg class="mini" viewBox="0 0 80 80"><rect x="12" y="12" width="56" height="56" fill="#ffe8cc" stroke="#2a1b4d" stroke-width="2"/></svg>`}
+function rectSVG(){return `<svg class="mini" viewBox="0 0 80 80"><rect x="8" y="22" width="64" height="36" fill="#d8f3dc" stroke="#2a1b4d" stroke-width="2"/></svg>`}
+function triSVG(){return `<svg class="mini" viewBox="0 0 80 80"><polygon points="12,68 40,12 68,68" fill="#caf0f8" stroke="#2a1b4d" stroke-width="2"/><path d="M12 56 L24 56 L24 68" fill="none" stroke="#2a1b4d" stroke-width="1.5"/></svg>`}
+function hexSVG(){return `<svg class="mini" viewBox="0 0 80 80"><polygon points="40,8 70,24 70,56 40,72 10,56 10,24" fill="#e0b1cb" stroke="#2a1b4d" stroke-width="2"/></svg>`}
+function cubeSVG(){return `<svg class="mini" viewBox="0 0 80 80"><path d="M20,32 L40,20 L60,32 L60,54 L40,66 L20,54 Z" fill="#f4d6a0" stroke="#2a1b4d" stroke-width="1.5"/><path d="M40,20 L40,66 M20,32 L40,44 L60,32" fill="none" stroke="#2a1b4d" stroke-width="1.2"/></svg>`}
+function prismSVG(){return `<svg class="mini" viewBox="0 0 80 80"><path d="M10,36 L34,22 L70,30 L70,52 L46,66 L10,58 Z" fill="#bde0fe" stroke="#2a1b4d" stroke-width="1.5"/><path d="M34,22 L34,48 L10,58 M34,48 L70,52" fill="none" stroke="#2a1b4d" stroke-width="1.2"/></svg>`}
+function cylSVG(){return `<svg class="mini" viewBox="0 0 80 80"><ellipse cx="40" cy="22" rx="18" ry="7" fill="#c8e6d0" stroke="#2a1b4d" stroke-width="1.5"/><path d="M22,22 V54" stroke="#2a1b4d" stroke-width="1.5" fill="none"/><path d="M58,22 V54" stroke="#2a1b4d" stroke-width="1.5" fill="none"/><ellipse cx="40" cy="54" rx="18" ry="7" fill="#90c8a0" stroke="#2a1b4d" stroke-width="1.5"/></svg>`}
+function coneSVG(){return `<svg class="mini" viewBox="0 0 80 80"><path d="M40,10 L18,58 L62,58 Z" fill="#f2b5d0" stroke="#2a1b4d" stroke-width="1.5"/><ellipse cx="40" cy="58" rx="22" ry="7" fill="#e6a0c0" stroke="#2a1b4d" stroke-width="1.5"/></svg>`}
+
+const WGEN={heel:[gPlek,gRang,gAfrond,gTel,gVergelyk,gUitrek],sin:[gSin],optel:[gOptel],verm:[gVerm],deel:[gDeel],pat:[gPat],breuk:[gBreuk],vorm:[gVorm],meting:[gMeting],omtrek:[gOmtrek]};
+
+function genFrom(fns,n){const items=[];const bag=fns.slice();for(let i=0;i<n;i++){let it,tries=0;do{it=bag[i%bag.length]();tries++}while(!it&&tries<8);if(it)items.push(it)}return shuf(items)}
+function genLevel(l){if(l.test)return genAllTest(12);return genFrom(WGEN[l.gen],9)}
+function genAllTest(n){const all=Object.values(WGEN).flat();return genFrom(all,n)}
+function genByTag(t,n){if(t==='X')return genAllTest(n);const l=WLV.find(x=>x.t===t);return l?genLevel(Object.assign({},l,{test:false})):genAllTest(n)}
+
+/* ---- home / start / show for Wiskunde ---- */
+function homeW(){stopCf();const b=best(),st=stars(),f=foute().length,offs=[0,70,95,70,0,-70,-95,-70],H=118,W=320;
+let pts=[],nodes='',cur0=false;WLV.forEach((l,i)=>{const x=W/2+offs[i%8],y=50+i*H;pts.push(x+','+y);const u=unlocked(i),s=st[i]||0,cur=u&&!s&&!cur0;if(cur)cur0=true;const lr=offs[i%8]>0;
+nodes+=`<div class="nd ${u?'':'lk'} ${cur?'cur':''} ${s?'done':''} ${l.test&&!s?'gt':''}" style="left:${x}px;top:${y}px" data-lv="${i}" onclick="${u?`startLevel(${i})`:`mood('sad','Eers die vorige vlak! 🔒')`}"><span>${u?l.ic:'🔒'}</span></div>
+<div class="nl ${lr?'r':''}" style="${lr?`left:${x-48-112}px`:`left:${x+48}px`};top:${y}px"><div class="st">${[1,2,3].map(k=>`<span>${k<=s?'⭐':'☆'}</span>`).join('')}</div>${l.n}</div>`});
+app.innerHTML=`<div class="card">${masc('wave',f?`Hallo! Kom ons oefen Wiskunde! Jy het ${f} foute om weer te probeer 💪`:'Hallo! Kom ons oefen Wiskunde vir jou eksamen! 🌟')}</div>
+<div class="path" style="height:${WLV.length*H+30}px"><svg width="${W}" height="${WLV.length*H+30}" style="position:absolute;left:0;top:0"><path d="${curve(pts)}" fill="none" stroke="#ffffff22" stroke-width="16" stroke-linecap="round"/><path d="${curve(pts)}" fill="none" stroke="#ffd6f0" stroke-width="5" stroke-dasharray="1 13" stroke-linecap="round"/></svg>${nodes}</div>
+<div class="card center">${vakBtn()}
+<button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
+<p><b>Vrye oefening</b></p>
+<button class="teal" onclick="startFree('H','o')">🔢 Heelgetalle</button>
+<button class="teal" onclick="startFree('O','o')">➕ Optel & aftrek</button>
+<button class="teal" onclick="startFree('V','o')">✖️ Vermenigvuldig</button>
+<button class="teal" onclick="startFree('D','o')">➗ Deling</button>
+<button class="teal" onclick="startFree('B','o')">🍕 Breuke</button>
+<button class="teal" onclick="startFree('M','o')">📏 Meting</button>
+<button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
+<p>🏆 Beste tellings: Heelgetalle ${b.H??'-'}% · Optel ${b.O??'-'}% · Maal ${b.V??'-'}% · Deel ${b.D??'-'}% · Breuke ${b.B??'-'}% · Meting ${b.M??'-'}% · Toets ${b.X??'-'}%</p>
+<button class="lnk" onclick="reset()">↺ Herstel Wiskunde-vordering</button></div>`}
+
+function showW(){S.tried=false;SEL=null;Xseq=[];
+const it=S.items[S.i];
+const body=renderW(it);
+app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi, wys jou werk as jy wil 🤔')}<span class="tag">${it.tag||'Wiskunde'}</span>
+<div class="q">${it.q}</div>${body}<div class="fb" id="fb"></div><div id="nx"></div></div>`;
+const inp=document.getElementById('wa');if(inp){inp.focus();inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();ansW()}})}}
+
+let Xseq=[];
+function renderW(it){
+  if(it.typ==='type')return `<div class="winp"><input id="wa" inputmode="decimal" autocomplete="off" autocapitalize="off" placeholder="Jou antwoord" aria-label="Antwoord"></div><button class="big" onclick="ansW()">Kontroleer ✓</button>`;
+  if(it.typ==='choice')return it.opts.map((o,k)=>`<button class="op" id="b${k}" onclick="ansW(${k})">${o}</button>`).join('');
+  if(it.typ==='order')return `<p class="small">Tik in die regte volgorde. Tik weer om te verwyder.</p><div class="chips" id="wopts">${it.opts.map((o,k)=>`<span class="chip" id="wc${k}" onclick="wTap(${k})">${o}</span>`).join('')}</div>
+<div class="wseq" id="wseq"></div><button class="big" onclick="ansW()">Kontroleer ✓</button>`;
+  return ''}
+function wTap(k){if(S.done)return;const i=Xseq.indexOf(k);if(i>=0)Xseq.splice(i,1);else Xseq.push(k);wPaint()}
+function wPaint(){const it=S.items[S.i];document.querySelectorAll('#wopts .chip').forEach((e,k)=>e.style.opacity=Xseq.includes(k)?.35:1);
+document.getElementById('wseq').innerHTML=Xseq.map((k,i)=>`<span class="chip done" onclick="wTap(${k})">${i+1}. ${it.opts[k]}</span>`).join(' ')}
+
+function checkW(it,user){
+  if(it.check==='time'){const u=(''+user).trim().replace('.',':').replace('h',':');const pad=s=>s.split(':').map(x=>String(+x).padStart(2,'0')).join(':');try{return pad(u)===pad(it.a)}catch(e){return false}}
+  if(it.check==='text'){return (''+user).trim().toLowerCase().replace(/s$/,'')===(''+it.a).toLowerCase().replace(/s$/,'')}
+  if(it.check==='expand'){const u=(''+user).replace(/\s+/g,'').replace(/,/g,'');const parts=u.split('+').map(Number).filter(n=>!isNaN(n));return parts.reduce((a,b)=>a+b,0)===Number((''+it.a).split('+').map(Number).reduce((a,b)=>a+b,0))&&parts.length>=2}
+  if(it.check==='eq'){const m=(''+user).trim().match(/^(\d+)\s*\/\s*(\d+)$/);if(!m)return false;const a=+m[1],b=+m[2];return b&&a/b===it.a.eq[0]/it.a.eq[1]&&!(a===it.a.eq[0]&&b===it.a.eq[1])}
+  if(it.check==='frac'){const m=(''+user).trim().match(/^(\d+)\s*\/\s*(\d+)$/);if(m){const a=+m[1],b=+m[2];return b&&a/b===it.a.frac[0]/it.a.frac[1]}return numEq(user,it.a.frac[0]/it.a.frac[1])}
+  if(it.a&&it.a.two){const nums=(''+user).split(/[;,\s]+/).map(s=>parseAns(s).n).filter(n=>isFinite(n));return nums.length>=2&&nums[0]===it.a.two[0]&&nums[1]===it.a.two[1]}
+  if(it.a&&it.a.three){const nums=(''+user).split(/[;,\s]+/).map(s=>parseAns(s).n).filter(n=>isFinite(n));return nums.length>=3&&nums[0]===6&&nums[1]===12&&nums[2]===8}
+  if(it.a&&it.a.q!=null&&it.a.rem!=null)return numEq(user,{rem:it.a.rem,q:it.a.q});
+  return numEq(user,it.a)}
+
+function ansW(k){
+  const it=S.items[S.i],fb=document.getElementById('fb');
+  let right=false,user;
+  if(it.typ==='choice'){const b=document.getElementById('b'+k);if(!b||b.disabled)return;right=k===it.ai;user=it.opts[k];
+    if(S.m==='o'){if(right){b.classList.add('ok')}else{b.classList.add('bad');b.disabled=true}}
+  }else if(it.typ==='order'){user=Xseq.map(i=>it.opts[i]);right=user.length===it.a.length&&user.every((x,i)=>x==it.a[i])}
+  else{const inp=document.getElementById('wa');if(!inp)return;user=inp.value;if(!(''+user).trim()){inp.focus();return}right=checkW(it,user)}
+  finishW(right,it)}
+
+function finishW(right,it){
+  const fb=document.getElementById('fb');
+  if(!right&&!S.tried)addFout(it);
+  if(S.m==='o'){
+    if(right){if(!S.tried){hit();if(S.mode==='foute')delFout(it)}const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${it.exp||''}</div>`;S.done=true;document.querySelectorAll('.card button.op,.card button.big').forEach(x=>{if(x.id!=='nxb')x.disabled=true});const inp=document.getElementById('wa');if(inp)inp.disabled=true;next()}
+    else{S.tried=true;S.st=0;vib([40,40,40]);const m=pick(BAD);mood('sad',m);fb.textContent=m}}
+  else{if(right)hit();else S.st=0;adv()}}
+
+subjects();
 </script></body></html>
