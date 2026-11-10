@@ -131,6 +131,10 @@ button.vak small{display:block;font-weight:600;opacity:.95;font-size:.8em;margin
 
 .mini{width:92px;height:92px;display:block;margin:8px auto}
 .wseq{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:44px;margin:8px 0}
+
+.hint{margin-top:.55rem;background:#fff7d6;border:2px solid #f5c84c;border-radius:14px;padding:.65rem .85rem;font-weight:700;color:#5a3e00;line-height:1.35;box-shadow:0 2px 0 #e8b830;text-align:left}
+.try{font-weight:800}
+.op.dim,.tfb.dim,.mb.dim{opacity:.42;filter:grayscale(.3)}
 </style></head><body><canvas id="bg"></canvas><div class="planet p1"></div><div class="planet p2"></div><canvas id="cf"></canvas><div class="wrap">
 <h1 id="ttl">🌟 Graad 5 Quiz</h1><div class="sub" id="subh">Kies jou vak</div><div id="app"></div></div>
 <script>
@@ -266,6 +270,9 @@ Q.push(
 ["Na wie is die selakant (<i>Latimeria</i>) vernoem?",["Marjorie Courtney-Latimer","Prof. J.L.B. Smith","Mev. Ples"],0,"Sy het besef dit is 'n belangrike vonds en dit gehou tot prof. Smith kon kom.","F"],
 ["Hoe lank het dit geneem om die volgende lewende selakant te kry?",["Veertien jaar","Een week","Honderd jaar"],0,"Dit het 14 jaar geneem.","F"],
 ["Kyk na die prent. Waar of onwaar? Die oudste laag is heel onder en die nuutste laag heel bo.",["Waar","Onwaar"],0,"Nuwe lae sediment word altyd bo-op bestaande lae afgeset.","S",SV.sedL]);
+const HN=["A is in die middel van die prent, en B beweeg om A. Wat is in die middel van ons sonnestelsel?", "C is die pad wat die Aarde om die Son volg.", "Die stippellyn loop van die Noordpool na die Suidpool deur die Aarde se middel.", "Die pienk pyltjie draai om die Aarde self, nie om die Son nie.", "In Desember is die Suidelike Halfrond nader aan die Son se direkte strale — dit is ons warmste seisoen.", "In Junie is die Suidelike Halfrond verder van die direkte strale — dit is ons koudste seisoen.", "Dit is die naam van die pad of roete wat die Aarde om die Son volg.", "Rotasie is draai om die as. Die ander woord is die Aarde se reis om die Son.", "Benewens sy reis om die Son, draai die Aarde ook om iets deur sy middel.", "Ons staan op die Aarde en beweeg saam met haar — soos in ’n motor wat glad ry.", "Dink aan ’n pad of roete wat een voorwerp om ’n ander volg.", "Dit is nie ’n regte stok nie, maar ’n denkbeeldige lyn deur die Aarde.", "Rotasie is wanneer iets om sy eie middel draai, soos ’n tol.", "Dis hoe lank een volle jaar is — onthou daar is ook ’n kwart van ’n dag ekstra.", "Dink aan hoe lank een dag en nag saam is.", "Kyk na ’n horlosie: beweeg die Aarde dieselfde kant as die wysers, of die ander kant?", "Die Son kom in die ooste op — die Aarde draai na daardie kant.", "Elke dag roteer die Aarde een keer. Tel die dae van Maandag tot Sondag.", "Wanneer dit dag is by ons, is dit nag aan die ander kant van die Aarde.", "Die Aarde beweeg die heeltyd op sy wentelbaan. In Junie en Desember is sy op verskillende plekke.", "Die flitslig is die ligbron in die lemoen-model.", "As jy die lemoen op een plek laat staan en dit net draai, wys jy die Aarde se as-beweging.", "Waar die lig val, is dit helder — soos wanneer dit dag is.", "Dis die buitenste, harde ‘dop’ van die Aarde waarop ons loop.", "Die kors is onder die land én onder die oseane — dit hou nie by die water op nie.", "Plante en diere het vier basiese dinge nodig: iets om in te groei, om te asemhaal, om te drink, en lig.", "Plante maak eerste die kos; dan eet diere die plante.", "Net onder die donker boonste laag is die volgende laag.", "Bo is die donkerste, vrugbaarste laag; heel onder is soliede rots.", "B is die laag direk onder die boonste donker laag.", "Plante se wortels is in die boonste, donker, vrugbare laag (A).", "D is die onderste, soliede laag — nie los grond nie.", "Donker grond bevat ontbinde plante- en diere-reste wat voedingstowwe gee.", "Reënwater beweeg afwaarts en neem voedingstowwe saam.", "Ontbind beteken om in kleiner stukkies af te breek, soos blare wat vergaan.", "Water, lug en plantwortels in krake laat rotse naby die oppervlak opbreek.", "Ons gebruik ’n instrument met lense om iets baie klein groot te sien.", "Klei is fyn en hou water — dit voel nie soos sand nie.", "Sand het groot, growwe korrels.", "Humus kom van ten volle ontbinde plante en diere — dit maak grond donker.", "Growwe, groot korrels — dink aan ’n strand.", "Baie fyn korrels — dink aan pottebakkersklei.", "Water loop vinnig tussen groot korrels uit.", "Die beste tuingrond is ’n mengsel met humus, nie net sand of net klei nie.", "Dieselfde mengsel-grond: verskillende korrelgroottes plus humus.", "Hulle grawe gange en trek blare die grond in — dit help lug, water en voedingstowwe.", "Baie klein organismes help dooie dinge vergaan en word deel van die grond.", "Erosie is wanneer die boonste grond weggespoel of weggewaai word.", "Bogrond vorm baie stadig — nie elke jaar ’n nuwe laag nie.", "Sonder die boonste vrugbare laag kan boere nie kos kweek nie, en dit kom nie vinnig terug nie.", "Sediment word in lae neergesit en dan oor lang tyd verhard tot rots.", "Die Latynse woord het te doen met sit of gaan sit.", "Sedimente is klein stukkies — grond en gebreekte rots — wat ’n rivier of die wind dra en laat val.", "Afgeset beteken die vrag is êrens neergesit of laat val.", "Saamgepers beteken styf saamgedruk, soos onder ’n swaar gewig.", "Plantwortels, lug en water verswak die rots en breek dit in korreltjies.", "Rots breek baie stadig op — dit vat baie langer as ’n paar dae.", "Die wind laat sy vrag val wanneer dit nie meer so vinnig waai nie.", "’n Rivier laat sand en modder val waar die water stadiger beweeg, dikwels naby die see.", "Die onderste lae kry die swaarste gewig — hulle word styf gedruk en verhard.", "Die onderste laag is eerste neergesit, dus die oudste.", "Die boonste laag is laaste neergesit, dus die nuutste.", "Wind en water sit nie altyd dieselfde hoeveelheid of soort materiaal af nie, so lae verskil.", "Voor sedimente kan beweeg, moet rotse eers in klein stukkies opbreek.", "Modder (klei) word skalie; sand word iets anders.", "Die naam van die rots sê reeds waarvan dit gemaak is: sand.", "Skulpe en bene van seediertjies vorm ’n rots wat ons onder andere vir sement gebruik.", "Sandkorrels is groot genoeg om met die oog te sien — in watter rots sit hulle?", "Kalksteen kom nie van gebreekte landrotse nie, maar van seediertjies se reste.", "Sement word van die rots gemaak wat uit seediertjie-skulpe vorm.", "Dis duisende grade — baie warmer as kookpunt.", "Beton is sement plus twee growwe goedjies: gruis en sand.", "Bakstene kom van klei, en die klei kom van ’n fyn sedimentgesteente.", "Sandsteen word as soliede blokke of dun teëls in geboue gebruik.", "As jy skalie fyngemaal en natmaak, kry jy weer klei.", "Dink aan waar elkeen vandaan kom: seediertjies teenoor modder.", "Pleister word nat aangemaak.", "Fossiele is tekens of reste van ou plante en diere wat in rots bewaar is.", "Antiek beteken van baie lank gelede.", "Bewaar beteken dit het nie net verdwyn of weggevrot nie.", "Uitgestorwe beteken daardie soort is vir altyd weg — niks lewe meer daarvan nie.", "Fossiele vorm meestal in die rots wat uit lae sediment kom.", "Onderste lae is ouer. Fossiele daarin is ook ouer, nie jonger nie.", "Die onderste laag (D) is die oudste — fossiele daar is die oudste.", "Een soort is die liggaam self (bene, skulpe); die ander is spore wat die dier gelos het.", "Liggaamsfossiele is die harde dele: bene, tande, skulpe, blare.", "Sagte dele vrot of word geëet voor hulle ’n fossiel kan word.", "’n Spoorfossiel is nie die liggaam nie, maar iets wat die dier gelos het, soos voetspore.", "Fossielmis sê iets oor die dier se dieet.", "Voetspore wys hoe die dier geloop het — twee of vier bene.", "Dink aan ’n Suid-Afrikaanse plant met ’n dik stam waarvan die naam na kos klink.", "Dink aan ’n klein, vlugtelose voël uit Nieu-Seeland.", "Die eerste insekte was inderdaad baie groter as vandag s’n.", "Suid-Afrika het baie fossielterreine. Die antwoord is ‘meer as’ ’n bepaalde getal, nie net een of twee nie.", "’n Rekord is die versameling fossiele van een plek, met inligting soos ouderdom.", "Hominiede sluit mense én ons baie ou fossielvoorvaders in.", "Die Glossopteris-woude is honderde miljoene jare oud — nie net ’n paar miljoen nie.", "Die naam kom uit Grieks en beteken iets soos ‘verskriklike akkedis’.", "Hulle het in die Mesozoïkum geleef en aan die einde van die Kryt verdwyn.", "Die naam begin met die land waar die fossiele eerste gevind is.", "By Langebaanweg is daar onder andere groot katte, bere en kameelperde met kort nekke.", "Dink aan ’n groot Afrika-dier wat in riviere leef, maar ’n jong een — nie ’n olifant nie.", "Die grotte se naam noem ’n sterk fontein, en hulle is naby Johannesburg.", "Aapmense het kleiner breine, groter tande en het meer soos ape gelyk.", "Mev. Ples se naam is ’n bietjie misleidend — dit was nie ’n volwasse vrou nie.", "Klein Voetjie is ’n paar miljoen jaar oud — meer as 2, maar nie 10 nie.", "Dis ’n selakant — ’n vis wat mense ’n ‘lewende fossiel’ noem.", "Mense het gedink hierdie vis het lank gelede uitgesterf, maar toe is ’n lewende een gevind.", "Die eerste lewende een is laat in die 1930’s aan die Oos-Kaapse kus gevang.", "Die vis is na die vrou by die Oos-Londense museum vernoem. Tik haar van.", "Dit was meer as 10 jaar, maar minder as 20, voor die volgende een gevind is.", "Ja: nuwe lae sit bo-op, so die onderste is die oudste en die boonste die nuutste."];
+const CH={"0": "Die Son is die groot, helder lig in die middel van die prent.", "4": "Desember is somer in Suid-Afrika. Kyk watter posisie by die sonnige suide pas.", "29": "Die ondergrond is die laag direk onder die boonste donker laag.", "30": "Plante groei die beste in die boonste, donker, vrugbare laag.", "60": "Die onderste laag is eerste neergesit, dus die oudste.", "83": "Die onderste laag is die oudste — fossiele daarin is ook die oudste.", "106": "Die vlesige vinne lyk soos klein beentjies aan die vis se sye, nie die stertfin nie.", "109": "Tik net haar van — die laaste deel van Courtney-Latimer."};
+const DH={"orbit": "Die Son is in die middel. Die Aarde beweeg om die Son, en die Maan om die Aarde.", "axis": "Die as is die denkbeeldige lyn van die Noordpool tot die Suidpool.", "soil": "Begin bo by die donkerste, vrugbaarste laag en werk af tot by die soliede rots.", "steps": "Die eerste stap is dat rotse opbreek. Daarna word die stukkies verskuif, afgeset, opgebou en laastens verhard.", "sort": "Vra vir elke kaartjie: draai die Aarde om haar as, of beweeg sy om die Son?", "tl": "Kyk mooi na die etiket en die plek op die prent. Wat pas bymekaar?"};
 const LV=[
 {n:"Wentel & roteer",ic:"🌍",t:"A",q:[0,1,6,7,8,10,12,15],d:["orbit"]},
 {n:"Die as & tyd",ic:"⏰",t:"A",q:[2,3,11,13,14,16,17],d:["axis"]},
@@ -291,8 +298,8 @@ const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math
 const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},sv=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 let SUB='nw';
 const best=()=>ld((SUB==='wk'?'wk':'nw')+'Best',{}),stars=()=>ld((SUB==='wk'?'wk':'nw')+'Stars',{}),foute=()=>ld((SUB==='wk'?'wk':'nw')+'Foute',[]);
-function addFout(i){if(SUB==='wk'){const it=(i&&i.k)?i:S.items[S.i];const f=foute();f.push(JSON.parse(JSON.stringify(it)));sv('wkFoute',f);return}const f=foute();if(!f.includes(i)){f.push(i);sv('nwFoute',f)}}
-function delFout(i){if(SUB==='wk'){const it=(i&&i.k)?i:S.items[S.i];sv('wkFoute',foute().filter(x=>x.q!==it.q));return}sv('nwFoute',foute().filter(x=>x!==i))}
+function addFout(i){if(SUB==='wk'){const it=(i&&i.k)?i:S.items[S.i];const f=foute();f.push(JSON.parse(JSON.stringify(it)));sv('wkFoute',f);return}const f=foute();if(typeof i==='object'){if(!f.some(x=>JSON.stringify(x)===JSON.stringify(i))){f.push(i);sv('nwFoute',f)}return}if(!f.includes(i)){f.push(i);sv('nwFoute',f)}}
+function delFout(i){if(SUB==='wk'){const it=(i&&i.k)?i:S.items[S.i];sv('wkFoute',foute().filter(x=>x.q!==it.q));return}if(typeof i==='object'){sv('nwFoute',foute().filter(x=>JSON.stringify(x)!==JSON.stringify(i)));return}sv('nwFoute',foute().filter(x=>x!==i))}
 (()=>{if(!localStorage.getItem('nwV5')){const st=ld('nwStars',{});if(st[7]!=null){st[LV.length-1]=st[7];delete st[7];sv('nwStars',st)}localStorage.setItem('nwV5','1')}})();
 const unlocked=i=>i==0||(stars()[i-1]||0)>=1||(stars()[i]||0)>=1;
 function wurm(m){const sad=m=='sad',hap=m=='happy'||m=='dance';
@@ -412,7 +419,7 @@ feet:`<svg viewBox="0 0 320 180"><rect width="320" height="180" fill="#d8c29a"/>
 function xR(){const c=X.c,t=c.t,P=document.getElementById('pool');
 if(t=='blank'){let k=0;document.getElementById('sent').innerHTML=c.s.replace(/___/g,()=>{const j=k++,v=X.f[j];return `<span class="bl${v!=null?' fil':''}" id="bl${j}" onclick="xBl(${j})">${v!=null?X.w[v]:'&nbsp;?&nbsp;'}</span>`});P.innerHTML=X.w.map((w,k)=>X.f.includes(k)?'':`<button class="wc" id="wc${k}" onclick="xW(${k})">${w}</button>`).join('')}
 if(t=='order'){document.getElementById('ol').innerHTML=X.seq.length?X.seq.map((k,n)=>`<button class="oi" id="oi${n}" onclick="xOu(${n})"><span>${n+1}</span>${c.it[k]}</button>`).join(''):'<div class="ph">Tik die kaartjies in die regte volgorde 👇</div>';P.innerHTML=X.pool.map(k=>X.seq.includes(k)?'':`<button class="wc" id="po${k}" onclick="xO(${k})">${c.it[k]}</button>`).join('')}
-if(t=='sort'){P.innerHTML=X.ord.filter(k=>X.pl[k]==null).map(k=>`<button class="wc${X.sel===k?' sel':''}" id="si${k}" onclick="xS(${k})">${c.it[k][0]}</button>`).join('')||'<div class="ph">Alles gesorteer – kontroleer! ✔</div>';c.b.forEach((n,b)=>{document.getElementById('bi'+b).innerHTML=X.ord.filter(k=>X.pl[k]===b).map(k=>`<button class="wc in" id="sp${k}" onclick="event.stopPropagation();X.sel!=null?xBin(${b}):xSb(${k})">${c.it[k][0]}</button>`).join('')})}
+if(t=='sort'){P.innerHTML=X.ord.filter(k=>X.pl[k]==null).map(k=>`<button class="wc${X.sel===k?' sel':''}" id="si${k}" onclick="xS(${k})">${c.it[k][0]}</button>`).join('')||'<div class="ph">Alles gesorteer – tik Antwoord! ✔</div>';c.b.forEach((n,b)=>{document.getElementById('bi'+b).innerHTML=X.ord.filter(k=>X.pl[k]===b).map(k=>`<button class="wc in" id="sp${k}" onclick="event.stopPropagation();X.sel!=null?xBin(${b}):xSb(${k})">${c.it[k][0]}</button>`).join('')})}
 if(t=='label'){P.innerHTML=X.ch.filter(k=>!Object.values(X.lp).includes(k)).map(k=>`<button class="wc${X.sel===k?' sel':''}" id="lc${k}" onclick="xLc(${k})">${c.tg[k][0]}</button>`).join('');c.tg.forEach((x,j)=>{const e=document.getElementById('lt'+j);const v=X.lp[j];e.textContent=v!=null?c.tg[v][0]:'?';e.classList.toggle('fil',v!=null)})}}
 function xW(k){if(S.done)return;const j=X.f.indexOf(null);if(j<0)return;X.f[j]=k;vib(10);xR();const e=document.getElementById('bl'+j);e&&e.classList.add('pop')}
 function xBl(j){if(S.done)return;X.f[j]=null;xR()}
@@ -454,14 +461,91 @@ if(t=='sort'){if(Object.keys(X.pl).length<c.it.length){fb.textContent='Sorteer e
 if(t=='match'){if(Object.keys(X.pr).length<c.p.length){fb.textContent='Pas eers al die pare 🔗';return}ok=Object.keys(X.pr).every(l=>X.pr[l]==l);Object.keys(X.pr).forEach(l=>document.getElementById('mL'+l).classList.add(X.pr[l]==l?'ok':'bad'));rv=()=>{X.pr={};c.p.forEach((x,k)=>X.pr[k]=k);mDraw();document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('bad');b.classList.add('ok')})}}
 if(t=='label'){if(Object.keys(X.lp).length<c.tg.length){fb.textContent='Plak eers al die etikette 🏷️';return}ok=c.tg.every((x,j)=>X.lp[j]===j);c.tg.forEach((x,j)=>document.getElementById('lt'+j).classList.add(X.lp[j]===j?'ok':'bad'));rv=()=>{c.tg.forEach((x,j)=>X.lp[j]=j);xR();c.tg.forEach((x,j)=>{const e=document.getElementById('lt'+j);e.classList.remove('bad');e.classList.add('ok')})}}
 xRes(ok,rv)}
+
+function nOpts(){const it=S.items[S.i];if(!it)return 99;
+  if(it.k==='w'||SUB==='wk')return (it.typ==='choice'&&it.opts)?it.opts.length:99;
+  if(it.k==='d')return 99;
+  const cv=CV[it.i],q=Q[it.i];
+  if(cv){if(cv.t==='tf')return 2;if(cv.t==='flip'||cv.t==='dig')return (X.o||cv.o||[]).length||99;if(cv.t==='hot')return (cv.z||X.z||[]).length||99;return 99}
+  return (q&&q[1])?q[1].length:99}
+function maxTries(){const n=nOpts();return n<=2?2:5}
+function hintAfter(){const n=nOpts();if(n<=2)return 1;if(n===3)return 2;return 3}
+function retryMsg(){let left=maxTries()-(S.att||0);const ops=[...document.querySelectorAll('button.op,.tfb')];if(ops.length)left=Math.min(left,ops.filter(b=>!b.disabled).length);if(left<=1)return 'Probeer weer — jy het nog 1 kans 💪';return 'Probeer weer — jy het nog '+left+' kanse 💪'}
+function wkHint(it){if(it.h)return it.h;const q=(it.q||'').toLowerCase(),tag=it.tag||'';
+  if(it.check==='expand'||/uitgerek/.test(q))return 'Breek die getal op in plekwaardes en sit ’n plus tussen hulle.';
+  if(it.check==='eq')return 'Vermenigvuldig of deel die teller en noemer met dieselfde getal. Moenie dieselfde breuk oorskryf nie.';
+  if(it.check==='frac')return 'As die noemers dieselfde is, werk net met die tellers.';
+  if(it.check==='time')return 'Tel eers die ure bymekaar, dan die minute. As die minute 60 of meer is, dra 1 uur oor.';
+  if(it.check==='text')return 'Kyk mooi na die vorm: tel die sye, of kyk of die vlakke plat of krom is.';
+  if(it.a&&it.a.rem!=null)return 'Vind eers hoeveel volle kere die deler in die getal pas. Die res is wat oorbly.';
+  if(/afrond/.test(q))return 'Kyk na die syfer direk regs van die plek tot waar jy afrond. 5 of meer? Rond op.';
+  if(/omtrek/.test(q))return 'Omtrek is al die sye bymekaar. Vir ’n reghoek: 2 × (lengte + breedte).';
+  if(/oppervlakte/.test(q))return 'Oppervlakte van ’n reghoek is lengte × breedte.';
+  if(/volume/.test(q))return 'Volume van ’n prisma is lengte × breedte × hoogte.';
+  if(/modus/.test(q))return 'Die modus is die getal wat die meeste kere voorkom.';
+  if(/mediaan/.test(q))return 'Sit eers die getalle van klein na groot. Die mediaan is die middelste een.';
+  if(/verskuiwing|weerkaats|rotasie|transform/.test(q))return 'Weerkaatsing is soos in ’n spieël, verskuiwing skuif die vorm, rotasie draai dit.';
+  if(/plekwaarde|eenhede|tiene|honderd/.test(q)||tag==='Plekwaarde')return 'Elke syfer het ’n plek: eenhede, tiene, honderde, duisende…';
+  if(/rangskik|volgorde van/.test(q))return 'Begin by die eerste getal en werk een vir een van klein na groot (of groot na klein).';
+  if(/optel|\bsom\b/.test(q))return 'Sit die getalle onder mekaar. Tel van regs en onthou om oor te dra.';
+  if(/aftrek|verskil/.test(q))return 'Sit die getalle onder mekaar. As die boonste syfer te klein is, leen by die volgende plek.';
+  if(/vermenigvuldig|\bmaal\b/.test(q))return 'Breek die tweede getal op: vermenigvuldig eers met die eenhede, dan met die tiene, en tel bymekaar.';
+  if(/deling|\bdeel\b/.test(q))return 'Vra: hoeveel keer pas die deler in die getal? Jy kan met vermenigvuldiging toets.';
+  if(/patroon|volgende getal/.test(q))return 'Kyk hoeveel elke keer bygetel of afgetrek word. Die verskil bly gewoonlik dieselfde.';
+  if(/breuk/.test(q))return 'Dink aan ’n pizzastuk. As noemers dieselfde is, werk net met die tellers.';
+  if(/millimeter|sentimeter|kilometer|\bmeter\b/.test(q))return 'Onthou: 1 km = 1 000 m, 1 m = 100 cm, 1 cm = 10 mm.';
+  if(/liter|milliliter|kapasiteit/.test(q))return 'Onthou: 1 ℓ = 1 000 ml. Maak eers die eenhede dieselfde.';
+  if(/kilogram|\bgram\b|massa/.test(q))return 'Onthou: 1 kg = 1 000 g.';
+  if(/hoek/.test(q))return '’n Regte hoek is soos die hoek van ’n boek (90°). Skerp is kleiner, stomp is groter.';
+  if(/vlakke|rande|hoekpunte|kubus|prisma/.test(q))return '’n Kubus lyk soos ’n dobbelsteen: tel die vlakke, rande en hoekpunte.';
+  if(/vergelyk|groter as|kleiner as/.test(q))return 'Vergelyk syfer vir syfer van links (die grootste plekwaarde) af.';
+  if(/ontbrekende|________/.test(q)&&/[×x*]/.test(q))return 'Dink aan die maaltafel: watter getal pas in die som? Jy kan deel om te toets.';
+  if(/ontbrekende|________/.test(q)&&/[+]/.test(q))return 'Wat moet jy by die eerste getal tel om die antwoord te kry? Of trek af.';
+  if(/bereken/.test(q)&&/\+/.test(q))return 'Sit die getalle onder mekaar. Tel van regs en onthou om oor te dra.';
+  if(/bereken/.test(q)&&/[−–-]/.test(q))return 'Sit die getalle onder mekaar. As die boonste syfer te klein is, leen by die volgende plek.';
+  if(/[×x]/.test(q)||/vermenigvuldig/.test(q))return 'Breek die tweede getal op: vermenigvuldig eers met die eenhede, dan met die tiene, en tel bymekaar.';
+  if(/ontbrekende|________/.test(q)&&/÷/.test(q))return 'Vermenigvuldig die twee getalle om die ontbrekende een te kry.';
+  if(/÷/.test(q)||/deling/.test(q))return 'Vra: hoeveel keer pas die deler in die getal? Jy kan met vermenigvuldiging toets.';
+  if(/van\b/.test(q)&&/\d+\s*\/\s*\d+/.test(q))return 'Deel deur die noemer, dan vermenigvuldig met die teller.';
+  if(/koop|gespaar|wisselgeld|oorbly/.test(q))return 'Sy het geld gehad en iets gekoop — jy moet aftrek.';
+  if(/teken is reg|_ /.test(q))return 'Vergelyk syfer vir syfer van links (die grootste plekwaarde) af.';
+  return 'Dink stap vir stap. Skryf die som neer en werk rustig.'}
+function qHint(){const it=S.items[S.i];if(!it)return 'Dink stap vir stap en kyk weer na die vraag.';
+  if(it.k==='w'||SUB==='wk')return wkHint(it);
+  if(it.k==='d')return (DR[it.d]&&DR[it.d].h)||DH[it.d]||'Kyk mooi na die prent en die name. Wat pas bymekaar?';
+  const i=it.i;if(CV[i]&&CH[i])return CH[i];return HN[i]||'Dink mooi aan wat jy in die klas geleer het. Kyk weer na die vraag.'}
+function paintRetry(fb){const m=retryMsg();
+  if(S.att>=hintAfter()){const h=qHint();mood('neutral','💡 '+h);fb.innerHTML='<div class="try">'+m+'</div><div class="hint">💡 '+h+'</div>';hintGrey();return}
+  mood('sad',m);fb.innerHTML=m}
+function hintGrey(){const it=S.items[S.i],ops=[...document.querySelectorAll('button.op')];
+  if(ops.length<3)return;
+  const isRight=b=>{const k=+b.id.replace(/\D/g,'');if(it.k==='w'||SUB==='wk')return k===it.ai;return !!(S.cur&&S.cur[k]&&S.cur[k][1])};
+  const wrong=ops.filter(b=>!b.disabled&&!b.classList.contains('ok')&&!isRight(b));
+  if(wrong.length){const w=wrong[0];w.disabled=true;w.classList.add('bad','dim')}}
+
+function xRetryKeep(){const c=X.c;if(!c||S.done)return;
+  if(c.t==='type'){const e=document.getElementById('ti');if(e){e.classList.remove('bad','ok');e.disabled=false;e.focus()}const ck=document.getElementById('ck');if(ck)ck.disabled=false}
+  if(c.t==='num'){const ck=document.getElementById('ck');if(ck)ck.disabled=false}
+  if(c.t==='tf'){document.querySelectorAll('.tfb').forEach(b=>{if(!b.classList.contains('bad')){b.disabled=false;b.classList.remove('ok')}});X.tf2=0;const fw=document.getElementById('fixw');if(fw)fw.innerHTML=''}
+  if(c.t==='blank'){X.f=X.f.map((k,j)=>{if(k==null)return null;const w=X.w[k];const ok=c.any?c.a.includes(w):w==c.a[j];return ok?k:null});xR()}
+  if(c.t==='order'){let n=0;while(n<X.seq.length&&X.seq[n]==n)n++;X.seq=X.seq.slice(0,n);xR()}
+  if(c.t==='sort'){Object.keys(X.pl).forEach(k=>{if(X.pl[k]!==c.it[+k][1])delete X.pl[k]});X.sel=null;xR()}
+  if(c.t==='match'){Object.keys(X.pr).forEach(l=>{if(+X.pr[l]!==+l)delete X.pr[l]});X.sel=null;document.querySelectorAll('.mb').forEach(e=>e.classList.remove('bad','ok'));mDraw()}
+  if(c.t==='label'){Object.keys(X.lp).forEach(j=>{if(+X.lp[j]!==+j)delete X.lp[j]});X.sel=null;document.querySelectorAll('.lt').forEach(e=>e.classList.remove('bad','ok'));xR()}
+  if(['hot','flip','dig'].includes(c.t)){document.querySelectorAll('.card.xi button:not(.bad)').forEach(b=>{if(b.id!=='nxb')b.disabled=false})}
+}
+function wRetryKeep(it){if(it.typ==='order'){let n=0;while(n<Xseq.length&&it.opts[Xseq[n]]==it.a[n])n++;Xseq=Xseq.slice(0,n);wPaint()}
+  if(it.typ==='type'||!it.typ){const inp=document.getElementById('wa');if(inp){inp.disabled=false;inp.classList.remove('bad','ok');inp.focus()}document.querySelectorAll('.symbar button').forEach(b=>b.disabled=false)}
+  const ck=document.querySelector('.card button.big');if(ck&&ck.id!=='nxb')ck.disabled=false}
+function revealW(it){if(it.typ==='choice'){const b=document.getElementById('b'+it.ai);if(b){b.classList.add('ok');b.disabled=false}}
+  if(it.typ==='order'){Xseq=it.a.map(v=>it.opts.indexOf(v));wPaint()}
+  const inp=document.getElementById('wa');if(inp){let v=it.a;if(v&&v.rem!=null)v=v.q+' rest '+v.rem;else if(v&&v.frac)v=v.frac[0]+'/'+v.frac[1];else if(v&&v.two)v=v.two.join(' ');else if(Array.isArray(v))v=v[0];inp.value=v==null?'':v;inp.classList.remove('bad');inp.classList.add('ok')}}
+
 function xRes(ok,rv){const it=S.items[S.i],q=Q[it.i],fb=document.getElementById('fb');if(S.done)return;
-if(S.m=='t'){S.done=1;if(ok)hit();else{S.st=0;addFout(it.i)}xLock();if(ok)mood('happy','✨');setTimeout(adv,ok?450:650);return}
-if(ok){S.done=1;if(!S.tried){hit();if(S.mode=='foute')delFout(it.i)}const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[3]}</div>`;xLock();next();return}
-if(!S.tried)addFout(it.i);S.tried=true;S.st=0;S.att++;vib([40,40,40]);const card=document.querySelector('.card.xi');card&&(card.classList.remove('shk'),void card.offsetWidth,card.classList.add('shk'));
-if(S.att>=2||['tf','hot','flip','dig'].includes(X.c.t)&&S.att>=2){S.done=1;rv&&rv();mood('sad','Kyk mooi na die regte antwoord 💡');fb.innerHTML=`Die regte antwoord word nou gewys 💡<div class="ex">${q[3]}</div>`;xLock();next()}
-else{const m=pick(BAD);mood('sad',m);fb.innerHTML=(fb.dataset.h?fb.dataset.h+' ':'')+'Nie heeltemal nie – probeer weer! 💪';fb.dataset.h='';
-if(X.c.t=='tf'){setTimeout(()=>{if(S.done)return;document.querySelectorAll('.tfb').forEach(b=>{b.classList.remove('bad','ok');b.disabled=false});X.tf2=0;document.getElementById('fixw').innerHTML=''},700)}
-if(['blank','order','sort','match','label'].includes(X.c.t))setTimeout(()=>{if(S.done)return;document.querySelectorAll('.bl.bad,.oi.bad,.wc.bad,.mb.bad,.lt.bad,.bl.ok,.oi.ok,.wc.ok,.mb.ok,.lt.ok').forEach(e=>e.classList.remove('bad','ok'))},900)}}
+if(ok){S.done=1;hit();if(S.mode=='foute')delFout(it.i);const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[3]}</div>`;xLock();next();return}
+S.tried=true;S.st=0;S.att=(S.att||0)+1;vib([40,40,40]);const card=document.querySelector('.card.xi');card&&(card.classList.remove('shk'),void card.offsetWidth,card.classList.add('shk'));
+if(S.att>=maxTries()){S.done=1;addFout(it.i);rv&&rv();mood('sad','Kyk mooi na die regte antwoord 💡');fb.innerHTML=`Die regte antwoord word nou gewys 💡<div class="ex">${q[3]}</div>`;xLock();next();return}
+paintRetry(fb);setTimeout(()=>{if(!S.done)xRetryKeep()},350)}
 function xLock(){S.lock=1;document.querySelectorAll('.card.xi button:not(#nxb),.card.xi input').forEach(b=>b.disabled=true)}
 function combo(n){const d=document.createElement('div');d.className='combo';d.innerHTML=`🔥 ${n} op 'n ry!${n>=10?' 🏆':n>=5?' ⚡':''}`;document.body.appendChild(d);setTimeout(()=>d.remove(),1700);setTimeout(()=>{const m=document.getElementById('masc');m&&m.classList.add('dance')},60)}
 addEventListener('resize',()=>{if(X.c&&X.c.t=='match')mDraw()});
@@ -477,26 +561,26 @@ app.innerHTML=`<div class="card">${masc('wave',f?`Hallo! Kom ons leer! Jy het ${
 <p><b>Vrye oefening</b></p><button class="teal" onclick="startFree('A','o')">🌍 Die Aarde beweeg: Oefenmodus</button><button class="teal" onclick="startFree('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button><button class="teal" onclick="startFree('S','o')">🧱 Sedimentgesteentes: Oefenmodus</button><button class="teal" onclick="startFree('F','o')">🦴 Fossiele: Oefenmodus</button><button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
 <p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Gesteentes ${b.S??'-'}% · Fossiele ${b.F??'-'}% · Toets ${b.X??'-'}%</p><button class="lnk" onclick="reset()">↺ Herstel vordering</button></div>`}
 function reset(){if(confirm(SUB==='wk'?'Is jy seker? Jou Wiskunde-sterre, foute en beste tellings word uitgevee.':'Is jy seker? Al jou sterre, foute en beste tellings word uitgevee.')){(SUB==='wk'?['wkBest','wkStars','wkFoute']:['nwBest','nwStars','nwFoute','nwV5']).forEach(k=>localStorage.removeItem(k));home()}}
-function begin(o){stopCf();S=Object.assign({i:0,sc:0,st:0,max:0,tried:false},o);show()}
+function begin(o){stopCf();S=Object.assign({i:0,sc:0,st:0,max:0,tried:false,att:0,done:false},o);show()}
 const qi=a=>shuf(a).map(i=>({k:'q',i}));
 function startLevel(li){const l=LVS()[li];if(!unlocked(li))return;if(SUB==='wk'){begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:genAllTest(12)}:{mode:'lvl',lv:li,t:l.t,m:'o',items:genLevel(l)});return}begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:qi(Q.map((_,i)=>i))}:{mode:'lvl',lv:li,t:l.t,m:'o',items:qi(l.q).concat((l.d||[]).map(d=>({k:'d',d})))})}
 function startFree(t,m){if(SUB==='wk'){begin({mode:'free',t,m,items:t==='X'?genAllTest(12):genByTag(t,10)});return}begin({mode:'free',t,m,items:qi(Q.map((_,i)=>i).filter(i=>t=='X'||Q[i][4]==t))})}
-function startFoute(){const f=foute();if(!f.length)return;begin({mode:'foute',t:'X',m:'o',items:SUB==='wk'?shuf(f.slice()):qi(f)})}
+function startFoute(){const f=foute();if(!f.length)return;begin({mode:'foute',t:'X',m:'o',items:SUB==='wk'?shuf(f.slice()):shuf(f.map(x=>typeof x==='object'?x:{k:'q',i:x}))})}
 function hdr(){const n=S.items.length;return `<div class="top"><button class="x" onclick="home()">✕</button><span>${S.mode=='lvl'?LVS()[S.lv].n:S.mode=='foute'?'My foute':'Vrye oefening'} · ${S.i+1}/${n}</span><span><span class="fl">🔥</span> ${S.st} · ⭐ <span id="scv">${S.sc}</span></span></div><div class="bar"><div class="fill" style="width:${Math.max(0,S.i-1)/n*100}%" data-w="${S.i/n*100}"></div></div>`}
-function show(){S.tried=false;S.done=false;SEL=null;const it=S.items[S.i];if(it.k=='w')return showW();if(it.k=='d')return showDrag(it.d);const q=Q[it.i];const cv=CV[it.i];if(cv&&cv.t!='mc')return showX(it.i,cv);
+function show(){S.tried=false;S.done=false;S.att=0;SEL=null;const it=S.items[S.i];if(it.k=='w')return showW();if(it.k=='d')return showDrag(it.d);const q=Q[it.i];const cv=CV[it.i];if(cv&&cv.t!='mc')return showX(it.i,cv);
 const o=q[1].map((x,k)=>[x,k==q[2]]);S.cur=q[1].length==2?o:shuf(o);
 app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi... 🤔')}<span class="tag">${TAG[q[4]]}</span>
 ${mcPic(it.i)?`<div class="pic">${mcPic(it.i)}</div>`:''}<div class="q">${q[0]}</div>${S.cur.map((o,k)=>`<button class="op" id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
 function hit(){S.sc++;S.st++;S.max=Math.max(S.max,S.st);vib(25);if([3,5,10,15,20,30].includes(S.st))combo(S.st);const e=document.getElementById('scv');if(e){e.textContent=S.sc;e.classList.remove('tick');void e.offsetWidth;e.classList.add('tick')}}
-function ans(k){const it=S.items[S.i],q=Q[it.i],b=document.getElementById('b'+k),fb=document.getElementById('fb');if(b.disabled)return;const right=S.cur[k][1];
-if(!right&&!S.tried)addFout(it.i);
-if(S.m=='o'){if(right){b.classList.add('ok');if(!S.tried){hit();if(S.mode=='foute')delFout(it.i)}const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[3]}</div>`;lock();next()}
-else{b.classList.add('bad');b.disabled=true;vib([40,40,40]);S.tried=true;S.st=0;const m=pick(BAD);mood('sad',m);fb.textContent=m}}
-else{if(right)hit();else S.st=0;adv()}}
+function ans(k){const it=S.items[S.i],q=Q[it.i],b=document.getElementById('b'+k),fb=document.getElementById('fb');if(!b||b.disabled||S.done)return;const right=S.cur[k][1];
+if(right){b.classList.add('ok');S.done=1;hit();if(S.mode=='foute')delFout(it.i);const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[3]}</div>`;lock();next();return}
+b.classList.add('bad');b.disabled=true;vib([40,40,40]);S.tried=true;S.st=0;S.att=(S.att||0)+1;
+if(S.att>=maxTries()){S.done=1;addFout(it.i);const c=document.getElementById('b'+S.cur.findIndex(x=>x[1]));if(c)c.classList.add('ok');mood('sad','Kyk mooi na die regte antwoord 💡');fb.innerHTML=`Die regte antwoord word nou gewys 💡<div class="ex">${q[3]}</div>`;lock();next();return}
+paintRetry(fb)}
 function lock(){document.querySelectorAll('.card button.op').forEach(x=>x.disabled=true)}
 function adv(){S.i++;S.i<S.items.length?show():end()}
 function next(){document.getElementById('nx').innerHTML=`<button class="big" id="nxb" onclick="adv()">Volgende ➜</button>`}
-function showDrag(d){const D=DR[d],ch=D.ch||D.lab.map(l=>[l[0],l[0]]);
+function showDrag(d){S.tried=false;S.done=false;S.att=0;const D=DR[d],ch=D.ch||D.lab.map(l=>[l[0],l[0]]);
 app.innerHTML=hdr()+`<div class="card">${masc('neutral',D.msg||'Sleep elke naam na die regte plek, of tik die naam en dan die plek! 👆')}<span class="tag">✋ ${D.bin?'Sorteer':D.w?'Sleep en pas':'Sleep en benoem'}</span>
 <div class="dz"><div class="pic">${SV[D.s]}</div>${D.lab.map(l=>`<div class="tg ${D.w?'w':''} ${D.bin?'bin':''}" data-l="${l[0]}" data-n="${ch.filter(c=>c[1]==l[0]).length}" data-c="0" style="left:${l[1]}%;top:${l[2]}%">${D.bin?'<div class="bi"></div>':l[3]?`<b>${l[3]}</b>`:'?'}</div>`).join('')}</div>
 <div class="chips">${shuf(ch).map(c=>`<div class="chip" data-l="${c[1]}">${c[0]}</div>`).join('')}</div><div class="fb" id="fb"></div><div id="nx"></div></div>`;
@@ -508,12 +592,17 @@ const up=ev=>{c.removeEventListener('pointermove',mv);c.removeEventListener('poi
 document.querySelectorAll('.tg.hov').forEach(x=>x.classList.remove('hov'));if(gh){gh.remove();const el=document.elementFromPoint(ev.clientX,ev.clientY),t=el&&el.closest('.tg');if(t&&ev.type=='pointerup')drop(c,t)}else sel(c)};
 c.addEventListener('pointermove',mv);c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up)}
 function sel(c){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));if(SEL===c){SEL=null;return}SEL=c;c.classList.add('sel')}
-function drop(c,t){SEL=null;c.classList.remove('sel');if(t.classList.contains('ok')||c.classList.contains('done'))return;
+function drop(c,t){SEL=null;c.classList.remove('sel');if(S.done||t.classList.contains('ok')||c.classList.contains('done'))return;
 if(t.dataset.l==c.dataset.l){const n=+t.dataset.c+1;t.dataset.c=n;c.classList.add('done');const bi=t.querySelector('.bi');
 if(bi)bi.insertAdjacentHTML('beforeend',`<span>${c.textContent}</span>`);else if(t.querySelector('b'))t.innerHTML+=` ✅ ${c.textContent}`;else t.textContent=c.textContent;
 if(n>=+t.dataset.n)t.classList.add('ok');
-if(document.querySelectorAll('.chip:not(.done)').length==0){if(!S.tried)hit();const g=pick(GOOD);mood('happy',g);document.getElementById('fb').innerHTML=g+'<div class="ex">Alles is reg!</div>';next()}else mood('happy','Reg! 👍 Nog een...')}
-else{S.tried=true;S.st=0;vib([40,40,40]);t.classList.add('bad');setTimeout(()=>t.classList.remove('bad'),600);mood('sad',pick(BAD))}}
+if(document.querySelectorAll('.chip:not(.done)').length==0){S.done=1;hit();if(S.mode=='foute')delFout(S.items[S.i]);const g=pick(GOOD);mood('happy',g);document.getElementById('fb').innerHTML=g+'<div class="ex">Alles is reg!</div>';next()}else mood('happy','Reg! 👍 Nog een...')}
+else{S.tried=true;S.st=0;S.att=(S.att||0)+1;vib([40,40,40]);t.classList.add('bad');setTimeout(()=>t.classList.remove('bad'),600);
+const fb=document.getElementById('fb');
+if(S.att>=maxTries()){S.done=1;addFout(S.items[S.i]);
+document.querySelectorAll('.chip:not(.done)').forEach(ch=>{const tg=[...document.querySelectorAll('.tg')].find(x=>x.dataset.l==ch.dataset.l&&!x.classList.contains('ok')||x.dataset.l==ch.dataset.l);if(!tg)return;const n=+tg.dataset.c+1;tg.dataset.c=n;ch.classList.add('done');const bi=tg.querySelector('.bi');if(bi)bi.insertAdjacentHTML('beforeend',`<span>${ch.textContent}</span>`);else if(tg.querySelector('b'))tg.innerHTML+=` ✅ ${ch.textContent}`;else tg.textContent=ch.textContent;if(n>=+tg.dataset.n)tg.classList.add('ok')});
+mood('sad','Kyk mooi na die regte antwoord 💡');fb.innerHTML=`Die regte antwoord word nou gewys 💡<div class="ex">Elke naam hoort by sy plek op die prent.</div>`;next();return}
+paintRetry(fb)}}
 function end(){const n=S.items.length,p=Math.round(S.sc/n*100);let extra='',nb=false;
 if(S.mode!='foute'&&(S.mode=='free'||LVS()[S.lv].test)){const b=best();if(p>(b[S.t]??-1)){b[S.t]=p;sv('nwBest',b);nb=true}}
 let s=0;if(S.mode=='lvl'){s=p==100?3:p>=80?2:p>=50?1:0;const st=stars();if(s>(st[S.lv]||0)){st[S.lv]=s;sv('nwStars',st)}
@@ -727,7 +816,7 @@ app.innerHTML=`<div class="card">${masc('wave',f?`Hallo! Kom ons oefen Wiskunde!
 <p>🏆 Beste tellings: Heelgetalle ${b.H??'-'}% · Optel ${b.O??'-'}% · Maal ${b.V??'-'}% · Deel ${b.D??'-'}% · Breuke ${b.B??'-'}% · Meting ${b.M??'-'}% · Toets ${b.X??'-'}%</p>
 <button class="lnk" onclick="reset()">↺ Herstel Wiskunde-vordering</button></div>`}
 
-function showW(){S.tried=false;SEL=null;Xseq=[];
+function showW(){S.tried=false;S.done=false;S.att=0;SEL=null;Xseq=[];
 const it=S.items[S.i];
 const body=renderW(it);
 app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi, wys jou werk as jy wil 🤔')}<span class="tag">${it.tag||'Wiskunde'}</span>
@@ -772,12 +861,11 @@ function ansW(k){
   finishW(right,it)}
 
 function finishW(right,it){
-  const fb=document.getElementById('fb');
-  if(!right&&!S.tried)addFout(it);
-  if(S.m==='o'){
-    if(right){if(!S.tried){hit();if(S.mode==='foute')delFout(it)}const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${it.exp||''}</div>`;S.done=true;document.querySelectorAll('.card button.op,.card button.big,.symbar button').forEach(x=>{if(x.id!=='nxb')x.disabled=true});const inp=document.getElementById('wa');if(inp)inp.disabled=true;next()}
-    else{S.tried=true;S.st=0;vib([40,40,40]);const m=pick(BAD);mood('sad',m);fb.textContent=m}}
-  else{if(right)hit();else S.st=0;adv()}}
+  const fb=document.getElementById('fb');if(S.done)return;
+  if(right){S.done=true;hit();if(S.mode==='foute')delFout(it);const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${it.exp||''}</div>`;document.querySelectorAll('.card button.op,.card button.big,.symbar button').forEach(x=>{if(x.id!=='nxb')x.disabled=true});const inp=document.getElementById('wa');if(inp)inp.disabled=true;next();return}
+  S.tried=true;S.st=0;S.att=(S.att||0)+1;vib([40,40,40]);
+  if(S.att>=maxTries()){S.done=true;addFout(it);revealW(it);mood('sad','Kyk mooi na die regte antwoord 💡');fb.innerHTML=`Die regte antwoord word nou gewys 💡<div class="ex">${it.exp||''}</div>`;document.querySelectorAll('.card button.op,.card button.big,.symbar button').forEach(x=>{if(x.id!=='nxb')x.disabled=true});const inp=document.getElementById('wa');if(inp)inp.disabled=true;next();return}
+  paintRetry(fb);wRetryKeep(it)}
 
 subjects();
 </script></body></html>
