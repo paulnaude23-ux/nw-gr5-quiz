@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="af"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
+<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><!-- nw-v9 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#2a1b4d,#5b3a8c 50%,#2f7f86);color:#2a1b4d;min-height:100vh}
 .wrap{max-width:560px;margin:auto;padding:14px}.card{background:#fff8fd;border-radius:22px;padding:18px;box-shadow:0 8px 30px #0004;margin-top:12px}
 h1{color:#fff;text-align:center;font-size:1.5em;margin:10px 0 0}.sub{color:#ffd6f0;text-align:center;margin:4px 0}
@@ -125,6 +125,10 @@ button.vak{display:flex;flex-direction:column;align-items:center;gap:2px;padding
 button.vak .vakic{font-size:2em;line-height:1}
 button.vak small{display:block;font-weight:600;opacity:.95;font-size:.8em;margin-top:4px;white-space:normal}
 .winp input{width:100%;font:inherit;font-size:1.25em;font-weight:700;text-align:center;padding:12px;border:2px solid #e5d8ff;border-radius:14px;margin:8px 0;background:#fff;color:#2a1b4d}
+.symbar{display:flex;gap:6px;justify-content:center;align-items:stretch;margin:2px 0 2px;flex-wrap:nowrap}
+.symbar .sym{width:auto;flex:1;min-width:0;max-width:56px;padding:9px 0;margin:0;font-size:1.28em;font-weight:800;text-align:center;background:#efe6ff;color:#2a1b4d;border-radius:12px;box-shadow:0 2px 0 #d6c6f5;line-height:1;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.symbar .sym:active{transform:scale(.96) translateY(1px);box-shadow:0 1px 0 #d6c6f5}
+
 .mini{width:92px;height:92px;display:block;margin:8px auto}
 .wseq{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:44px;margin:8px 0}
 </style></head><body><canvas id="bg"></canvas><div class="planet p1"></div><div class="planet p2"></div><canvas id="cf"></canvas><div class="wrap">
@@ -560,16 +564,32 @@ const WLV=[
 const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
 const rp=a=>a[Math.floor(Math.random()*a.length)];
 function fmt(n){const neg=n<0;n=Math.abs(n);const [i,d]=String(n).split('.');const g=i.replace(/\B(?=(\d{3})+(?!\d))/g,' ');return (neg?'-':'')+g+(d!==undefined?','+d:'')}
-function parseAns(s){s=(''+s).trim().toLowerCase().replace(/\s+/g,'').replace(/^r/,'').replace(/r$/,'');
- s=s.replace(/cm\^?3|cm³|cm2|cm²|ml|mm|cm|km|kg|g|ℓ|l$|min|uur/g,'').replace(',','.');
- if(/restant|oorskot|r(?=\d)/.test(s)){const m=s.match(/(-?\d+(?:\.\d+)?)(?:restant|oorskot|r)(-?\d+)/);if(m)return {n:+m[1],r:+m[2],kind:'rem'}}
- if(s.includes('/')){const p=s.split('/');if(p.length===2&&+p[1])return {n:+p[0]/+p[1],kind:'num',raw:s}}
- const n=Number(s);return {n,kind:'num',raw:s}}
-function numEq(user,exp){const u=parseAns(user);if(typeof exp==='object'&&exp.rem!=null){if(u.kind==='rem')return u.n===exp.q&&u.r===exp.rem;if(u.kind==='num'&&exp.rem===0)return u.n===exp.q;return false}
- if(typeof exp==='string'){const es=exp.trim().toLowerCase().replace(/\s+/g,'');const us=(''+user).trim().toLowerCase().replace(/\s+/g,'');if(us===es)return true;if(Array.isArray(exp))return exp.some(e=>numEq(user,e))}
+function stripUnits(s){return (''+s).replace(/cm\^?3|cm³|cm2|cm²|\bml\b|\bmm\b|\bcm\b|\bkm\b|\bkg\b|\bg\b|ℓ|\bmin\b|\buur\b/gi,'').replace(/l$/i,'')}
+function normExpr(s){s=stripUnits(''+s).trim();
+ s=s.replace(/[×⁎∗]/g,'*').replace(/(?<=[\d)])\s*[xX]\s*(?=[\d(])/g,'*').replace(/[−–—‒]/g,'-').replace(/÷/g,'/');
+ s=s.replace(/(\d)\s+(?=\d)/g,'$1');
+ s=s.replace(/(\d),(\d)/g,'$1.$2');
+ return s}
+function evalExpr(s){let t=normExpr(s).replace(/\s+/g,'');
+ if(!t)return NaN;
+ if(t.includes('=')){const sides=t.split('=').filter(Boolean).map(evalExpr);if(!sides.length||sides.some(v=>!isFinite(v)))return NaN;if(sides.length>1&&sides.some(v=>Math.abs(v-sides[0])>1e-9))return NaN;return sides[0]}
+ if(!/^-?[\d.+*/()-]+$/.test(t))return NaN;
+ try{const v=Function('"use strict";return ('+t+')')();return typeof v==='number'&&isFinite(v)?v:NaN}catch(e){return NaN}}
+function parseAns(s){const raw=(''+s).trim();
+ let t=stripUnits(raw).trim().toLowerCase();
+ const packed=t.replace(/\s+/g,'');
+ if(/(?:restant|oorskot)|(?:^|\d)r\d/.test(packed)){const m=packed.replace(/^r/,'').match(/(-?\d+(?:[.,]\d+)?)(?:restant|oorskot|r)(-?\d+)/);if(m)return {n:+m[1].replace(',','.'),r:+m[2],kind:'rem'}}
+ const ev=evalExpr(raw);
+ return {n:ev,kind:'num',raw}}
+function numEq(user,exp){if(exp==null)return false;
  if(Array.isArray(exp))return exp.some(e=>numEq(user,e));
- const ev=typeof exp==='number'?exp:parseAns(exp).n;
- if(u.kind==='num'&&isFinite(u.n)&&isFinite(ev))return Math.abs(u.n-ev)<1e-9;
+ if(typeof exp==='object'&&exp.rem!=null){const u=parseAns(user);if(u.kind==='rem')return u.n===exp.q&&u.r===exp.rem;if(u.kind==='num'&&exp.rem===0)return u.n===exp.q;return false}
+ if(typeof exp==='string'){const es=normExpr(exp).replace(/\s+/g,'').toLowerCase();const us=normExpr(user).replace(/\s+/g,'').toLowerCase();if(us===es)return true}
+ const ev=typeof exp==='number'?exp:evalExpr(exp);
+ const uv=evalExpr(user);
+ if(isFinite(uv)&&isFinite(ev)&&Math.abs(uv-ev)<1e-9)return true;
+ const u=parseAns(user);
+ if(u.kind==='num'&&isFinite(u.n)&&isFinite(ev)&&Math.abs(u.n-ev)<1e-9)return true;
  return false}
 
 function Witem(o){return Object.assign({k:'w',tag:'Wiskunde'},o)}
@@ -715,8 +735,14 @@ app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doe
 const inp=document.getElementById('wa');if(inp){inp.focus();inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();ansW()}})}}
 
 let Xseq=[];
+function insSym(e,ch){if(e){e.preventDefault();e.stopPropagation()}
+  const inp=document.getElementById('wa');if(!inp||inp.disabled||S.done)return;
+  const s=inp.selectionStart??inp.value.length,t=inp.selectionEnd??s;
+  inp.value=inp.value.slice(0,s)+ch+inp.value.slice(t);
+  const p=s+ch.length;try{inp.setSelectionRange(p,p)}catch(err){}
+  inp.focus();return false}
 function renderW(it){
-  if(it.typ==='type')return `<div class="winp"><input id="wa" inputmode="decimal" autocomplete="off" autocapitalize="off" placeholder="Jou antwoord" aria-label="Antwoord"></div><button class="big" onclick="ansW()">Kontroleer ✓</button>`;
+  if(it.typ==='type')return `<div class="winp"><div class="symbar" role="toolbar" aria-label="Wiskunde-simbole">`+[['+','+'],['−','−'],['×','×'],['÷','÷'],['=', '='],[',', ',']].map(p=>`<button type="button" class="sym" tabindex="-1" data-ch="${p[1]}" onpointerdown="insSym(event,'${p[1]}')">${p[0]}</button>`).join('')+`</div><input id="wa" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Jou antwoord" aria-label="Antwoord"></div><button class="big" onclick="ansW()">Kontroleer ✓</button>`;
   if(it.typ==='choice')return it.opts.map((o,k)=>`<button class="op" id="b${k}" onclick="ansW(${k})">${o}</button>`).join('');
   if(it.typ==='order')return `<p class="small">Tik in die regte volgorde. Tik weer om te verwyder.</p><div class="chips" id="wopts">${it.opts.map((o,k)=>`<span class="chip" id="wc${k}" onclick="wTap(${k})">${o}</span>`).join('')}</div>
 <div class="wseq" id="wseq"></div><button class="big" onclick="ansW()">Kontroleer ✓</button>`;
@@ -728,9 +754,9 @@ document.getElementById('wseq').innerHTML=Xseq.map((k,i)=>`<span class="chip don
 function checkW(it,user){
   if(it.check==='time'){const u=(''+user).trim().replace('.',':').replace('h',':');const pad=s=>s.split(':').map(x=>String(+x).padStart(2,'0')).join(':');try{return pad(u)===pad(it.a)}catch(e){return false}}
   if(it.check==='text'){return (''+user).trim().toLowerCase().replace(/s$/,'')===(''+it.a).toLowerCase().replace(/s$/,'')}
-  if(it.check==='expand'){const u=(''+user).replace(/\s+/g,'').replace(/,/g,'');const parts=u.split('+').map(Number).filter(n=>!isNaN(n));return parts.reduce((a,b)=>a+b,0)===Number((''+it.a).split('+').map(Number).reduce((a,b)=>a+b,0))&&parts.length>=2}
+  if(it.check==='expand'){const u=normExpr(''+user).replace(/\s+/g,'');if(!u.includes('+'))return false;const parts=u.split('+').map(Number);if(parts.length<2||parts.some(n=>!isFinite(n)))return false;const expect=String(it.a).split('+').map(Number).reduce((a,b)=>a+b,0);return parts.reduce((a,b)=>a+b,0)===expect}
   if(it.check==='eq'){const m=(''+user).trim().match(/^(\d+)\s*\/\s*(\d+)$/);if(!m)return false;const a=+m[1],b=+m[2];return b&&a/b===it.a.eq[0]/it.a.eq[1]&&!(a===it.a.eq[0]&&b===it.a.eq[1])}
-  if(it.check==='frac'){const m=(''+user).trim().match(/^(\d+)\s*\/\s*(\d+)$/);if(m){const a=+m[1],b=+m[2];return b&&a/b===it.a.frac[0]/it.a.frac[1]}return numEq(user,it.a.frac[0]/it.a.frac[1])}
+  if(it.check==='frac'){const m=(''+user).trim().replace(/,/g,'.').match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/);if(m){const a=+m[1],b=+m[2];return b&&Math.abs(a/b-it.a.frac[0]/it.a.frac[1])<1e-9}return numEq(user,it.a.frac[0]/it.a.frac[1])}
   if(it.a&&it.a.two){const nums=(''+user).split(/[;,\s]+/).map(s=>parseAns(s).n).filter(n=>isFinite(n));return nums.length>=2&&nums[0]===it.a.two[0]&&nums[1]===it.a.two[1]}
   if(it.a&&it.a.three){const nums=(''+user).split(/[;,\s]+/).map(s=>parseAns(s).n).filter(n=>isFinite(n));return nums.length>=3&&nums[0]===6&&nums[1]===12&&nums[2]===8}
   if(it.a&&it.a.q!=null&&it.a.rem!=null)return numEq(user,{rem:it.a.rem,q:it.a.q});
@@ -749,7 +775,7 @@ function finishW(right,it){
   const fb=document.getElementById('fb');
   if(!right&&!S.tried)addFout(it);
   if(S.m==='o'){
-    if(right){if(!S.tried){hit();if(S.mode==='foute')delFout(it)}const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${it.exp||''}</div>`;S.done=true;document.querySelectorAll('.card button.op,.card button.big').forEach(x=>{if(x.id!=='nxb')x.disabled=true});const inp=document.getElementById('wa');if(inp)inp.disabled=true;next()}
+    if(right){if(!S.tried){hit();if(S.mode==='foute')delFout(it)}const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${it.exp||''}</div>`;S.done=true;document.querySelectorAll('.card button.op,.card button.big,.symbar button').forEach(x=>{if(x.id!=='nxb')x.disabled=true});const inp=document.getElementById('wa');if(inp)inp.disabled=true;next()}
     else{S.tried=true;S.st=0;vib([40,40,40]);const m=pick(BAD);mood('sad',m);fb.textContent=m}}
   else{if(right)hit();else S.st=0;adv()}}
 
