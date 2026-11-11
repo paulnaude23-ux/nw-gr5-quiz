@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="af"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><!-- nw-v9 --><!-- nw-v10 --><!-- nw-v11 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
+<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><!-- nw-v9 --><!-- nw-v10 --><!-- nw-v11 --><!-- nw-v12 --><!-- nw-v13 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#2a1b4d,#5b3a8c 50%,#2f7f86);color:#2a1b4d;min-height:100vh}
 .wrap{max-width:560px;margin:auto;padding:14px}.card{background:#fff8fd;border-radius:22px;padding:18px;box-shadow:0 8px 30px #0004;margin-top:12px}
 h1{color:#fff;text-align:center;font-size:1.5em;margin:10px 0 0}.sub{color:#ffd6f0;text-align:center;margin:4px 0}
@@ -125,8 +125,8 @@ button.vak{display:flex;flex-direction:column;align-items:center;gap:2px;padding
 button.vak .vakic{font-size:2em;line-height:1}
 button.vak small{display:block;font-weight:600;opacity:.95;font-size:.8em;margin-top:4px;white-space:normal}
 .winp input{width:100%;font:inherit;font-size:1.25em;font-weight:700;text-align:center;padding:12px;border:2px solid #e5d8ff;border-radius:14px;margin:8px 0;background:#fff;color:#2a1b4d}
-.symbar{display:flex;gap:6px;justify-content:center;align-items:stretch;margin:2px 0 2px;flex-wrap:nowrap}
-.symbar .sym{width:auto;flex:1;min-width:0;max-width:56px;padding:9px 0;margin:0;font-size:1.28em;font-weight:800;text-align:center;background:#efe6ff;color:#2a1b4d;border-radius:12px;box-shadow:0 2px 0 #d6c6f5;line-height:1;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.symbar{display:flex;gap:4px;justify-content:center;align-items:stretch;margin:2px 0 2px;flex-wrap:nowrap}
+.symbar .sym{width:auto;flex:1 1 0;min-width:0;max-width:none;padding:10px 0;margin:0;font-size:1.2em;font-weight:800;text-align:center;background:#efe6ff;color:#2a1b4d;border-radius:12px;box-shadow:0 2px 0 #d6c6f5;line-height:1;user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .symbar .sym:active{transform:scale(.96) translateY(1px);box-shadow:0 1px 0 #d6c6f5}
 
 .mini{width:92px;height:92px;display:block;margin:8px auto}
@@ -135,8 +135,112 @@ button.vak small{display:block;font-weight:600;opacity:.95;font-size:.8em;margin
 .hint{margin-top:.55rem;background:#fff7d6;border:2px solid #f5c84c;border-radius:14px;padding:.65rem .85rem;font-weight:700;color:#5a3e00;line-height:1.35;box-shadow:0 2px 0 #e8b830;text-align:left}
 .try{font-weight:800}
 .op.dim,.tfb.dim,.mb.dim{opacity:.42;filter:grayscale(.3)}
+.naamrow{display:flex;gap:8px;align-items:center;margin-top:8px}
+.naamrow input{flex:1;min-width:0;font:inherit;font-size:16px;font-weight:700;padding:12px;border-radius:14px;border:2px solid #e5d8ff;color:#2a1b4d;background:#fff}
+.naamrow input:focus{outline:none;border-color:#c77dff;box-shadow:0 0 0 4px #c77dff33}
+.naamrow button{width:auto;margin:0;padding:12px 16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.grid2 button{margin:0;text-align:center;line-height:1.25}
+.grid2 button small{display:block;font-size:.78em;font-weight:700;opacity:.95}
+.span2{grid-column:1/-1}
+.lvrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #efe6ff;font-weight:700}
+.lvrow .st{flex:none;letter-spacing:1px}
+.starsum{font-weight:800;color:#5b3a8c;margin:4px 0 8px}
+.bestp{font-size:.92em;line-height:1.45;color:#5b3a8c}
+.note{color:#5b3a8c;font-weight:700;text-align:center;min-height:1.2em}
+.werk{margin:8px 0 4px;background:#fff;border-radius:14px;border:2px dashed #e5d8ff;padding:8px 10px}
+.werk summary{font-weight:800;cursor:pointer;color:#5b3a8c}
+.werk textarea{width:100%;min-height:76px;border:0;font:inherit;font-size:16px;resize:vertical;background:transparent;color:#2a1b4d;margin-top:6px}
+.werk textarea:focus{outline:none}
+
+/* v13 playful light theme */
+body{background:
+ radial-gradient(circle at 6% 10%,#ffe6bf 0,transparent 26%),
+ radial-gradient(circle at 96% 4%,#e3d4ff 0,transparent 28%),
+ radial-gradient(circle at 88% 92%,#c9f6e2 0,transparent 32%),
+ radial-gradient(circle at 4% 88%,#d5ecff 0,transparent 28%),
+ #f6f3ff;color:#241b45}
+#bg,.planet{display:none!important}
+h1{color:#241b45;text-shadow:none;font-weight:900;font-size:2.05em;letter-spacing:-.4px;line-height:1.2;margin-top:18px}
+.sub{color:#6d6588;font-weight:700}
+.hl{display:inline-block;background:#7c5cff;color:#fff;border-radius:14px;padding:.02em .38em .06em;line-height:1.15;transform:rotate(-2deg)}
+.hl.b{background:#3d8bfd;transform:rotate(2deg)}
+.hl.o{background:#ff8a34;transform:rotate(-1deg)}
+.card{background:#fff;border:0;border-radius:28px;box-shadow:0 14px 36px #7c5cff18;backdrop-filter:none;-webkit-backdrop-filter:none}
+.bub{background:#efe7ff;color:#3a2d6e;border-radius:18px}
+.bub::before{border-right-color:#efe7ff}
+.top{color:#241b45;gap:8px}
+.x{background:#fff;color:#241b45;width:40px;height:40px;padding:0;border-radius:50%;box-shadow:0 3px 0 #e4d8f8;text-align:center;font-weight:800}
+.bar{background:#efe8ff}
+.fill{background:linear-gradient(90deg,#7c5cff,#ffb15a)}
+button{background:#fff;color:#241b45;border-radius:20px;box-shadow:0 3px 0 #eadff8}
+button.big{background:linear-gradient(90deg,#7c5cff,#a78bfa);color:#fff;box-shadow:0 4px 0 #5b3fd4;border-radius:999px}
+button.teal{background:linear-gradient(90deg,#5aa6ff,#7a74ff);color:#fff;box-shadow:0 4px 0 #4560c8;border-radius:999px}
+button.ghost{background:#fff;color:#5b3fd4;text-align:center;box-shadow:0 4px 0 #e6def6;border-radius:999px}
+.kies{font-weight:900;font-size:1.35em;color:#241b45;margin:16px 4px 8px}
+.picks,.less{display:flex;flex-direction:column;gap:10px}
+button.pick,button.les{display:flex;align-items:center;gap:12px;text-align:left;margin:0;box-shadow:none;color:#241b45}
+button.pick{padding:16px;border-radius:26px;min-height:92px}
+button.les{padding:12px 14px;border-radius:22px}
+button.pick.p-lil,button.les.c1{background:#e6d9ff}
+button.pick.p-mint,button.les.c0{background:#d7f6e4}
+button.les.c2{background:#ffe4c4}
+button.les.c3{background:#d9ecff}
+button.les.c4{background:#ffd6ea}
+button.les.lk{filter:saturate(.55);opacity:.88}
+button.les.cur{box-shadow:0 0 0 3px #7c5cff}
+.pickic,.lesic{display:grid;place-items:center;background:#fff;flex:none;box-shadow:0 4px 0 #0000000d}
+.pickic{width:64px;height:64px;border-radius:20px;font-size:2em}
+.lesic{width:52px;height:52px;border-radius:16px;font-size:1.6em}
+.pickt,.lest{flex:1;min-width:0}
+.pickt b,.lest b{display:block;font-size:1.12em;line-height:1.2}
+.pickt small,.lest small{display:block;font-weight:700;color:#5c5478;margin-top:3px;font-size:.82em}
+.lesact{flex:none;background:#fff;color:#6d4aff;border-radius:999px;padding:7px 12px;font-weight:800;font-size:.85em}
+.lesact.stars{background:transparent;padding:0;letter-spacing:1px;font-size:1em}
+.grid2 button.teal{background:#efe7ff;color:#241b45;box-shadow:0 3px 0 #ddd0f5;border-radius:18px}
+.grid2 button.teal:nth-child(3n+2){background:#d8f8e6;box-shadow:0 3px 0 #b7e8cc}
+.grid2 button.teal:nth-child(3n){background:#ffe7c9;box-shadow:0 3px 0 #f0d0a4}
+.grid2 button.span2{background:linear-gradient(90deg,#7c5cff,#5aa7ff);color:#fff;box-shadow:0 4px 0 #5b46c9;border-radius:999px}
+h2{color:#241b45}
+.naamrow button{border-radius:16px}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:8px}
+h1{text-align:left}
+.sub{text-align:left}
+.hl{animation:pill 5s ease-in-out infinite}
+@keyframes pill{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(2deg) scale(1.04)}}
+button.buddy{width:72px;height:72px;flex:none;margin:0;padding:0;border-radius:50%;background:transparent;box-shadow:none;animation:floaty 3s ease-in-out infinite}
+button.buddy svg{width:72px;height:72px;overflow:visible;display:block}
+button.buddy .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.2s infinite}
+@keyframes floaty{50%{transform:translateY(-7px) rotate(7deg)}}
+button.buddy.pop{animation:starpop .55s cubic-bezier(.2,1.6,.4,1)}
+@keyframes starpop{35%{transform:scale(1.28) rotate(16deg)}100%{transform:none}}
+.spark{position:fixed;z-index:8;pointer-events:none;color:#ffb703;font-weight:900;animation:spark .7s ease-out forwards}
+@keyframes spark{to{transform:translate(var(--x),var(--y)) scale(.3);opacity:0}}
+.bub.boing{animation:bubIn .35s cubic-bezier(.2,1.4,.4,1)}
+.picks .pick,.picks .ghost,.less .les{animation:cardIn .5s cubic-bezier(.2,1.15,.3,1) backwards;animation-delay:calc(var(--i,0) * 55ms)}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.pickic{animation:bobble 2.6s ease-in-out infinite}
+.les.cur .lesic{animation:bobble 1.6s ease-in-out infinite}
+@keyframes bobble{50%{transform:translateY(-4px) rotate(-8deg)}}
+button.les.cur{animation:cardIn .5s cubic-bezier(.2,1.15,.3,1) backwards,here 1.8s ease-in-out .6s infinite;animation-delay:calc(var(--i,0) * 55ms),.6s}
+@keyframes here{50%{box-shadow:0 0 0 5px #c4b5fd,0 12px 22px #7c5cff2e}}
+button.les.shk{animation:nudge .42s}
+@keyframes nudge{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.meter{display:block;height:7px;margin-top:6px;background:#ffffffc7;border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#7c5cff,#ffb15a);transition:width .7s cubic-bezier(.2,.8,.2,1)}
+button.popin{animation:cardIn .4s cubic-bezier(.2,1.15,.3,1) backwards;animation-delay:calc(var(--i,0) * 55ms)}
+@media (hover:hover){
+ button.pick:hover,button.les:not(.lk):hover{filter:brightness(1.03)}
+}
+@media (prefers-reduced-motion:reduce){
+ .hl,button.buddy,.pickic,.les.cur .lesic,.spark{animation:none!important}
+ .meter i{transition:none}
+ button.les.cur{animation:none}
+}
 </style></head><body><canvas id="bg"></canvas><div class="planet p1"></div><div class="planet p2"></div><canvas id="cf"></canvas><div class="wrap">
-<h1 id="ttl">🌟 Graad 5 Quiz</h1><div class="sub" id="subh">Kies jou vak</div><div id="app"></div></div>
+<div class="hero"><div><h1 id="ttl">Kom ons <span class="hl">leer</span> saam</h1><div class="sub" id="subh">Kies jou vak</div></div>
+<button class="buddy" type="button" onclick="pokeStar()" aria-label="Speel met die sterretjie"><svg viewBox="0 0 80 80"><defs><radialGradient id="stg" cx="38%" cy="32%"><stop offset="0" stop-color="#fff6cc"/><stop offset="1" stop-color="#ffb703"/></radialGradient></defs><polygon points="40,4 50,28 76,30 56,46 63,72 40,58 17,72 24,46 4,30 30,28" fill="url(#stg)" stroke="#f08a00" stroke-width="2" stroke-linejoin="round"/><ellipse class="eye" cx="32" cy="40" rx="3.2" ry="4" fill="#241b45"/><ellipse class="eye" cx="49" cy="40" rx="3.2" ry="4" fill="#241b45"/><circle cx="33.2" cy="38.4" r="1.2" fill="#fff"/><circle cx="50.2" cy="38.4" r="1.2" fill="#fff"/><path d="M32,50 q8,8 16,0" stroke="#241b45" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="24" cy="48" r="3.2" fill="#ff8fab" opacity=".75"/><circle cx="56" cy="48" r="3.2" fill="#ff8fab" opacity=".75"/></svg></button></div>
+<div id="app"></div></div>
 <script>
 // [vraag, opsies, korrek-indeks, verduideliking, onderwerp]  A=Aarde beweeg, G=Oppervlak/grond
 const ARW='<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#ff5fa8"/></marker></defs>';
@@ -551,26 +655,49 @@ function combo(n){const d=document.createElement('div');d.className='combo';d.in
 addEventListener('resize',()=>{if(X.c&&X.c.t=='match')mDraw()});
 
 function home(){if(SUB==='wk')return homeW();homeNW()}
-function homeNW(){stopCf();const b=best(),st=stars(),f=foute().length,offs=[0,70,95,70,0,-70,-95,-70],H=118,W=320;
-let pts=[],nodes='',cur0=false;LV.forEach((l,i)=>{const x=W/2+offs[i%8],y=50+i*H;pts.push(x+','+y);const u=unlocked(i),s=st[i]||0,cur=u&&!s&&!cur0;if(cur)cur0=true;const lr=offs[i%8]>0;
-nodes+=`<div class="nd ${u?'':'lk'} ${cur?'cur':''} ${s?'done':''} ${l.test&&!s?'gt':''}" style="left:${x}px;top:${y}px" data-lv="${i}" onclick="${u?`startLevel(${i})`:`mood('sad','Eers die vorige vlak! 🔒')`}"><span>${u?l.ic:'🔒'}</span></div>
-<div class="nl ${lr?'r':''}" style="${lr?`left:${x-48-112}px`:`left:${x+48}px`};top:${y}px"><div class="st">${[1,2,3].map(k=>`<span>${k<=s?'⭐':'☆'}</span>`).join('')}</div>${l.n}</div>`});
-app.innerHTML=`<div class="card">${masc('wave',f?`Hallo! Kom ons leer! Jy het ${f} foute om te oefen 💪`:'Hallo! Ek is Wurmpie. Kom ons leer saam! 🌱')}</div>
-<div class="path" style="height:${LV.length*H+30}px"><svg width="${W}" height="${LV.length*H+30}" style="position:absolute;left:0;top:0"><path d="${curve(pts)}" fill="none" stroke="#ffffff22" stroke-width="16" stroke-linecap="round"/><path d="${curve(pts)}" fill="none" stroke="#ffd6f0" stroke-width="5" stroke-dasharray="1 13" stroke-linecap="round"/></svg>${nodes}</div>
-<div class="card center">${vakBtn()}<button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
-<p><b>Vrye oefening</b></p><button class="teal" onclick="startFree('A','o')">🌍 Die Aarde beweeg: Oefenmodus</button><button class="teal" onclick="startFree('G','o')">🌱 Die oppervlak van die Aarde: Oefenmodus</button><button class="teal" onclick="startFree('S','o')">🧱 Sedimentgesteentes: Oefenmodus</button><button class="teal" onclick="startFree('F','o')">🦴 Fossiele: Oefenmodus</button><button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
-<p>🏆 Beste tellings: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Gesteentes ${b.S??'-'}% · Fossiele ${b.F??'-'}% · Toets ${b.X??'-'}%</p><button class="lnk" onclick="reset()">↺ Herstel vordering</button></div>`}
+const LESC=['c0','c1','c2','c3','c4'];
+function lesPad(levels){const st=stars();let cur0=false,html='';
+ levels.forEach((l,i)=>{const u=unlocked(i),s=+st[i]||0,cur=u&&!s&&!cur0;if(cur)cur0=true;
+  const stars=[1,2,3].map((k,n)=>`<span style="animation-delay:${n*80}ms">${k<=s?'⭐':'☆'}</span>`).join('');
+  const sub=u?(cur?'Volgende les':s?'Speel weer vir meer sterre':'Tik om te begin'):'Maak eers die vorige les oop';
+  const act=u?(s?`<span class="lesact stars st">${stars}</span>`:'<span class="lesact">Start</span>'):'<span class="lesact">🔒</span>';
+  html+=`<button type="button" class="les ${LESC[i%5]} ${u?'':'lk'} ${cur?'cur':''}" style="--i:${i}" onclick="tapLes(event,${i},${u?1:0})"><span class="lesic">${u?l.ic:'🔒'}</span><span class="lest"><b>${esc(l.n)}</b><small>${sub}</small><span class="meter"><i data-p="${Math.round(s/3*100)}%"></i></span></span>${act}</button>`});
+ return `<div class="less">${html}</div>`}
+const STARSAY=["Jy kan dit doen! ⭐","Elke les maak jou slimmer.","Ek glo in jou! 🌟","Nog een les? Kom ons speel!","Jy is op die regte pad."];
+let pokeN=0;
+function pokeStar(){const b=document.querySelector('.buddy');if(!b)return;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');
+ const r=b.getBoundingClientRect();
+ for(let i=0;i<7;i++){const s=document.createElement('span');s.className='spark';s.textContent=i%2?'✦':'⭐';s.style.left=(r.left+r.width/2)+'px';s.style.top=(r.top+r.height/2)+'px';s.style.setProperty('--x',(Math.random()*90-45)+'px');s.style.setProperty('--y',(Math.random()*-80-10)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),700)}
+ const m=document.getElementById('bub');if(m){m.textContent=STARSAY[pokeN++%STARSAY.length];m.classList.remove('boing');void m.offsetWidth;m.classList.add('boing')}vib(12)}
+function tapLes(e,i,u){const b=e.currentTarget;if(!u){b.classList.remove('shk');void b.offsetWidth;b.classList.add('shk');mood('sad','Eers die vorige les! 🔒');vib([20,30,20]);return}startLevel(i)}
+function tilt(e){if(e.pointerType==='touch')return;const b=e.currentTarget,r=b.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;b.style.transform=`perspective(500px) rotateX(${(-y*7).toFixed(2)}deg) rotateY(${(x*8).toFixed(2)}deg) translateY(-2px)`}
+function untilt(e){e.currentTarget.style.transform=''}
+function bindPlay(){document.querySelectorAll('.meter i').forEach(el=>{el.style.width='0';const p=el.dataset.p;requestAnimationFrame(()=>requestAnimationFrame(()=>{el.style.width=p}))});
+ if(!matchMedia('(hover:hover)').matches)return;
+ document.querySelectorAll('.pick,.les:not(.lk)').forEach(b=>{if(b.dataset.tilt)return;b.dataset.tilt='1';b.addEventListener('pointermove',tilt);b.addEventListener('pointerleave',untilt);b.addEventListener('pointerup',untilt)})}
+function homeNW(){stopCf();const b=best(),f=foute().length;
+setHead('Planeet <span class="hl o">Aarde</span>','Natuurwetenskap · Graad 5');
+app.innerHTML=`<div class="card">${masc('wave',f?hallo(`Jy het ${foutWord(f)} om te oefen 💪`):hallo('Ek is Wurmpie. Kom ons leer saam! 🌱'))}</div>
+<p class="kies">Kies ’n <span class="hl o">les</span></p>${lesPad(LV)}
+<div class="card center">${vakBtn()}<button class="big" onclick="kaart()">📋 My vordering</button>
+<button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
+<p><b>Vrye oefening</b></p><div class="grid2"><button class="teal" onclick="startFree('A','o')">🌍 Aarde<small>${nTag('A')} vrae</small></button><button class="teal" onclick="startFree('G','o')">🌱 Grond<small>${nTag('G')} vrae</small></button><button class="teal" onclick="startFree('S','o')">🧱 Gesteentes<small>${nTag('S')} vrae</small></button><button class="teal" onclick="startFree('F','o')">🦴 Fossiele<small>${nTag('F')} vrae</small></button><button class="teal span2" onclick="startFree('X','t')">📝 Toetsmodus · 12 vrae</button></div>
+<p class="bestp">🏆 Beste: Aarde ${b.A??'-'}% · Grond ${b.G??'-'}% · Gesteentes ${b.S??'-'}% · Fossiele ${b.F??'-'}% · Toets ${b.X??'-'}%</p><button class="lnk" onclick="reset()">↺ Herstel vordering</button></div>`}
 function reset(){if(confirm(SUB==='wk'?'Is jy seker? Jou Wiskunde-sterre, foute en beste tellings word uitgevee.':'Is jy seker? Al jou sterre, foute en beste tellings word uitgevee.')){(SUB==='wk'?['wkBest','wkStars','wkFoute']:['nwBest','nwStars','nwFoute','nwV5']).forEach(k=>localStorage.removeItem(k));home()}}
 function begin(o){stopCf();S=Object.assign({i:0,sc:0,st:0,max:0,tried:false,att:0,done:false},o);show()}
 const qi=a=>shuf(a).map(i=>({k:'q',i}));
-function startLevel(li){const l=LVS()[li];if(!unlocked(li))return;if(SUB==='wk'){begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:genAllTest(12)}:{mode:'lvl',lv:li,t:l.t,m:'o',items:genLevel(l)});return}begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:qi(Q.map((_,i)=>i))}:{mode:'lvl',lv:li,t:l.t,m:'o',items:qi(l.q).concat((l.d||[]).map(d=>({k:'d',d})))})}
-function startFree(t,m){if(SUB==='wk'){begin({mode:'free',t,m,items:t==='X'?genAllTest(12):genByTag(t,10)});return}begin({mode:'free',t,m,items:qi(Q.map((_,i)=>i).filter(i=>t=='X'||Q[i][4]==t))})}
+function nTag(t){let n=0;Q.forEach(q=>{if(q[4]===t)n++});return n}
+function sampleNW(n){const tags=['A','G','S','F'],base=Math.floor(n/tags.length),extra=n%tags.length,ids=[];
+  tags.forEach((t,ti)=>{const pool=[];Q.forEach((q,i)=>{if(q[4]===t)pool.push(i)});shuf(pool).slice(0,base+(ti<extra?1:0)).forEach(i=>ids.push(i))});
+  return qi(ids)}
+function startLevel(li){const l=LVS()[li];if(!unlocked(li))return;if(SUB==='wk'){begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:genAllTest(12)}:{mode:'lvl',lv:li,t:l.t,m:'o',items:genLevel(l)});return}begin(l.test?{mode:'lvl',lv:li,t:'X',m:'t',items:sampleNW(12)}:{mode:'lvl',lv:li,t:l.t,m:'o',items:qi(l.q).concat((l.d||[]).map(d=>({k:'d',d})))})}
+function startFree(t,m){if(SUB==='wk'){begin({mode:'free',t,m,items:t==='X'?genAllTest(12):genByTag(t,10)});return}begin({mode:'free',t,m,items:t=='X'?sampleNW(12):qi(Q.map((_,i)=>i).filter(i=>Q[i][4]==t))})}
 function startFoute(){const f=foute();if(!f.length)return;begin({mode:'foute',t:'X',m:'o',items:SUB==='wk'?shuf(f.slice()):shuf(f.map(x=>typeof x==='object'?x:{k:'q',i:x}))})}
 function hdr(){const n=S.items.length;return `<div class="top"><button class="x" onclick="home()">✕</button><span>${S.mode=='lvl'?LVS()[S.lv].n:S.mode=='foute'?'My foute':'Vrye oefening'} · ${S.i+1}/${n}</span><span><span class="fl">🔥</span> ${S.st} · ⭐ <span id="scv">${S.sc}</span></span></div><div class="bar"><div class="fill" style="width:${Math.max(0,S.i-1)/n*100}%" data-w="${S.i/n*100}"></div></div>`}
 function show(){S.tried=false;S.done=false;S.att=0;SEL=null;const it=S.items[S.i];if(it.k=='w')return showW();if(it.k=='d')return showDrag(it.d);const q=Q[it.i];const cv=CV[it.i];if(cv&&cv.t!='mc')return showX(it.i,cv);
 const o=q[1].map((x,k)=>[x,k==q[2]]);S.cur=q[1].length==2?o:shuf(o);
 app.innerHTML=hdr()+`<div class="card">${masc('neutral',S.m=='t'?'Jy kan dit doen! ✨':'Dink mooi... 🤔')}<span class="tag">${TAG[q[4]]}</span>
-${mcPic(it.i)?`<div class="pic">${mcPic(it.i)}</div>`:''}<div class="q">${q[0]}</div>${S.cur.map((o,k)=>`<button class="op" id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
+${mcPic(it.i)?`<div class="pic">${mcPic(it.i)}</div>`:''}<div class="q">${q[0]}</div>${S.cur.map((o,k)=>`<button class="op popin" style="--i:${k}" id="b${k}" onclick="ans(${k})">${o[0]}</button>`).join('')}<div class="fb" id="fb"></div><div id="nx"></div></div>`}
 function hit(){S.sc++;S.st++;S.max=Math.max(S.max,S.st);vib(25);if([3,5,10,15,20,30].includes(S.st))combo(S.st);const e=document.getElementById('scv');if(e){e.textContent=S.sc;e.classList.remove('tick');void e.offsetWidth;e.classList.add('tick')}}
 function ans(k){const it=S.items[S.i],q=Q[it.i],b=document.getElementById('b'+k),fb=document.getElementById('fb');if(!b||b.disabled||S.done)return;const right=S.cur[k][1];
 if(right){b.classList.add('ok');S.done=1;hit();if(S.mode=='foute')delFout(it.i);const g=pick(GOOD);mood('happy',g);fb.innerHTML=g+(S.st>=3?` 🔥 ${S.st} op 'n ry!`:'')+`<div class="ex">${q[3]}</div>`;lock();next();return}
@@ -620,7 +747,7 @@ let CF=0;function stopCf(){cancelAnimationFrame(CF);const c=document.getElementB
 function confetti(){stopCf();const c=document.getElementById('cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const col=['#c77dff','#ff8fc8','#43c6c0','#ffd166','#fff'];
 let P=Array.from({length:150},()=>({x:Math.random()*c.width,y:-Math.random()*c.height,r:4+Math.random()*5,v:2+Math.random()*3,s:Math.random()*6,c:pick(col)})),t=0;
 (function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.v;p.x+=Math.sin(t/20+p.s);x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r*1.6)});if(++t<240)CF=requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})()}
-new MutationObserver(()=>{app.classList.remove('in');void app.offsetWidth;app.classList.add('in');requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.fill[data-w]').forEach(f=>f.style.width=f.dataset.w+'%')))}).observe(app,{childList:true});
+new MutationObserver(()=>{app.classList.remove('in');void app.offsetWidth;app.classList.add('in');bindPlay();requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.fill[data-w]').forEach(f=>f.style.width=f.dataset.w+'%')))}).observe(app,{childList:true});
 (function(){const c=document.getElementById('bg'),x=c.getContext('2d');let W,H,St;function rs(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(d,0,0,d,0,0);St=Array.from({length:Math.round(W*H/5000)},()=>({x:Math.random()*W,y:Math.random()*H,r:.5+Math.random()*1.4,p:Math.random()*6,s:.5+Math.random()*1.5}))}
 rs();addEventListener('resize',rs);let last=0;function f(t){if(t-last>66){last=t;x.clearRect(0,0,W,H);for(const s of St){x.globalAlpha=RM?.7:.35+.65*Math.abs(Math.sin(s.p+t/1000*s.s));x.fillStyle='#fff';x.beginPath();x.arc(s.x,s.y,s.r,0,6.3);x.fill()}}if(!RM&&!document.hidden)requestAnimationFrame(f)}requestAnimationFrame(f);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!RM)requestAnimationFrame(f)})})();
 
@@ -628,14 +755,24 @@ rs();addEventListener('resize',rs);let last=0;function f(t){if(t-last>66){last=t
 const LVS=()=>SUB==='wk'?WLV:LV;
 const _pfx=()=>SUB==='wk'?'wk':'nw';
 function setHead(t,s){const h=document.getElementById('ttl'),u=document.getElementById('subh');if(h)h.innerHTML=t;if(u)u.textContent=s}
-function subjects(){stopCf();SUB='nw';setHead('🌟 Graad 5 Quiz','Kies jou vak');
-app.innerHTML=`<div class="card">${masc('wave','Hallo! Ek is Wurmpie. Kies Wiskunde of Natuurwetenskap — kom ons oefen saam! 🌱')}</div>
-<div class="card center vakke">
-<button class="big vak" onclick="openWK()"><span class="vakic">✏️</span><span>Wiskunde</span><small>Oefen vir jou eksamen — heelgetalle, breuke, meting en meer</small></button>
-<button class="teal vak" onclick="openNW()"><span class="vakic">🌍</span><span>Natuurwetenskap</span><small>Planeet Aarde — wentel, grond, gesteentes en fossiele</small></button>
+function cleanNaam(s){return (''+(s==null?'':s)).replace(/[\u0000-\u001f]/g,'').replace(/[<>]/g,'').trim().slice(0,24)}
+function leerder(){return cleanNaam(ld('leerder',''))}
+function esc(s){return (''+s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function hallo(body){const n=leerder();return (n?`Hallo, ${esc(n)}! `:'Hallo! ')+body}
+function saveNaam(redraw){const el=document.getElementById('naam');if(!el)return;const n=cleanNaam(el.value);if(n)sv('leerder',n);else localStorage.removeItem('leerder');if(redraw)subjects()}
+function starSum(pfx,levels){const st=ld(pfx+'Stars',{})||{};let s=0;for(let i=0;i<levels.length;i++)s+=Math.max(0,+st[i]||0);return s}
+function subjects(){stopCf();SUB='nw';const nm=leerder();setHead('Kom ons <span class="hl">leer</span> saam',nm?`Hallo, ${nm}`:'Kies jou vak');
+const wkS=starSum('wk',WLV),nwS=starSum('nw',LV);
+app.innerHTML=`<div class="card">${masc('wave',hallo('Ek is Wurmpie. Kies ’n pad en kom ons oefen saam! 🌱'))}
+<label for="naam"><b>My naam</b></label>
+<div class="naamrow"><input id="naam" maxlength="24" value="${esc(nm)}" placeholder="Tik jou naam" enterkeyhint="done" autocomplete="nickname" aria-label="Jou naam" onblur="saveNaam(false)" onkeydown="if(event.key==='Enter'){event.preventDefault();saveNaam(true)}"><button class="teal" onclick="saveNaam(true)">Stoor</button></div></div>
+<div class="picks">
+<button type="button" class="pick p-lil" style="--i:0" onclick="openWK()"><span class="pickic">✏️</span><span class="pickt"><b>Wiskunde</b><small>Heelgetalle, breuke en meting · ${wkS}/${WLV.length*3} sterre</small></span></button>
+<button type="button" class="pick p-mint" style="--i:1" onclick="openNW()"><span class="pickic">🌍</span><span class="pickt"><b>Natuurwetenskap</b><small>Planeet Aarde, grond en fossiele · ${nwS}/${LV.length*3} sterre</small></span></button>
+<button type="button" class="ghost" style="--i:2" onclick="kaart('subjects()')">📋 My vordering</button>
 </div>`}
-function openNW(){SUB='nw';setHead('🌍 Planeet Aarde Quiz 🚀','Natuurwetenskap Gr. 5');home()}
-function openWK(){SUB='wk';setHead('✏️ Wiskunde Quiz','Wiskunde · Graad 5 · CAPS');home()}
+function openNW(){SUB='nw';home()}
+function openWK(){SUB='wk';home()}
 function vakBtn(){return `<button class="lnk" onclick="subjects()">← Terug na vakke</button>`}
 
 const WLV=[
@@ -775,7 +912,7 @@ function gOmtrek(){const typ=ri(0,4);
   if(typ===2){const l=ri(2,5),b=ri(2,4),h=ri(2,4);return Witem({typ:'type',tag:'Volume',q:`’n Reghoekige prisma is ${l} cm lank, ${b} cm breed en ${h} cm hoog. Wat is die volume in cm³? (Jy mag die kubusies tel: l × b × h.)`,a:l*b*h,exp:`Volume = ${l} × ${b} × ${h} = ${l*b*h} cm³.`})}
   if(typ===3){const vals=[ri(5,12),ri(5,12),ri(8,16),ri(3,8),ri(6,14)];const names=['Appels','Piesangs','Lemoene','Druiwe','Spanspek'];
     const qtyp=rp(['max','sum','diff']);
-    if(qtyp==='max'){const mx=Math.max(...vals),nm=names[vals.indexOf(mx)];return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Watter vrug is die modus (die meeste gekies)? Skryf die naam.`,a:nm.toLowerCase(),exp:`Die modus is ${nm} (${mx}).`,check:'text'})}
+    if(qtyp==='max'){const mx=Math.max(...vals);if(vals.filter(v=>v===mx).length!==1)return gOmtrek();const nm=names[vals.indexOf(mx)];return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Watter vrug is die modus (die meeste gekies)? Skryf die naam.`,a:nm.toLowerCase(),exp:`Die modus is ${nm} (${mx}).`,check:'text'})}
     if(qtyp==='sum'){const s=vals.reduce((a,b)=>a+b,0);return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Hoeveel leerders het in die geheel gestem?`,a:s,exp:`Totaal = ${vals.join(' + ')} = ${s}.`})}
     const i=0,j=2;const d=Math.abs(vals[i]-vals[j]);return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Hoeveel meer leerders het ${vals[j]>=vals[i]?names[j]:names[i]} as ${vals[j]>=vals[i]?names[i]:names[j]} gekies?`,a:d,exp:`${Math.max(vals[i],vals[j])} − ${Math.min(vals[i],vals[j])} = ${d}.`})}
   return Witem({typ:'choice',tag:'Transformasie',q:`As jy ’n vorm oor ’n simmetrielyn <b>spiegel</b>, noem ons dit ’n …`,opts:['weerkaatsing','verskuiwing','rotasie','vergroting'],ai:0,exp:`’n Spiegeling oor ’n lyn is ’n weerkaatsing.`})}
@@ -798,23 +935,28 @@ function genAllTest(n){const all=Object.values(WGEN).flat();return genFrom(all,n
 function genByTag(t,n){if(t==='X')return genAllTest(n);const l=WLV.find(x=>x.t===t);return l?genLevel(Object.assign({},l,{test:false})):genAllTest(n)}
 
 /* ---- home / start / show for Wiskunde ---- */
-function homeW(){stopCf();const b=best(),st=stars(),f=foute().length,offs=[0,70,95,70,0,-70,-95,-70],H=118,W=320;
-let pts=[],nodes='',cur0=false;WLV.forEach((l,i)=>{const x=W/2+offs[i%8],y=50+i*H;pts.push(x+','+y);const u=unlocked(i),s=st[i]||0,cur=u&&!s&&!cur0;if(cur)cur0=true;const lr=offs[i%8]>0;
-nodes+=`<div class="nd ${u?'':'lk'} ${cur?'cur':''} ${s?'done':''} ${l.test&&!s?'gt':''}" style="left:${x}px;top:${y}px" data-lv="${i}" onclick="${u?`startLevel(${i})`:`mood('sad','Eers die vorige vlak! 🔒')`}"><span>${u?l.ic:'🔒'}</span></div>
-<div class="nl ${lr?'r':''}" style="${lr?`left:${x-48-112}px`:`left:${x+48}px`};top:${y}px"><div class="st">${[1,2,3].map(k=>`<span>${k<=s?'⭐':'☆'}</span>`).join('')}</div>${l.n}</div>`});
-app.innerHTML=`<div class="card">${masc('wave',f?`Hallo! Kom ons oefen Wiskunde! Jy het ${f} foute om weer te probeer 💪`:'Hallo! Kom ons oefen Wiskunde vir jou eksamen! 🌟')}</div>
-<div class="path" style="height:${WLV.length*H+30}px"><svg width="${W}" height="${WLV.length*H+30}" style="position:absolute;left:0;top:0"><path d="${curve(pts)}" fill="none" stroke="#ffffff22" stroke-width="16" stroke-linecap="round"/><path d="${curve(pts)}" fill="none" stroke="#ffd6f0" stroke-width="5" stroke-dasharray="1 13" stroke-linecap="round"/></svg>${nodes}</div>
+function homeW(){stopCf();const b=best(),f=foute().length;
+setHead('Jou <span class="hl b">wiskunde</span>','Graad 5 · CAPS');
+app.innerHTML=`<div class="card">${masc('wave',f?hallo(`Jy het ${foutWord(f)} om weer te probeer 💪`):hallo('Kom ons oefen Wiskunde vir jou eksamen! 🌟'))}</div>
+<p class="kies">Kies ’n <span class="hl b">les</span></p>${lesPad(WLV)}
 <div class="card center">${vakBtn()}
+<button class="big" onclick="kaart()">📋 My vordering</button>
 <button class="big" id="fbtn" ${f?'':'disabled style="opacity:.5"'} onclick="startFoute()">🧐 My foute (${f})</button>
 <p><b>Vrye oefening</b></p>
+<div class="grid2">
 <button class="teal" onclick="startFree('H','o')">🔢 Heelgetalle</button>
+<button class="teal" onclick="startFree('S','o')">🧮 Getalsinne</button>
 <button class="teal" onclick="startFree('O','o')">➕ Optel & aftrek</button>
-<button class="teal" onclick="startFree('V','o')">✖️ Vermenigvuldig</button>
-<button class="teal" onclick="startFree('D','o')">➗ Deling</button>
+<button class="teal" onclick="startFree('V','o')">✖️ Maal</button>
+<button class="teal" onclick="startFree('D','o')">➗ Deel</button>
+<button class="teal" onclick="startFree('P','o')">🔁 Patrone</button>
 <button class="teal" onclick="startFree('B','o')">🍕 Breuke</button>
+<button class="teal" onclick="startFree('W','o')">📐 Vorms</button>
 <button class="teal" onclick="startFree('M','o')">📏 Meting</button>
-<button class="teal" onclick="startFree('X','t')">📝 Toetsmodus: alles gemeng</button>
-<p>🏆 Beste tellings: Heelgetalle ${b.H??'-'}% · Optel ${b.O??'-'}% · Maal ${b.V??'-'}% · Deel ${b.D??'-'}% · Breuke ${b.B??'-'}% · Meting ${b.M??'-'}% · Toets ${b.X??'-'}%</p>
+<button class="teal" onclick="startFree('R','o')">📊 Omtrek & data</button>
+<button class="teal span2" onclick="startFree('X','t')">📝 Toetsmodus · 12 vrae</button>
+</div>
+<p class="bestp">🏆 Beste: Heel ${b.H??'-'}% · Sinne ${b.S??'-'}% · Optel ${b.O??'-'}% · Maal ${b.V??'-'}% · Deel ${b.D??'-'}% · Patrone ${b.P??'-'}% · Breuke ${b.B??'-'}% · Vorms ${b.W??'-'}% · Meting ${b.M??'-'}% · Omtrek ${b.R??'-'}% · Toets ${b.X??'-'}%</p>
 <button class="lnk" onclick="reset()">↺ Herstel Wiskunde-vordering</button></div>`}
 
 function showW(){S.tried=false;S.done=false;S.att=0;SEL=null;Xseq=[];
@@ -826,14 +968,14 @@ const inp=document.getElementById('wa');if(inp){inp.focus();inp.addEventListener
 
 let Xseq=[];
 function insSym(e,ch){if(e){e.preventDefault();e.stopPropagation()}
-  const inp=document.getElementById('wa');if(!inp||inp.disabled||S.done)return;
+  const ae=document.activeElement;const inp=(ae&&(ae.id==='wa'||ae.id==='werk'))?ae:document.getElementById('wa');if(!inp||inp.disabled||S.done)return;
   const s=inp.selectionStart??inp.value.length,t=inp.selectionEnd??s;
   inp.value=inp.value.slice(0,s)+ch+inp.value.slice(t);
   const p=s+ch.length;try{inp.setSelectionRange(p,p)}catch(err){}
   inp.focus();return false}
 function renderW(it){
-  if(it.typ==='type')return `<div class="winp"><div class="symbar" role="toolbar" aria-label="Wiskunde-simbole">`+[['+','+'],['−','−'],['×','×'],['÷','÷'],['=', '='],[',', ',']].map(p=>`<button type="button" class="sym" tabindex="-1" data-ch="${p[1]}" onpointerdown="insSym(event,'${p[1]}')">${p[0]}</button>`).join('')+`</div><input id="wa" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Jou antwoord" aria-label="Antwoord"></div><button class="big" onclick="ansW()">Antwoord</button>`;
-  if(it.typ==='choice')return it.opts.map((o,k)=>`<button class="op" id="b${k}" onclick="ansW(${k})">${o}</button>`).join('');
+  if(it.typ==='type')return `<div class="winp"><div class="symbar" role="toolbar" aria-label="Wiskunde-simbole">`+[['+','+'],['−','−'],['×','×'],['÷','÷'],['/','/'],['=', '='],[',', ',']].map(p=>`<button type="button" class="sym" tabindex="-1" data-ch="${p[1]}" onpointerdown="insSym(event,'${p[1]}')">${p[0]}</button>`).join('')+`</div><input id="wa" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Jou antwoord" aria-label="Antwoord"></div><details class="werk"><summary>✏️ Werkruimte</summary><textarea id="werk" placeholder="Wys jou somme hier. Dit word nie nagesien nie." autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea></details><button class="big" onclick="ansW()">Antwoord</button>`;
+  if(it.typ==='choice')return it.opts.map((o,k)=>`<button class="op popin" style="--i:${k}" id="b${k}" onclick="ansW(${k})">${o}</button>`).join('');
   if(it.typ==='order')return `<p class="small">Tik in die regte volgorde. Tik weer om te verwyder.</p><div class="chips" id="wopts">${it.opts.map((o,k)=>`<span class="chip" id="wc${k}" onclick="wTap(${k})">${o}</span>`).join('')}</div>
 <div class="wseq" id="wseq"></div><button class="big" onclick="ansW()">Antwoord</button>`;
   return ''}
@@ -868,6 +1010,34 @@ function finishW(right,it){
   if(S.att>=maxTries()){S.done=true;addFout(it);revealW(it);mood('sad','Kyk mooi na die regte antwoord 💡');fb.innerHTML=`Die regte antwoord word nou gewys 💡<div class="ex">${it.exp||''}</div>`;document.querySelectorAll('.card button.op,.card button.big,.symbar button').forEach(x=>{if(x.id!=='nxb')x.disabled=true});const inp=document.getElementById('wa');if(inp)inp.disabled=true;next();return}
   paintRetry(fb);wRetryKeep(it)}
 
+
+function foutCount(pfx){const a=ld(pfx+'Foute',[]);return Array.isArray(a)?a.length:0}
+function foutWord(n){return n===1?'1 fout':n+' foute'}
+function starPack(pfx,levels){const st=ld(pfx+'Stars',{})||{};const rows=levels.map((l,i)=>({n:l.n,ic:l.ic,s:Math.max(0,Math.min(3,+st[i]||0))}));return {rows,sum:rows.reduce((a,r)=>a+r.s,0),max:levels.length*3}}
+function ster(n){return [1,2,3].map(k=>k<=n?'⭐':'☆').join('')}
+function kaartText(){
+  const nw=starPack('nw',LV),wk=starPack('wk',WLV),nb=ld('nwBest',{})||{},wb=ld('wkBest',{})||{},nm=leerder()||'Leerder';
+  const blok=(title,pack,best,f)=>[title+': '+pack.sum+'/'+pack.max+' sterre, '+foutWord(f)+' om te oefen, toets '+(best.X==null?'nog nie':best.X+'%'),...pack.rows.map(r=>'  '+r.ic+' '+r.n+' '+ster(r.s))];
+  return ['Graad 5 Quiz — vorderingskaart',nm,'',...blok('Natuurwetenskap',nw,nb,foutCount('nw')),'',...blok('Wiskunde',wk,wb,foutCount('wk')),'','Sterre en tellings bly op hierdie toestel.'].join('\n')}
+function fallbackCopy(t){const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}ta.remove()}
+function deelKaart(){const t=kaartText(),el=document.getElementById('deelst');const done=m=>{if(el)el.textContent=m};
+  if(navigator.share){navigator.share({title:'Graad 5 vordering',text:t}).then(()=>done('Gestuur 💌')).catch(()=>{});return}
+  const go=()=>done('Gekopieer — plak dit in ’n boodskap 💌');
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(go).catch(()=>{fallbackCopy(t);go()});return}
+  fallbackCopy(t);go()}
+function kaart(back){stopCf();const nw=starPack('nw',LV),wk=starPack('wk',WLV),nb=ld('nwBest',{})||{},wb=ld('wkBest',{})||{};
+  const nf=foutCount('nw'),wf=foutCount('wk'),nm=leerder(),pct=Math.round((nw.sum+wk.sum)/Math.max(1,nw.max+wk.max)*100);
+  const msg=pct>=80?'Kyk hoe ver jy gekom het! 🎉':pct>=40?'Jy is mooi op dreef. Hou so aan! 💜':'Elke ster begin met een vraag. Kom ons oefen! 🌱';
+  const row=r=>`<div class="lvrow"><span>${r.ic} ${esc(r.n)}</span><span class="st">${ster(r.s)}</span></div>`;
+  setHead('My <span class="hl">vordering</span>',nm?nm:'Graad 5');
+  app.innerHTML=`<div class="card">${masc(pct>=40?'happy':'wave',hallo(msg))}
+<p class="starsum">${nw.sum+wk.sum} / ${nw.max+wk.max} sterre</p>
+<button class="big" onclick="deelKaart()">Stuur vir ouer 💌</button><p class="note" id="deelst"></p></div>
+<div class="card"><h2>🌍 Natuurwetenskap</h2><p class="starsum">${nw.sum} / ${nw.max} sterre · ${foutWord(nf)} · Toets ${nb.X==null?'nog nie':nb.X+'%'}</p>${nw.rows.map(row).join('')}
+<p class="bestp">Beste: Aarde ${nb.A??'-'}% · Grond ${nb.G??'-'}% · Gesteentes ${nb.S??'-'}% · Fossiele ${nb.F??'-'}%</p></div>
+<div class="card"><h2>✏️ Wiskunde</h2><p class="starsum">${wk.sum} / ${wk.max} sterre · ${foutWord(wf)} · Toets ${wb.X==null?'nog nie':wb.X+'%'}</p>${wk.rows.map(row).join('')}
+<p class="bestp">Beste: Heel ${wb.H??'-'}% · Sinne ${wb.S??'-'}% · Optel ${wb.O??'-'}% · Maal ${wb.V??'-'}% · Deel ${wb.D??'-'}% · Patrone ${wb.P??'-'}% · Breuke ${wb.B??'-'}% · Vorms ${wb.W??'-'}% · Meting ${wb.M??'-'}% · Omtrek ${wb.R??'-'}%</p></div>
+<div class="card center"><button class="teal" onclick="${back||'home()'}">Terug</button><p class="bestp">Die kaart bly op hierdie toestel. Dit gaan nie vanself na ’n ander foon nie.</p></div>`}
 
 function repairUnlocks(){
   [{'pfx':'nw','levels':LV},{'pfx':'wk','levels':(typeof WLV!=='undefined'?WLV:[])}].forEach(({pfx,levels})=>{
