@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="af"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><!-- nw-v9 --><!-- nw-v10 --><!-- nw-v11 --><!-- nw-v12 --><!-- nw-v13 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
+<!-- nw-v6 --><!-- nw-v7 --><!-- nw-v8 --><!-- nw-v9 --><!-- nw-v10 --><!-- nw-v11 --><!-- nw-v12 --><!-- nw-v13 --><!-- nw-v14 --><title>Gr. 5 Quiz — Wiskunde &amp; Natuurwetenskap</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#2a1b4d,#5b3a8c 50%,#2f7f86);color:#2a1b4d;min-height:100vh}
 .wrap{max-width:560px;margin:auto;padding:14px}.card{background:#fff8fd;border-radius:22px;padding:18px;box-shadow:0 8px 30px #0004;margin-top:12px}
 h1{color:#fff;text-align:center;font-size:1.5em;margin:10px 0 0}.sub{color:#ffd6f0;text-align:center;margin:4px 0}
@@ -586,7 +586,8 @@ function wkHint(it){if(it.h)return it.h;const q=(it.q||'').toLowerCase(),tag=it.
   if(/omtrek/.test(q))return 'Omtrek is al die sye bymekaar. Vir ’n reghoek: 2 × (lengte + breedte).';
   if(/oppervlakte/.test(q))return 'Oppervlakte van ’n reghoek is lengte × breedte.';
   if(/volume/.test(q))return 'Volume van ’n prisma is lengte × breedte × hoogte.';
-  if(/modus/.test(q))return 'Die modus is die getal wat die meeste kere voorkom.';
+  if(/modus|meeste gekies|gunslingste/.test(q))return 'Kyk watter getal die grootste is. Daardie een is die meeste gekies.';
+  if(tag==='Desimale breuke')return 'Hou die komma dop. By optel en aftrek moet die kommas onder mekaar staan. × 10 skuif die komma een plek na regs, × 100 twee plekke.';
   if(/mediaan/.test(q))return 'Sit eers die getalle van klein na groot. Die mediaan is die middelste een.';
   if(/verskuiwing|weerkaats|rotasie|transform/.test(q))return 'Weerkaatsing is soos in ’n spieël, verskuiwing skuif die vorm, rotasie draai dit.';
   if(/plekwaarde|eenhede|tiene|honderd/.test(q)||tag==='Plekwaarde')return 'Elke syfer het ’n plek: eenhede, tiene, honderde, duisende…';
@@ -623,7 +624,7 @@ function paintRetry(fb){const m=retryMsg();
   mood('sad',m);fb.innerHTML=m}
 function hintGrey(){const it=S.items[S.i],ops=[...document.querySelectorAll('button.op')];
   if(ops.length<3)return;
-  const isRight=b=>{const k=+b.id.replace(/\D/g,'');if(it.k==='w'||SUB==='wk')return k===it.ai;return !!(S.cur&&S.cur[k]&&S.cur[k][1])};
+  const isRight=b=>{const k=+b.id.replace(/\D/g,'');if(it.k==='w'||SUB==='wk')return k===choiceIndex(it);return !!(S.cur&&S.cur[k]&&S.cur[k][1])};
   const wrong=ops.filter(b=>!b.disabled&&!b.classList.contains('ok')&&!isRight(b));
   if(wrong.length){const w=wrong[0];w.disabled=true;w.classList.add('bad','dim')}}
 
@@ -641,7 +642,8 @@ function xRetryKeep(){const c=X.c;if(!c||S.done)return;
 function wRetryKeep(it){if(it.typ==='order'){let n=0;while(n<Xseq.length&&it.opts[Xseq[n]]==it.a[n])n++;Xseq=Xseq.slice(0,n);wPaint()}
   if(it.typ==='type'||!it.typ){const inp=document.getElementById('wa');if(inp){inp.disabled=false;inp.classList.remove('bad','ok');inp.focus()}document.querySelectorAll('.symbar button').forEach(b=>b.disabled=false)}
   const ck=document.querySelector('.card button.big');if(ck&&ck.id!=='nxb')ck.disabled=false}
-function revealW(it){if(it.typ==='choice'){const b=document.getElementById('b'+it.ai);if(b){b.classList.add('ok');b.disabled=false}}
+function choiceIndex(it){return it.ansName?it.opts.indexOf(it.ansName):it.ai}
+function revealW(it){if(it.typ==='choice'){const b=document.getElementById('b'+choiceIndex(it));if(b){b.classList.add('ok');b.disabled=false}}
   if(it.typ==='order'){Xseq=it.a.map(v=>it.opts.indexOf(v));wPaint()}
   const inp=document.getElementById('wa');if(inp){let v=it.a;if(v&&v.rem!=null)v=v.q+' rest '+v.rem;else if(v&&v.frac)v=v.frac[0]+'/'+v.frac[1];else if(v&&v.two)v=v.two.join(' ');else if(Array.isArray(v))v=v[0];inp.value=v==null?'':v;inp.classList.remove('bad');inp.classList.add('ok')}}
 
@@ -829,7 +831,7 @@ function gPlek(){const n=ri(100000,999999);const s=String(n);const i=ri(0,s.leng
 function gRang(){let a=[];while(a.length<4){const n=ri(10000,99999);if(!a.includes(n))a.push(n)}
   const up=Math.random()<.5;const sorted=a.slice().sort((x,y)=>up?x-y:y-x);
   return Witem({typ:'order',tag:'Rangskik',q:`Tik die getalle van die <b>${up?'kleinste na die grootste':'grootste na die kleinste'}</b>.`,opts:a.map(fmt),a:sorted.map(fmt),exp:`Die regte volgorde is ${sorted.map(fmt).join(' ; ')}.`})}
-function gAfrond(){const kind=rp([10,100,1000]);const n=ri(1000,99999);const a=kind*Math.round(n/kind);
+function gAfrond(){const kind=rp([5,10,100,1000]);const n=kind===5?ri(20,999):ri(1000,99999);const a=kind*Math.round(n/kind);
   return Witem({typ:'type',tag:'Afronding',q:`Rond <b>${fmt(n)}</b> af tot die naaste ${fmt(kind)}.`,a:[a,fmt(a)],exp:`${fmt(n)} afgerond tot die naaste ${fmt(kind)} is ${fmt(a)}.`})}
 function gTel(){const st=rp([25,50,100,1000]);const start=st*ri(8,40);const dir=rp([1,-1]);const seq=[start,start+dir*st,start+2*dir*st];
   const ans1=start+3*dir*st,ans2=start+4*dir*st;
@@ -842,9 +844,9 @@ function gUitrek(){const n=ri(10000,99999);const s=String(n);const parts=[];for(
 
 function gSin(){const typ=ri(0,3);
   if(typ===0){const a=ri(2000,8000)*10,s=ri(1000,4000)*10;return Witem({typ:'type',tag:'Getalsin',q:`${fmt(a)} + ________ = ${fmt(a+s)}. Wat is die ontbrekende getal?`,a:s,exp:`${fmt(a)} + ${fmt(s)} = ${fmt(a+s)}.`})}
-  if(typ===1){const b=ri(6,12),p=ri(8,20);return Witem({typ:'type',tag:'Getalsin',q:`${b} × ________ = ${b*p}. Wat is die ontbrekende getal?`,a:p,exp:`${b} × ${p} = ${b*p}.`})}
-  if(typ===2){const b=ri(6,12),p=ri(8,20);return Witem({typ:'type',tag:'Getalsin',q:`________ ÷ ${b} = ${p}. Wat is die ontbrekende getal?`,a:b*p,exp:`${b*p} ÷ ${b} = ${p}.`})}
-  const pak=ri(3,8),elk=ri(12,36),weg=ri(5,20);return Witem({typ:'type',tag:'Getalsin',q:`Thabo het ${pak} pakke met ${elk} potlode elk. Hy gee ${weg} weg. Hoeveel het hy oor?`,a:pak*elk-weg,exp:`(${pak} × ${elk}) − ${weg} = ${pak*elk-weg}.`})}
+  if(typ===1){const b=ri(2,12),p=ri(2,12);return Witem({typ:'type',tag:'Getalsin',q:`${b} × ________ = ${b*p}. Wat is die ontbrekende getal?`,a:p,exp:`${b} × ${p} = ${b*p}. Albei getalle is in die tafels tot 12.`})}
+  if(typ===2){const b=ri(2,12),p=ri(2,12);return Witem({typ:'type',tag:'Getalsin',q:`________ ÷ ${b} = ${p}. Wat is die ontbrekende heelgetal?`,a:b*p,exp:`${b*p} ÷ ${b} = ${p}. Dit is ${b} × ${p}, nog binne die tafels tot 12.`})}
+  const pak=ri(2,6),elk=ri(2,12),weg=ri(1,pak*elk-1);return Witem({typ:'type',tag:'Getalsin',q:`Thabo het ${pak} pakke met ${elk} potlode elk. Hy gee ${weg} weg. Hoeveel het hy oor?`,a:pak*elk-weg,exp:`(${pak} × ${elk}) − ${weg} = ${pak*elk-weg}.`})}
 
 function gOptel(){const typ=ri(0,2);
   if(typ===0){const a=ri(10000,89999),b=ri(10000,99999-a);return Witem({typ:'type',tag:'Optel',q:`Bereken: <b>${fmt(a)} + ${fmt(b)}</b>`,a:a+b,exp:`${fmt(a)} + ${fmt(b)} = ${fmt(a+b)}.`})}
@@ -852,15 +854,16 @@ function gOptel(){const typ=ri(0,2);
   const spaar=ri(15000,40000),kos=ri(5000,spaar-1000);return Witem({typ:'type',tag:'Woordsom',q:`Lisa het R${fmt(spaar)} gespaar. Sy koop iets vir R${fmt(kos)}. Hoeveel het sy oor?`,a:spaar-kos,exp:`R${fmt(spaar)} − R${fmt(kos)} = R${fmt(spaar-kos)}.`})}
 
 function gVerm(){const typ=ri(0,2);
-  if(typ===0){const a=ri(12,99),b=ri(3,9);return Witem({typ:'type',tag:'Vermenigvuldig',q:`Bereken: <b>${a} × ${b}</b>`,a:a*b,exp:`${a} × ${b} = ${fmt(a*b)}.`})}
-  if(typ===1){const a=ri(101,499),b=ri(12,28);return Witem({typ:'type',tag:'Vermenigvuldig',q:`Bereken: <b>${fmt(a)} × ${b}</b> (jy mag op papier werk).`,a:a*b,exp:`${fmt(a)} × ${b} = ${fmt(a*b)}.`})}
-  const dos=ri(24,48),aant=ri(25,125);return Witem({typ:'type',tag:'Woordsom',q:`’n Doos bevat ${dos} potlode. Die skool koop ${aant} dosies. Hoeveel potlode is dit altesaam?`,a:dos*aant,exp:`${aant} × ${dos} = ${fmt(dos*aant)}.`})}
+  if(typ===0){const a=ri(12,99),b=ri(2,9);return Witem({typ:'type',tag:'Vermenigvuldig',q:`Bereken: <b>${a} × ${b}</b>`,a:a*b,exp:`${a} × ${b} = ${fmt(a*b)}.`})}
+  if(typ===1){const a=ri(100,400),b=rp([2,3,4,5,10,12]);return Witem({typ:'type',tag:'Vermenigvuldig',q:`Bereken: <b>${fmt(a)} × ${b}</b> (jy mag op papier werk).`,a:a*b,exp:`${fmt(a)} × ${b} = ${fmt(a*b)}. Breek ${b} op as jy wil.`})}
+  const dos=rp([6,8,10,12]),aant=ri(2,12);return Witem({typ:'type',tag:'Woordsom',q:`’n Doos bevat ${dos} potlode. Die skool koop ${aant} dosies. Hoeveel potlode is dit altesaam?`,a:dos*aant,exp:`${aant} × ${dos} = ${fmt(dos*aant)}.`})}
 
-function gDeel(){const typ=ri(0,2);
-  if(typ===0){const b=ri(6,12),q=ri(12,40);return Witem({typ:'type',tag:'Deling',q:`Bereken: <b>${b*q} ÷ ${b}</b>`,a:q,exp:`${b*q} ÷ ${b} = ${q}.`})}
-  if(typ===1){const b=ri(11,18),q=ri(21,55),r=ri(1,b-1);const n=b*q+r;return Witem({typ:'type',tag:'Deling',q:`Bereken: <b>${fmt(n)} ÷ ${b}</b><br>Skryf die antwoord as <b>kwosiënt restant …</b> (bv. 23 restant 4).`,a:{q,rem:r},exp:`${fmt(n)} ÷ ${b} = ${q} restant ${r} (kontrole: ${b} × ${q} + ${r} = ${n}).`})}
-  const b=ri(8,15),q=ri(20,60),r=ri(0,b-1),n=b*q+r;
-  return Witem({typ:'type',tag:'Woordsom',q:`${fmt(n)} leerders word in groepe van ${b} verdeel. Hoeveel <b>volle groepe</b> is daar, en hoeveel leerders bly oor?<br>Skryf bv. <b>${q} restant ${r}</b>.`,a:{q,rem:r},exp:`${q} volle groepe en ${r} oorbly.`})}
+function gDeel(){const typ=ri(0,3);
+  if(typ===0){const b=ri(2,12),q=ri(2,12);return Witem({typ:'type',tag:'Deling',q:`Bereken: <b>${b*q} ÷ ${b}</b>`,a:q,exp:`${b*q} ÷ ${b} = ${q}. Die antwoord is ’n heelgetal uit die tafels tot 12.`})}
+  if(typ===1){const b=ri(2,9),q=ri(6,20);return Witem({typ:'type',tag:'Deling',q:`Bereken: <b>${b*q} ÷ ${b}</b>`,a:q,exp:`${b*q} ÷ ${b} = ${q}.`})}
+  if(typ===2){const b=rp([10,12,15,20,25]),q=ri(2,12);return Witem({typ:'type',tag:'Deling',q:`Bereken: <b>${b*q} ÷ ${b}</b>`,a:q,exp:`${b*q} ÷ ${b} = ${q}. Jy kan deur 10, 12, 15, 20 of 25 breek.`})}
+  const b=rp([2,3,4,5,6,8,10]),q=ri(2,12),r=ri(0,b-1),n=b*q+r;
+  return Witem({typ:'type',tag:'Woordsom',q:`${n} leerders word in groepe van ${b} verdeel. Hoeveel <b>volle groepe</b> is daar, en hoeveel leerders bly oor?<br>Skryf bv. <b>${q} restant ${r}</b>.`,a:{q,rem:r},exp:`${q} volle groepe en ${r} oorbly. ${b} × ${q} + ${r} = ${n}.`})}
 
 function gPat(){const typ=ri(0,2);
   if(typ===0){const s=ri(3,9),a=ri(2,20);const seq=[a,a+s,a+2*s,a+3*s];return Witem({typ:'type',tag:'Numeriese patroon',q:`Voltooi die patroon: <b>${seq.join(' ; ')} ; ________ ; ________</b>`,a:{two:[a+4*s,a+5*s]},exp:`Die verskil is +${s}, dus ${a+4*s} en ${a+5*s}.`})}
@@ -868,21 +871,31 @@ function gPat(){const typ=ri(0,2);
     return Witem({typ:'type',tag:'Intree/uittree',q:`Die reël is: vermenigvuldig met ${m} en tel ${c} by. Wat is die uittree vir intree <b>10</b>?<br><small>Kontrole: 3 → ${outs[0]}, 5 → ${outs[1]}, 7 → ${outs[2]}.</small>`,a:outs[3],exp:`10 × ${m} + ${c} = ${outs[3]}.`})}
   const n=ri(6,12);return Witem({typ:'type',tag:'Meetkundige patroon',q:`’n Stokkiepatroon: Figuur 1 het 3 stokkies, Figuur 2 het 5, Figuur 3 het 7 (tel telkens 2 by). Hoeveel stokkies het <b>Figuur ${n}</b>?`,a:2*n+1,exp:`Stokkies = 2 × ${n} + 1 = ${2*n+1}.`})}
 
-function gBreuk(){const typ=ri(0,4);
-  if(typ===0){const k=rp([2,3,4,5]);const n=2;const den=k*n;const num=rp([1,2])*n; if(num>=den)return gBreuk();
+function tenths(n){const w=Math.floor(Math.abs(n)/10),t=Math.abs(n)%10;return (n<0?'-':'')+(t?w+','+t:String(w))}
+function gBreuk(){const typ=ri(0,6);
+  if(typ===0){const k=rp([2,3,4,5,6,8]);const n=2;const den=k*n;const num=rp([1,2])*n; if(num>=den)return gBreuk();
     return Witem({typ:'type',tag:'Gelykwaardige breuke',q:`Skryf ’n breuk wat gelykwaardig is aan <b>${num/n}/${k}</b> (maar nie dieselfde nie). Skryf as teller/noemer, bv. 4/6.`,a:{eq:[num/n,k]},exp:`Bv. ${num}/${den} is gelykwaardig aan ${num/n}/${k}.`,check:'eq'})}
-  if(typ===1){const dens=[[1,8],[3,8],[1,2],[3,4]];const sh=shuf(dens.slice());
+  if(typ===1){const sets=[[[1,2],[1,4],[3,4],[1,8]],[[1,3],[1,6],[2,3],[5,6]],[[1,5],[2,5],[3,5],[4,5]]];
+    const dens=rp(sets);const sh=shuf(dens.slice());
     const lab=sh.map(([a,b])=>`${a}/${b}`);
     const sorted=dens.slice().sort((p,q)=>p[0]/p[1]-q[0]/q[1]).map(([a,b])=>`${a}/${b}`);
     return Witem({typ:'order',tag:'Rangskik breuke',q:`Rangskik van die kleinste na die grootste.`,opts:lab,a:sorted,exp:`Die volgorde is ${sorted.join(' ; ')}.`})}
-  if(typ===2){const d=rp([6,8,10,12]);const a=ri(1,d-2),b=ri(1,d-a-0);if(a+b>d)return gBreuk();
-    return Witem({typ:'type',tag:'Tel breuke by',q:`Bereken: <b>${a}/${d} + ${b}/${d}</b>. Skryf as ’n breuk (jy mag vereenvoudig).`,a:{frac:[a+b,d]},exp:`${a}/${d} + ${b}/${d} = ${a+b}/${d}.`,check:'frac'})}
-  if(typ===3){const d=rp([5,6,8]);const a=ri(2,d-1),b=ri(1,a-1);
+  if(typ===2){const d=rp([2,3,4,5,6,8,10]);const a=ri(1,d-1),b=ri(1,d-a);if(a+b>d)return gBreuk();
+    return Witem({typ:'type',tag:'Tel breuke by',q:`Bereken: <b>${a}/${d} + ${b}/${d}</b>. Skryf as ’n breuk (jy mag vereenvoudig).`,a:{frac:[a+b,d]},exp:`${a}/${d} + ${b}/${d} = ${a+b}/${d}. Dieselfde noemer: tel net die tellers.`,check:'frac'})}
+  if(typ===3){const d=rp([3,4,5,6,8,10]);const a=ri(2,d-1),b=ri(1,a-1);
     return Witem({typ:'type',tag:'Trek breuke af',q:`Bereken: <b>${a}/${d} − ${b}/${d}</b>. Skryf as ’n breuk (jy mag vereenvoudig).`,a:{frac:[a-b,d]},exp:`${a}/${d} − ${b}/${d} = ${a-b}/${d}.`,check:'frac'})}
-  const wh=rp([12,16,20,24,32,36]);
-  const k=rp([2,3,4].filter(function(x){return wh%x===0}));
-  const num=k===4?3:1, den=k===4?4:k, ans=num*wh/den;
-  return Witem({typ:'type',tag:'Breuk van ’n getal',q:'Wat is <b>'+num+'/'+den+'</b> van <b>'+wh+'</b>?',a:ans,exp:num+'/'+den+' van '+wh+' = '+ans+'.'})}
+  if(typ===4){const wh=rp([12,16,18,20,24,30,36,40]);
+    const dens=[2,3,4,5,6,8,10].filter(d=>wh%d===0&&wh/d!==wh);const den=rp(dens),num=den===4&&wh%4===0&&Math.random()<.5?3:1;
+    if(num>=den||(wh*num)%den)return gBreuk();const ans=wh*num/den;
+    return Witem({typ:'type',tag:'Breuk van ’n getal',q:'Wat is <b>'+num+'/'+den+'</b> van <b>'+wh+'</b>? Die antwoord is ’n heelgetal.',a:ans,exp:num+'/'+den+' van '+wh+' = '+ans+'. Deel deur die noemer, dan maal met die teller.'})}
+  if(typ===5){const x=ri(1,30),y=ri(1,20);if(x===y)return gBreuk();const sx=tenths(x),sy=tenths(y);
+    const sym=x>y?'>':x<y?'<':'=';
+    return Witem({typ:'choice',tag:'Desimale breuke',q:`Kies die regte teken: <b>${sx}  ☐  ${sy}</b>`,opts:['>','<','='],ai:['>','<','='].indexOf(sym),exp:`${sx} ${sym} ${sy}. Kyk eers na die syfer voor die komma.`})}
+  const kind=rp(['add','sub','ten','hund']);
+  if(kind==='add'){const x=ri(1,40),y=ri(1,20);return Witem({typ:'type',tag:'Desimale breuke',q:`Bereken: <b>${tenths(x)} + ${tenths(y)}</b>`,a:(x+y)/10,exp:`${tenths(x)} + ${tenths(y)} = ${tenths(x+y)}.`})}
+  if(kind==='sub'){let x=ri(5,40),y=ri(1,x-1);return Witem({typ:'type',tag:'Desimale breuke',q:`Bereken: <b>${tenths(x)} − ${tenths(y)}</b>`,a:(x-y)/10,exp:`${tenths(x)} − ${tenths(y)} = ${tenths(x-y)}.`})}
+  if(kind==='ten'){const x=ri(1,25);return Witem({typ:'type',tag:'Desimale breuke',q:`Bereken: <b>${tenths(x)} × 10</b>`,a:x,exp:`${tenths(x)} × 10 = ${x}. Die komma skuif een plek na regs.`})}
+  const c=rp([5,15,25,40,50,75]);return Witem({typ:'type',tag:'Desimale breuke',q:`Bereken: <b>0,${String(c).padStart(2,'0')} × 100</b>`,a:c,exp:`0,${String(c).padStart(2,'0')} × 100 = ${c}.`})}
 function gVorm(){const typ=ri(0,3);
   if(typ===0){const shapes=[['Vierkant',sqSVG()],['Reghoek',rectSVG()],['Driehoek',triSVG()],['Seshoek',hexSVG()]];
     const i=ri(0,3);const sh=shuf(shapes.slice());
@@ -891,8 +904,11 @@ function gVorm(){const typ=ri(0,3);
     const pics=[cubeSVG(),prismSVG(),cylSVG(),coneSVG()];
     const i=ri(0,3);const or=shuf([0,1,2,3]);
     return Witem({typ:'choice',tag:'3D-vorms',q:`Wat is die naam van hierdie voorwerp?<br>${pics[i]}`,opts:or.map(k=>names[k]),ai:or.indexOf(i),exp:`Dit is ’n ${names[i].toLowerCase()}.`})}
-  if(typ===2)return Witem({typ:'type',tag:'3D-eienskappe',q:`’n Kubus het hoeveel vlakke, rande en hoekpunte? Skryf drie getalle, bv. <b>6 12 8</b>.`,a:{three:[6,12,8]},exp:`’n Kubus het 6 vlakke, 12 rande en 8 hoekpunte.`});
-  return Witem({typ:'choice',tag:'Hoeke',q:`’n Hoek van 90° noem ons ’n …`,opts:['regte hoek','skerp hoek','stomphoek','reguit hoek'],ai:0,exp:`’n Hoek van 90° is ’n regte hoek.`})}
+  if(typ===2){const solids=[{n:'’n kubus',t:[6,12,8]},{n:'’n reghoekige prisma',t:[6,12,8]},{n:'’n silinder',t:[3,2,0]},{n:'’n keël',t:[2,1,1]},{n:'’n vierkantige piramide',t:[5,8,5]}];
+    const s=rp(solids);return Witem({typ:'type',tag:'3D-eienskappe',q:`${s.n[0].toUpperCase()+s.n.slice(1)} het hoeveel vlakke, rande en hoekpunte? Skryf drie getalle, bv. <b>6 12 8</b>.`,a:{three:s.t},exp:`${s.n[0].toUpperCase()+s.n.slice(1)} het ${s.t[0]} vlakke, ${s.t[1]} rande en ${s.t[2]} hoekpunte.`})}
+  const angles=[{d:'90°',a:'regte hoek',e:'’n Hoek van 90° is ’n regte hoek, soos die hoek van ’n boek.'},{d:'kleiner as 90°',a:'skerp hoek',e:'Kleiner as ’n regte hoek is ’n skerp hoek.'},{d:'groter as 90° maar kleiner as 180°',a:'stomphoek',e:'Groter as 90° en kleiner as 180° is ’n stomphoek.'},{d:'180°',a:'reguit hoek',e:'’n Hoek van 180° is ’n reguit hoek.'}];
+  const ang=rp(angles);const opts=['regte hoek','skerp hoek','stomphoek','reguit hoek'];
+  return Witem({typ:'choice',tag:'Hoeke',q:`’n Hoek wat ${ang.d} is, noem ons ’n …`,opts:shuf(opts),ai:null,exp:ang.e,ansName:ang.a})}
 
 function gMeting(){const typ=ri(0,5);
   if(typ===0){const m=ri(2,9);return Witem({typ:'type',tag:'Lengte',q:`Skakel om: <b>${m} m = ________ cm</b>`,a:m*100,exp:`1 m = 100 cm, dus ${m} m = ${m*100} cm.`})}
@@ -912,10 +928,11 @@ function gOmtrek(){const typ=ri(0,4);
   if(typ===2){const l=ri(2,5),b=ri(2,4),h=ri(2,4);return Witem({typ:'type',tag:'Volume',q:`’n Reghoekige prisma is ${l} cm lank, ${b} cm breed en ${h} cm hoog. Wat is die volume in cm³? (Jy mag die kubusies tel: l × b × h.)`,a:l*b*h,exp:`Volume = ${l} × ${b} × ${h} = ${l*b*h} cm³.`})}
   if(typ===3){const vals=[ri(5,12),ri(5,12),ri(8,16),ri(3,8),ri(6,14)];const names=['Appels','Piesangs','Lemoene','Druiwe','Spanspek'];
     const qtyp=rp(['max','sum','diff']);
-    if(qtyp==='max'){const mx=Math.max(...vals);if(vals.filter(v=>v===mx).length!==1)return gOmtrek();const nm=names[vals.indexOf(mx)];return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Watter vrug is die modus (die meeste gekies)? Skryf die naam.`,a:nm.toLowerCase(),exp:`Die modus is ${nm} (${mx}).`,check:'text'})}
+    if(qtyp==='max'){const mx=Math.max(...vals);if(vals.filter(v=>v===mx).length!==1)return gOmtrek();const nm=names[vals.indexOf(mx)];return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Watter vrug is die meeste gekies? Skryf die naam.`,a:nm.toLowerCase(),exp:`${nm} is die meeste gekies (${mx}).`,check:'text'})}
     if(qtyp==='sum'){const s=vals.reduce((a,b)=>a+b,0);return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Hoeveel leerders het in die geheel gestem?`,a:s,exp:`Totaal = ${vals.join(' + ')} = ${s}.`})}
     const i=0,j=2;const d=Math.abs(vals[i]-vals[j]);return Witem({typ:'type',tag:'Data',q:`Gunslingste vrugte: ${names.map((n,i)=>n+' '+vals[i]).join(', ')}. Hoeveel meer leerders het ${vals[j]>=vals[i]?names[j]:names[i]} as ${vals[j]>=vals[i]?names[i]:names[j]} gekies?`,a:d,exp:`${Math.max(vals[i],vals[j])} − ${Math.min(vals[i],vals[j])} = ${d}.`})}
-  return Witem({typ:'choice',tag:'Transformasie',q:`As jy ’n vorm oor ’n simmetrielyn <b>spiegel</b>, noem ons dit ’n …`,opts:['weerkaatsing','verskuiwing','rotasie','vergroting'],ai:0,exp:`’n Spiegeling oor ’n lyn is ’n weerkaatsing.`})}
+  const trans=[{q:'As jy ’n vorm oor ’n lyn <b>spiegel</b>, noem ons dit ’n …',a:'weerkaatsing',e:'’n Spiegeling oor ’n lyn is ’n weerkaatsing.'},{q:'As jy ’n vorm na ’n ander plek <b>skuif</b> sonder om dit te draai, noem ons dit ’n …',a:'verskuiwing',e:'’n Skuif sonder draai is ’n verskuiwing.'},{q:'As jy ’n vorm om ’n punt <b>draai</b>, noem ons dit ’n …',a:'rotasie',e:'Draai om ’n punt is ’n rotasie.'}];
+  const tr=rp(trans);return Witem({typ:'choice',tag:'Transformasie',q:tr.q,opts:shuf(['weerkaatsing','verskuiwing','rotasie','vergroting']),ai:null,exp:tr.e,ansName:tr.a})}
 
 /* SVG miniatures */
 function sqSVG(){return `<svg class="mini" viewBox="0 0 80 80"><rect x="12" y="12" width="56" height="56" fill="#ffe8cc" stroke="#2a1b4d" stroke-width="2"/></svg>`}
@@ -986,18 +1003,18 @@ document.getElementById('wseq').innerHTML=Xseq.map((k,i)=>`<span class="chip don
 function checkW(it,user){
   if(it.check==='time'){const u=(''+user).trim().replace('.',':').replace('h',':');const pad=s=>s.split(':').map(x=>String(+x).padStart(2,'0')).join(':');try{return pad(u)===pad(it.a)}catch(e){return false}}
   if(it.check==='text'){return (''+user).trim().toLowerCase().replace(/s$/,'')===(''+it.a).toLowerCase().replace(/s$/,'')}
-  if(it.check==='expand'){const u=normExpr(''+user).replace(/\s+/g,'');if(!u.includes('+'))return false;const parts=u.split('+').map(Number);if(parts.length<2||parts.some(n=>!isFinite(n)))return false;const expect=String(it.a).split('+').map(Number).reduce((a,b)=>a+b,0);return parts.reduce((a,b)=>a+b,0)===expect}
+  if(it.check==='expand'){const u=normExpr(''+user).replace(/\s+/g,'');if(!u.includes('+'))return false;const got=u.split('+').map(Number).sort((a,b)=>a-b);const expect=String(it.a).split('+').map(Number).sort((a,b)=>a-b);if(got.length!==expect.length||got.some(n=>!isFinite(n)||n<=0))return false;return got.every((n,i)=>n===expect[i])}
   if(it.check==='eq'){const m=(''+user).trim().match(/^(\d+)\s*\/\s*(\d+)$/);if(!m)return false;const a=+m[1],b=+m[2];return b&&a/b===it.a.eq[0]/it.a.eq[1]&&!(a===it.a.eq[0]&&b===it.a.eq[1])}
   if(it.check==='frac'){const m=(''+user).trim().replace(/,/g,'.').match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/);if(m){const a=+m[1],b=+m[2];return b&&Math.abs(a/b-it.a.frac[0]/it.a.frac[1])<1e-9}return numEq(user,it.a.frac[0]/it.a.frac[1])}
   if(it.a&&it.a.two){const nums=(''+user).split(/[;,\s]+/).map(s=>parseAns(s).n).filter(n=>isFinite(n));return nums.length>=2&&nums[0]===it.a.two[0]&&nums[1]===it.a.two[1]}
-  if(it.a&&it.a.three){const nums=(''+user).split(/[;,\s]+/).map(s=>parseAns(s).n).filter(n=>isFinite(n));return nums.length>=3&&nums[0]===6&&nums[1]===12&&nums[2]===8}
+  if(it.a&&it.a.three){const nums=(''+user).split(/[;,\s]+/).map(s=>parseAns(s).n).filter(n=>isFinite(n));return nums.length>=3&&nums[0]===it.a.three[0]&&nums[1]===it.a.three[1]&&nums[2]===it.a.three[2]}
   if(it.a&&it.a.q!=null&&it.a.rem!=null)return numEq(user,{rem:it.a.rem,q:it.a.q});
   return numEq(user,it.a)}
 
 function ansW(k){
   const it=S.items[S.i],fb=document.getElementById('fb');
   let right=false,user;
-  if(it.typ==='choice'){const b=document.getElementById('b'+k);if(!b||b.disabled)return;right=k===it.ai;user=it.opts[k];
+  if(it.typ==='choice'){const b=document.getElementById('b'+k);if(!b||b.disabled)return;right=k===choiceIndex(it);user=it.opts[k];
     if(S.m==='o'){if(right){b.classList.add('ok')}else{b.classList.add('bad');b.disabled=true}}
   }else if(it.typ==='order'){user=Xseq.map(i=>it.opts[i]);right=user.length===it.a.length&&user.every((x,i)=>x==it.a[i])}
   else{const inp=document.getElementById('wa');if(!inp)return;user=inp.value;if(!(''+user).trim()){inp.focus();return}right=checkW(it,user)}
