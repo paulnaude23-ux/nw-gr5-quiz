@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3eee4">
+<title>Kindling</title>
+<meta name="description" content="A small game for people who kept the life and misplaced the feeling. One motion a day. Laugh with a circle. Compete on showing up.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,560;1,9..144,520&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3eee4;
+    --card: #fffcf7;
+    --ink: #1c1612;
+    --muted: #5e564c;
+    --line: #e3d9c8;
+    --ember: #c2410f;
+    --ember-deep: #8d2e0b;
+    --moss: #1f6b45;
+    --stage: #241c17;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--stage);
+    color: var(--ink);
+    font-family: Outfit, "Avenir Next", "Segoe UI", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.45;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--ember);
+    outline-offset: 2px;
+  }
+  .stage { min-height: 100dvh; display: flex; justify-content: center; }
+  .app {
+    width: min(100%, 430px);
+    min-height: 100dvh;
+    background: var(--paper);
+    position: relative;
+  }
+  .app.hasnav #view { padding-bottom: 108px; }
+  h1 {
+    font-family: Fraunces, "Iowan Old Style", Palatino, Georgia, serif;
+    font-weight: 560;
+    font-size: 34px;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 0 0 12px;
+  }
+  h2 {
+    font-family: Fraunces, Georgia, serif;
+    font-weight: 560;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+  }
+  p { margin: 0 0 12px; }
+  .pad { padding: 22px 20px 8px; }
+  .topbar { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; }
+  .mark { margin: 0; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; font-size: 12px; }
+  .sub { margin: 0; color: var(--muted); font-size: 14px; }
+  .flame { width: 22px; height: 28px; display: block; flex: none; }
+  .welcome .flame { width: 52px; height: 64px; margin-bottom: 14px; }
+  .lede { font-size: 17px; }
+  .fine { color: var(--muted); font-size: 13.5px; }
+  label { display: block; font-weight: 600; margin: 16px 0 6px; }
+  input[type="text"], textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  textarea { min-height: 96px; resize: vertical; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 16px; }
+  .chip, .secondary, .primary, .textbtn, .rx button, nav button {
+    -webkit-tap-highlight-color: transparent;
+  }
+  .chip {
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    padding: 8px 12px;
+    min-height: 40px;
+  }
+  .primary, .secondary {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .primary { background: var(--ember); color: #fffaf6; border: 0; }
+  .primary:hover { background: var(--ember-deep); }
+  .secondary { background: transparent; border: 1px solid var(--line); margin-top: 8px; }
+  button:disabled { opacity: 0.45; cursor: default; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 16px;
+    margin: 0 0 12px;
+    overflow-wrap: anywhere;
+  }
+  .kicker {
+    margin: 0 0 6px;
+    color: var(--ember-deep);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .why, .punch, .italic {
+    font-family: Fraunces, Georgia, serif;
+    font-style: italic;
+    font-weight: 520;
+  }
+  .why { color: var(--muted); margin: 0; }
+  .said { margin: 0 0 8px; }
+  .punch { font-size: 18px; margin: 0 0 12px; line-height: 1.3; }
+  .actions { display: flex; flex-direction: column; margin-top: 14px; }
+  .textbtn {
+    background: none;
+    border: 0;
+    color: var(--ember-deep);
+    font-weight: 600;
+    min-height: 44px;
+    padding: 8px 0;
+  }
+  .rowbtns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .gapline {
+    color: var(--muted);
+    font-size: 14.5px;
+    margin: 14px 0 0;
+  }
+  .who-row, .bit-top, .meter-top, .countrow {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .who { font-weight: 600; }
+  .minor, .countrow, .meta { color: var(--muted); font-size: 13px; }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px 8px;
+  }
+  .rx { display: flex; gap: 8px; }
+  .rx button {
+    flex: 1;
+    min-height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .rx button.on[data-kind="same"] { background: var(--ink); color: #fffaf6; border-color: var(--ink); }
+  .rx button.on[data-kind="ha"] { background: var(--ember); color: #fffaf6; border-color: var(--ember); }
+  .rx button.on[data-kind="landed"] { background: var(--moss); color: #fffaf6; border-color: var(--moss); }
+  .rx b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .segs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+  .segs button {
+    min-height: 42px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    font-weight: 600;
+  }
+  .segs button[aria-selected="true"] { background: var(--ink); color: #fffaf6; border-color: var(--ink); }
+  .board { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .board li {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 8px;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px;
+  }
+  .board li.me { border-color: var(--ember); }
+  .board .minor { display: block; }
+  .pos { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .pts { font-weight: 600; font-variant-numeric: tabular-nums; font-size: 18px; }
+  .prize { display: block; color: var(--ember-deep); font-size: 12px; font-weight: 600; }
+  .note { color: var(--moss); font-weight: 600; margin: 8px 0 0; }
+  .warn { color: var(--ember-deep); font-weight: 600; min-height: 1.2em; }
+  .track { height: 10px; background: #e7e0d4; border-radius: 999px; overflow: hidden; margin: 8px 0; }
+  .fill { height: 100%; background: var(--ember); width: 0; }
+  .flickrow { display: flex; align-items: baseline; gap: 12px; margin: 4px 0 8px; }
+  .flicknum { font-family: Fraunces, Georgia, serif; font-size: 48px; line-height: 1; margin: 0; }
+  .flicknum.warm { color: var(--ember); }
+  .flicknum.zero { color: var(--muted); }
+  input[type="range"] { width: 100%; accent-color: var(--ember); height: 36px; }
+  .preview { border-left: 3px solid var(--ember); padding: 2px 0 2px 12px; margin: 8px 0 4px; }
+  .muted { color: var(--muted); }
+  .logpage { min-height: 100dvh; display: flex; flex-direction: column; }
+  .logscroll { flex: 1; }
+  .logactions {
+    position: sticky;
+    bottom: 0;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+  }
+  nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(100%, 430px);
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: var(--card);
+    border-top: 1px solid var(--line);
+    z-index: 5;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .app.hasnav nav { display: grid; }
+  nav button {
+    background: transparent;
+    border: 0;
+    min-height: 56px;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  nav button[aria-current="page"] { color: var(--ember-deep); }
+  details.rules { margin-top: 14px; color: var(--muted); font-size: 14.5px; }
+  details.rules summary { cursor: pointer; font-weight: 600; color: var(--ink); min-height: 44px; display: flex; align-items: center; }
+  .deckitem {
+    width: 100%;
+    text-align: left;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 12px 14px;
+    margin: 0 0 8px;
+    overflow-wrap: anywhere;
+  }
+  .deckitem.current { border-color: var(--ember); }
+  .deckitem strong { display: block; }
+  .deckitem .minor { display: block; margin-top: 2px; }
+  .overheard { font-size: 15px; }
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="app" id="app">
+    <div id="view" role="main"></div>
+    <nav id="nav" aria-label="Primary"></nav>
+  </div>
+</div>
+<div id="live" class="sr" aria-live="polite"></div>
+<script>
+const FLAME = '<svg class="flame" viewBox="0 0 64 80" aria-hidden="true"><path fill="#c2410f" d="M32 76c14 0 22-11 22-24 0-14-8-20-8-32 0 0-5 8-8 14C34 18 26 8 18 4c2 14-2 22-8 28-4 4-8 8-8 16 0 16 12 28 30 28z"/><path fill="#f3c2a4" d="M33 74c7 0 12-7 12-14 0-7-3-11-5-16 0 0-2 5-6 7-1-7-5-11-9-15 2 8 0 11-3 15-2 2-4 5-4 7 0 9 6 16 15 16z"/></svg>';
+const ROUND_ID = "sentence";
+const KEY = "kindling.v1";
+const NAMES = ["Low Battery", "The Merge", "Clean Zero", "Autopilot", "Weeknight", "Half Inch", "Blue Shirt", "Password"];
+const FLICK = ["Nothing moved", "A twitch", "Pilot light", "It stayed", "That's a feeling", "Wide open"];
+const TAILS = [
+  ["The lights were on. Nobody was home. That's the bit.", "Clean zero. The sentence still went out on time.", "Performed it perfectly. Felt like a well-run meeting."],
+  ["Something small moved. Not a parade. Not nothing.", "Four seconds of flicker. We are counting them.", "Barely there, which beats yesterday's furniture."],
+  ["Pilot light. Ugly, blue, and enough to cook with.", "A real flicker. I almost joked it away.", "There it is. Small, and rude enough to be real."],
+  ["That one stayed in the room longer than I did.", "Felt it, then tried to file it under accident.", "Too steady to call a glitch."],
+  ["Careful. That's a feeling. It might ask to stay.", "Logging this before I talk myself out of it.", "I felt it and immediately wanted a joke. The joke can wait."],
+  ["A whole emotion, in the kitchen, on a weekday.", "Wide open. Writing it down before it gets shy.", "I felt it on purpose. That's the whole game."]
+];
+const MOTIONS = [
+  { id: "sentence", cat: "The sentence", title: "Say the line you always say", body: "Love you. Drive safe. Text me when you land. Say it the way you always do. Later, write the truest thing the line was actually about.", why: "This is the gap: the right words still going out, and whatever is or isn't riding along." },
+  { id: "password", cat: "The sentence", title: "Don't let the password travel alone", body: "The usual love-you will try to leave on autopilot. Say it. Within an hour, send one concrete thing from the last two days. The password can stay. It just doesn't travel alone.", why: "You are not quitting the sentence. You are asking it to carry something." },
+  { id: "goodnight", cat: "The sentence", title: "Add one true clause", body: "Say the usual goodnight. Then add one specific clause from this week. Not a lesson. A fact you liked.", why: "The password stays. Something alive gets to travel with it." },
+  { id: "name", cat: "Partner", title: "Say their name when you walk in", body: "Not hey. Not the nickname that turned into a setting. Their actual name, like you picked it on purpose. Then carry on. Don't explain the experiment.", why: "You already make the entrance. This slows it down by one word." },
+  { id: "specific", cat: "Partner", title: "Text one thing you actually saw", body: "One detail from them, or from the day you share. The blue shirt. The way they cut the apple. Ban the words love, busy, and ok.", why: "Specific is harder to fake than sweet." },
+  { id: "nofix", cat: "Partner", title: "Hear the first answer without a fix", body: "Ask how their day was. Survive the first real answer without a solution, a ranking, or a story about yours.", why: "Most autopilots are very helpful. This one is only present." },
+  { id: "hand", cat: "Partner", title: "A hand, unannounced", body: "Put a hand on their back or shoulder while something ordinary is happening. The kettle. The dishes. The doorway. Don't narrate it. Stay until the moment ends on its own.", why: "Touch without a speech is harder than a speech." },
+  { id: "choice", cat: "Partner", title: "Compliment a choice, not a surface", body: "The route they picked. The dinner. How they handled the call. Skip how they look. Say the choice out loud, once.", why: "It asks you to have noticed. Noticing is a doorway." },
+  { id: "car", cat: "Partner", title: "One minute in the car", body: "Before you go inside, sit for one minute. Decide one true thing you can say that isn't logistics. Say that, or say nothing and log the minute.", why: "The doorway is where the performance usually starts. Pause it." },
+  { id: "kidq", cat: "Kid", title: "The best annoying part of the day", body: "Ask one kid what the best annoying part of their day was. Then wait for the whole answer, including the part that repeats.", why: "A performed question and a real one feel different from the inside. You'll notice which one you asked." },
+  { id: "phone", cat: "Kid", title: "Phone in the other room", body: "For one story, one snack, or one question in the car, the phone is in another room. Not face-down. Gone.", why: "You can't half-arrive and also compete with a rectangle." },
+  { id: "world", cat: "Kid", title: "One name from their world", body: "Learn one name they care about — a friend, a teacher, a character — and use it correctly the next time you talk. If you get it wrong, let them correct you and keep the correction.", why: "Their world is where feeling sneaks back in sideways." },
+  { id: "teach", cat: "Kid", title: "Let them teach you badly", body: "Ask them to show you one thing. Do it worse than they do if you have to. Do not improve their method.", why: "Competing with a child to be the competent one is the autopilot. Losing is the game." },
+  { id: "note", cat: "House", title: "Leave a note that isn't a list", body: "Not a reminder. Not an apology for being late. Not groceries. One line that could only have been written this week.", why: "Logistics are how love hides. A non-list is a small outing." },
+  { id: "bill", cat: "House", title: "After the bill, four seconds", body: "Pay one ordinary bill, or do one chore you always do. When it's done, stay with it for four seconds and notice whether they crossed your mind. You don't have to tell them. You do have to tell the app.", why: "The surprise isn't the chore. It's that the chore continued after the feeling sat down." }
+];
+const CIRCLE = [
+  { id: "still", name: "Still Here", motions: 2, landed: 1, ha: 4, same: 14, flicker: 0, motionId: "sentence", outside: "Goodnight, love you, same sentence as always.", punch: "Watched myself say it like a password. Clean zero. Logging it anyway." },
+  { id: "bills", name: "Bills Paid", motions: 3, landed: 1, ha: 12, same: 9, flicker: 0, motionId: "bill", outside: "Paid the electric, took the bins out, asked about the meeting.", punch: "Three for three. Inside: the bins." },
+  { id: "four", name: "Four Seconds", motions: 2, landed: 3, ha: 8, same: 7, flicker: 1, motionId: "specific", outside: "Texted the blue shirt, the one from Saturday. Banned myself from love you.", punch: "They sent a photo of the shirt on a chair." },
+  { id: "right", name: "Right Words", motions: 2, landed: 5, ha: 5, same: 8, flicker: 2, motionId: "kidq", outside: "Told them the drawing was good. It was a dog, I think. They corrected me.", punch: "I wanted the correction. That was new." },
+  { id: "tuesday", name: "Tuesday", motions: 2, landed: 7, ha: 3, same: 5, flicker: 3, motionId: "hand", outside: "Hand on their back while the kettle boiled. Did not announce the hand.", punch: "They leaned half an inch. I stayed for the boil." },
+  { id: "kettle", name: "Kettle", motions: 3, landed: 6, ha: 4, same: 6, flicker: 1, motionId: "sentence", outside: "Said drive safe. Meant the merge lane.", punch: "Something small moved when they texted home. Not a parade. Not nothing." }
+];
+const NORTH = [
+  { title: "Phone in the other room", outside: "Read the same page twice. I was listening to the bus story and missed a word so they'd say it again.", flicker: 2 },
+  { title: "A hand, unannounced", outside: "Hand on their back at the sink. Nobody made a speech. We finished the pan.", flicker: 3 }
+];
+
+let state;
+let screen = "welcome";
+let tab = "bits";
+let draft = null;
+let resetArmed = false;
+const timers = new Map();
+
+function fresh() {
+  return { name: "", motionId: ROUND_ID, logs: [], reactions: {} };
+}
+function load() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (!raw || typeof raw.name !== "string" || !Array.isArray(raw.logs)) return fresh();
+    raw.reactions = raw.reactions && typeof raw.reactions === "object" ? raw.reactions : {};
+    if (!MOTIONS.some(m => m.id === raw.motionId)) raw.motionId = ROUND_ID;
+    return raw;
+  } catch (e) {
+    return fresh();
+  }
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+}
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function hash(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+function motionById(id) { return MOTIONS.find(m => m.id === id) || MOTIONS[0]; }
+function sameDay(a, b) {
+  const da = new Date(a), db = new Date(b);
+  return da.getFullYear() === db.getFullYear() && da.getMonth() === db.getMonth() && da.getDate() === db.getDate();
+}
+function weekLogs() {
+  const cut = Date.now() - 7 * 24 * 3600 * 1000;
+  return state.logs.filter(l => l.at >= cut);
+}
+function userAgg() {
+  const logs = weekLogs();
+  let landed = 0, ha = 0;
+  for (const l of logs) {
+    if (l.posted && l.rx) { landed += l.rx.landed; ha += l.rx.ha; }
+  }
+  return { motions: logs.length, landed, ha, points: logs.length * 10 + landed * 3 + ha };
+}
+function circleScore(p) {
+  const extraL = state.reactions[p.id] === "landed" ? 1 : 0;
+  const extraH = state.reactions[p.id] === "ha" ? 1 : 0;
+  const extraS = state.reactions[p.id] === "same" ? 1 : 0;
+  return {
+    same: p.same + extraS,
+    ha: p.ha + extraH,
+    landed: p.landed + extraL,
+    points: p.motions * 10 + (p.landed + extraL) * 3 + (p.ha + extraH)
+  };
+}
+function boardRows() {
+  const rows = CIRCLE.map(p => {
+    const s = circleScore(p);
+    return { id: p.id, name: p.name, you: false, motions: p.motions, points: s.points };
+  });
+  const mine = userAgg();
+  rows.push({ id: "you", name: state.name || "You", you: true, motions: mine.motions, points: mine.points });
+  rows.sort((a, b) => b.points - a.points || (b.you - a.you) || a.name.localeCompare(b.name));
+  return rows;
+}
+function ordinal(n) {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+function gapCopy() {
+  const rows = boardRows();
+  const idx = rows.findIndex(r => r.you);
+  const me = rows[idx];
+  if (idx === 0) return "You hold the pilot light this week. " + me.points + " kindling.";
+  const ahead = rows[idx - 1];
+  const behind = ahead.points - me.points;
+  if (me.points === 0) return "Last place, " + behind + " behind " + ahead.name + ". A fine place to start.";
+  return ordinal(idx + 1) + " of " + rows.length + " · " + behind + " behind " + ahead.name;
+}
+function answersFor(log) {
+  const h = hash(log.outside + "|" + log.flicker + "|" + log.punch);
+  const same = 4 + (h % 7);
+  let ha, landed;
+  if (log.flicker === 0) { ha = 8 + (h % 6); landed = h % 2; }
+  else if (log.flicker <= 2) { ha = 3 + (h % 5); landed = 3 + (h % 4); }
+  else { ha = 2 + (h % 4); landed = 5 + (h % 4); }
+  return { same, ha, landed };
+}
+function directedAtThem(text) {
+  const s = text.toLowerCase();
+  const slur = /\b(bitch|asshole|whore|slut)\b/;
+  const insult = /\b(my |the )?(wife|husband|partner|spouse|kid|kids|son|daughter|child|children)s?\b[\s\S]{0,24}\b(idiot|stupid|worthless|moron|dumb|hate)\b/;
+  const hate = /\bhate (my |the )?(wife|husband|partner|spouse|kid|kids|son|daughter|child|children|her|him|them)\b/;
+  return slur.test(s) || insult.test(s) || hate.test(s);
+}
+function validate(outside, punch) {
+  const text = outside.replace(/\s+/g, " ").trim();
+  if (text.length < 12) return "Say what you actually did. One concrete line.";
+  if (text.length > 240) return "Keep it to a line or two. 240 characters.";
+  if (directedAtThem(text) || directedAtThem(punch)) return "The joke can land on the autopilot. It doesn't get to land on them. Say what you did.";
+  return "";
+}
+function say(msg) {
+  const el = document.getElementById("live");
+  el.textContent = "";
+  setTimeout(() => { el.textContent = msg; }, 30);
+}
+function topbar(sub) {
+  return '<header class="topbar">' + FLAME + '<div><p class="mark">Kindling</p><p class="sub">' + esc(sub) + '</p></div></header>';
+}
+function logForMotionToday(id) {
+  return state.logs.find(l => l.motionId === id && sameDay(l.at, Date.now()));
+}
+
+function welcomeHTML() {
+  const chips = NAMES.map(n => '<button type="button" class="chip" data-act="chip" data-name="' + esc(n) + '">' + esc(n) + '</button>').join("");
+  return '<section class="welcome pad">' + FLAME +
+    '<p class="kicker">A game for the quiet</p>' +
+    '<h1>You kept the life. The feeling sat down.</h1>' +
+    '<p class="lede">Bills still get paid. The right sentence still gets said. Inside, some days, it is quiet. A lot of men recognized themselves in that. Plenty of other people did too.</p>' +
+    '<p>One small motion a day. You tell the truth about whether anything flickered. A circle laughs. You compete on showing up.</p>' +
+    '<p class="why">The joke is on the autopilot. The people you love stay out of the punchline.</p>' +
+    '<label for="name">Name in the circle</label>' +
+    '<input id="name" type="text" maxlength="18" autocomplete="nickname" placeholder="A name, not your real one" enterkeyhint="done">' +
+    '<div class="chips">' + chips + '</div>' +
+    '<button type="button" class="primary" id="join" data-act="join" disabled>Step in</button>' +
+    '<p class="fine">For adults. The circle is a sample on this phone. A game, not care. If the quiet is heavy, a person beats another round.</p>' +
+    '</section>';
+}
+function todayHTML() {
+  const m = motionById(state.motionId);
+  const done = logForMotionToday(m.id);
+  const round = m.id === ROUND_ID;
+  let body = '<p class="kicker">' + (round ? "This week's round" : "Side motion · it still scores") + '</p>' +
+    '<h1>' + esc(m.title) + '</h1>' +
+    '<p>' + esc(m.body) + '</p>' +
+    '<p class="why">' + esc(m.why) + '</p>';
+  if (done) {
+    body += '<p class="note">' + (done.posted ? "Posted to the circle." : "Kept in the house.") + ' Flicker ' + done.flicker + ' · ' + esc(FLICK[done.flicker]) + '.</p>' +
+      '<p class="said">“' + esc(done.outside) + '”</p>' +
+      '<p class="punch">' + esc(done.punch) + '</p>' +
+      '<button type="button" class="secondary" data-act="draw">Draw a different motion</button>';
+  } else {
+    body += '<div class="actions"><button type="button" class="primary" data-act="did">I did the motion</button>' +
+      '<button type="button" class="textbtn" data-act="draw">Draw a different motion</button></div>';
+  }
+  body += '<button type="button" class="textbtn" data-act="deck">Browse the deck</button>';
+  const overheard = CIRCLE[1];
+  return '<section class="pad">' + topbar(round ? "Round · the sentence you already say" : m.cat) +
+    '<article class="card">' + body + '</article>' +
+    '<article class="card overheard"><p class="kicker">Overheard</p><p class="said">“' + esc(overheard.outside) + '”</p><p class="punch">' + esc(overheard.punch) + '</p><p class="minor">Bills Paid · sample circle</p></article>' +
+    '<p class="gapline">' + esc(gapCopy()) + '</p></section>';
+}
+function logHTML() {
+  const m = motionById(state.motionId);
+  return '<section class="logpage"><div class="logscroll pad">' +
+    '<button type="button" class="textbtn" data-act="back">Back</button>' +
+    '<p class="kicker">' + esc(m.cat) + '</p><h1>' + esc(m.title) + '</h1>' +
+    '<label for="outside">What did the outside look like?</label>' +
+    '<textarea id="outside" maxlength="240" placeholder="Said drive safe. Meant the merge lane."></textarea>' +
+    '<p class="countrow"><span>Concrete. Kind, or at least not a verdict.</span><span id="count">0/240</span></p>' +
+    '<label for="flick">Did anything flicker?</label>' +
+    '<div class="flickrow"><p class="flicknum" id="flicknum">1</p><p id="flicklabel">A twitch</p></div>' +
+    '<input id="flick" type="range" min="0" max="5" step="1" value="1" aria-valuemin="0" aria-valuemax="5" aria-valuenow="1" aria-valuetext="A twitch">' +
+    '<p class="kicker">The bit the circle will see</p>' +
+    '<div class="preview"><p class="said muted" id="said">What you did shows up here.</p><p class="punch" id="punch"></p></div>' +
+    '<div class="rowbtns"><button type="button" class="textbtn" data-act="shuffle">Different punchline</button><button type="button" class="textbtn" data-act="own" id="ownbtn">Write my own line</button></div>' +
+    '<div id="customwrap" hidden><label for="custom">Your line</label><textarea id="custom" maxlength="180" placeholder="The joke stays on you."></textarea></div>' +
+    '<p class="warn" id="formnote" role="alert"></p>' +
+    '</div><div class="logactions">' +
+    '<button type="button" class="primary" id="post" data-act="post" disabled>Post the bit</button>' +
+    '<button type="button" class="secondary" id="keep" data-act="keep" disabled>Keep it in the house</button>' +
+    '<p class="fine">The circle is strangers with the same quiet. No real names. Your flicker never scores, so a zero is allowed and a five is not a strategy.</p>' +
+    '</div></section>';
+}
+function rxButtons(id, counts, mine) {
+  if (mine) {
+    return '<p class="minor">Same ' + counts.same + ' · Ha ' + counts.ha + ' · Landed ' + counts.landed + '. The flicker stays unscored.</p>';
+  }
+  const on = state.reactions[id] || "";
+  const items = [["same", "Same", counts.same, "I've been there"], ["ha", "Ha", counts.ha, "That's funny"], ["landed", "Landed", counts.landed, "That one reached somebody"]];
+  return '<div class="rx">' + items.map(x =>
+    '<button type="button" data-act="react" data-id="' + esc(id) + '" data-kind="' + x[0] + '" class="' + (on === x[0] ? "on" : "") + '" aria-pressed="' + (on === x[0]) + '" aria-label="' + esc(x[3]) + '">' + x[1] + ' <b>' + x[2] + '</b></button>'
+  ).join("") + '</div>';
+}
+function bitCard(opts) {
+  return '<article class="card bit">' +
+    '<div class="bit-top"><span class="who">' + esc(opts.who) + '</span><span class="badge">' + esc(opts.badge) + '</span></div>' +
+    '<p class="minor">' + esc(opts.meta) + '</p>' +
+    '<p class="said">“' + esc(opts.outside) + '”</p>' +
+    '<p class="punch">' + esc(opts.punch) + '</p>' +
+    (opts.note ? '<p class="note">' + esc(opts.note) + '</p>' : '') +
+    (opts.waiting ? '<p class="minor">The circle is reading it.</p>' : rxButtons(opts.id, opts.counts, opts.mine)) +
+    '</article>';
+}
+function circleHTML() {
+  const bitsOn = tab === "bits";
+  let main = "";
+  if (bitsOn) {
+    const mine = weekLogs().filter(l => l.posted);
+    main += mine.map(l => {
+      const motion = motionById(l.motionId);
+      const counts = l.rx || { same: 0, ha: 0, landed: 0 };
+      const waiting = !l.rx;
+      const earned = l.rx ? (10 + l.rx.landed * 3 + l.rx.ha) : 10;
+      return bitCard({
+        id: l.id,
+        who: state.name,
+        badge: waiting ? "Posting" : "You",
+        meta: motion.title + " · flicker " + l.flicker + " · +" + earned + " kindling",
+        outside: l.outside,
+        punch: l.punch,
+        note: l.note || "",
+        counts: counts,
+        mine: true,
+        waiting: waiting
+      });
+    }).join("");
+    main += CIRCLE.map(p => {
+      const s = circleScore(p);
+      const motion = motionById(p.motionId);
+      return bitCard({
+        id: p.id,
+        who: p.name,
+        badge: "Sample",
+        meta: motion.title + " · flicker " + p.flicker,
+        outside: p.outside,
+        punch: p.punch,
+        counts: s,
+        mine: false
+      });
+    }).join("");
+  } else {
+    const rows = boardRows();
+    main = '<ol class="board">' + rows.map((r, i) =>
+      '<li class="' + (r.you ? "me" : "") + '"><span class="pos">' + (i + 1) + '</span><span><span class="who">' + esc(r.name) + (r.you ? "" : "") + '</span>' +
+      (i === 0 ? '<span class="prize">Holds the pilot light</span>' : '<span class="minor">' + r.motions + (r.motions === 1 ? ' motion' : ' motions') + '</span>') +
+      '</span><span class="pts">' + r.points + '</span></li>'
+    ).join("") + '</ol>' +
+      '<details class="rules"><summary>How kindling is scored</summary>' +
+      '<p>10 points for doing a motion, posted or kept in the house. 1 point for each Ha the circle gives a posted bit. 3 for each Landed. Same is free: it means I have been there, and it is not a prize.</p>' +
+      '<p>Your flicker number never scores. A clean zero still earns the 10. A faked five earns nothing extra. You cannot react to your own bit.</p>' +
+      '<p>Sample players are seeded so the room is alive on a single phone. Their totals are a sketched week, not a server.</p>' +
+      '</details>';
+  }
+  return '<section class="pad">' + topbar("Compete on showing up") +
+    '<h1>The circle</h1>' +
+    '<p class="minor">This week the room is on the sentence you already say. Side motions count. The laugh is louder when it is the same dare. Sample posts are marked.</p>' +
+    '<div class="segs" role="tablist">' +
+    '<button type="button" role="tab" aria-selected="' + bitsOn + '" data-act="tab" data-tab="bits">Bits</button>' +
+    '<button type="button" role="tab" aria-selected="' + (!bitsOn) + '" data-act="tab" data-tab="board">Board</button></div>' +
+    main + '<p class="gapline">' + esc(gapCopy()) + '</p></section>';
+}
+function houseHTML() {
+  const logs = weekLogs();
+  const total = 2 + logs.length;
+  const capped = Math.min(7, total);
+  const pct = Math.round(capped / 7 * 100);
+  const yours = logs.length ? logs.map(l => {
+    const m = motionById(l.motionId);
+    const post = l.posted ? '' : '<button type="button" class="textbtn" data-act="postlater" data-id="' + esc(l.id) + '">Post this bit</button>';
+    return '<article class="card"><p class="kicker">' + esc(m.cat) + ' · flicker ' + l.flicker + ' · ' + (l.posted ? "posted" : "private") + '</p><h2>' + esc(m.title) + '</h2><p class="said">“' + esc(l.outside) + '”</p><p class="punch">' + esc(l.punch) + '</p>' + post + '</article>';
+  }).join("") : '<article class="card"><p>Your motions land here, including the ones you don\'t post. The house counts them either way.</p><button type="button" class="secondary" data-act="go" data-screen="today">Do today\'s motion</button></article>';
+  const north = NORTH.map(n => '<article class="card"><div class="bit-top"><span class="who">North</span><span class="badge">Sample partner</span></div><p class="kicker">' + esc(n.title) + ' · flicker ' + n.flicker + '</p><p class="said">“' + esc(n.outside) + '”</p></article>').join("");
+  return '<section class="pad">' + topbar("Private, on purpose") +
+    '<h1>The house</h1>' +
+    '<p>This room is the two of you. The score is combined so nobody wins by feeling more. North is a sample partner, so you can see the shape. A real invite comes later. This code does not open a second phone.</p>' +
+    '<div class="card"><div class="meter-top"><span class="who">Pilot light</span><span class="minor">' + capped + ' / 7 motions</span></div>' +
+    '<div class="track" role="meter" aria-valuemin="0" aria-valuemax="7" aria-valuenow="' + capped + '" aria-label="Motions together this week"><div class="fill" style="width:' + pct + '%"></div></div>' +
+    '<p class="why">' + (capped >= 7 ? "The light is holding. Extra motions still count on the circle." : (logs.length ? "North put in two. You put in " + logs.length + "." : "Seven in a week and the light holds. North already put in two.")) + '</p></div>' +
+    north + yours +
+    '<p class="gapline">' + esc(gapCopy()) + '</p>' +
+    '<button type="button" class="secondary" id="copycode" data-act="copy">Copy sketch code KINDLE-482</button>' +
+    '<p class="fine" id="copynote"></p>' +
+    '<button type="button" class="textbtn" data-act="reset">Clear this phone</button>' +
+    '<p class="warn" id="resetnote"></p></section>';
+}
+function deckHTML() {
+  const order = ["The sentence", "Partner", "Kid", "House"];
+  let html = "";
+  for (const cat of order) {
+    html += '<h2>' + esc(cat) + '</h2>';
+    for (const m of MOTIONS.filter(x => x.cat === cat)) {
+      const done = logForMotionToday(m.id);
+      const current = m.id === state.motionId;
+      html += '<button type="button" class="deckitem' + (current ? " current" : "") + '" data-act="pick" data-id="' + esc(m.id) + '">' +
+        '<span class="kicker">' + (m.id === ROUND_ID ? "This week's round" : esc(m.cat)) + '</span>' +
+        '<strong>' + esc(m.title) + '</strong>' +
+        '<span class="minor">' + (done ? "Done today" : current ? "Today's motion" : "Make this today's motion") + '</span></button>';
+    }
+  }
+  return '<section class="pad">' + topbar("Fifteen ways back in") + '<h1>The deck</h1>' +
+    '<p class="minor">Every card is a motion you were probably going to do anyway, slowed down by an inch. Done today stays done.</p>' + html + '</section>';
+}
+
+function render(opts) {
+  const keep = opts && opts.keepScroll;
+  if (!state.name && screen !== "welcome") screen = "welcome";
+  const y = keep ? window.scrollY : 0;
+  const view = document.getElementById("view");
+  const html = screen === "welcome" ? welcomeHTML()
+    : screen === "today" ? todayHTML()
+    : screen === "log" ? logHTML()
+    : screen === "circle" ? circleHTML()
+    : screen === "house" ? houseHTML()
+    : deckHTML();
+  view.innerHTML = html;
+  const nav = document.getElementById("nav");
+  const showNav = screen !== "welcome" && screen !== "log";
+  document.getElementById("app").classList.toggle("hasnav", showNav);
+  nav.innerHTML = showNav ? ["today", "Today", "circle", "Circle", "house", "House"].reduce((acc, item, i, arr) => {
+    if (i % 2) return acc;
+    const id = arr[i];
+    const label = arr[i + 1];
+    return acc + '<button type="button" data-act="go" data-screen="' + id + '"' + (screen === id ? ' aria-current="page"' : "") + '>' + label + '</button>';
+  }, "") : "";
+  if (screen === "log") {
+    document.getElementById("punch").textContent = TAILS[1][0];
+    refreshLogUI();
+  }
+  if (!keep) {
+    window.scrollTo(0, 0);
+    const h = view.querySelector("h1");
+    if (h) { h.tabIndex = -1; h.focus(); }
+  } else {
+    window.scrollTo(0, y);
+  }
+}
+function currentPunch() {
+  if (draft && draft.own) {
+    const c = (document.getElementById("custom").value || "").trim();
+    if (c) return c;
+  }
+  const pool = TAILS[draft.flicker] || TAILS[0];
+  return pool[draft.punch % pool.length];
+}
+function refreshLogUI() {
+  if (screen !== "log" || !draft) return;
+  const outsideEl = document.getElementById("outside");
+  const flick = document.getElementById("flick");
+  if (!outsideEl || !flick) return;
+  draft.flicker = Number(flick.value);
+  const outside = outsideEl.value;
+  const trimmed = outside.trim().replace(/\s+/g, " ");
+  document.getElementById("count").textContent = trimmed.length + "/240";
+  const said = document.getElementById("said");
+  said.textContent = trimmed ? "“" + trimmed + "”" : "What you did shows up here.";
+  said.classList.toggle("muted", !trimmed);
+  const punch = currentPunch();
+  document.getElementById("punch").textContent = punch;
+  const num = document.getElementById("flicknum");
+  num.textContent = String(draft.flicker);
+  num.className = "flicknum" + (draft.flicker === 0 ? " zero" : draft.flicker >= 3 ? " warm" : "");
+  document.getElementById("flicklabel").textContent = FLICK[draft.flicker];
+  flick.setAttribute("aria-valuenow", String(draft.flicker));
+  flick.setAttribute("aria-valuetext", FLICK[draft.flicker]);
+  const ok = trimmed.length >= 12 && trimmed.length <= 240;
+  document.getElementById("post").disabled = !ok;
+  document.getElementById("keep").disabled = !ok;
+}
+function submit(posted) {
+  const outside = document.getElementById("outside").value.trim().replace(/\s+/g, " ");
+  const punch = currentPunch();
+  const err = validate(outside, punch);
+  const note = document.getElementById("formnote");
+  if (err) { note.textContent = err; return; }
+  if (logForMotionToday(state.motionId)) { note.textContent = "You already logged this motion today. Draw a different one."; return; }
+  const log = {
+    id: "b" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    motionId: state.motionId,
+    outside: outside,
+    punch: punch,
+    flicker: draft.flicker,
+    posted: posted,
+    at: Date.now(),
+    rx: null,
+    note: ""
+  };
+  state.logs.unshift(log);
+  save();
+  if (posted) {
+    screen = "circle";
+    tab = "bits";
+    render();
+    scheduleAnswers(log.id, 1400);
+    say("Posted. The circle is reading it.");
+  } else {
+    screen = "house";
+    render();
+    say("Kept in the house. " + gapCopy());
+  }
+}
+function scheduleAnswers(id, delay) {
+  if (timers.has(id)) return;
+  const t = setTimeout(() => {
+    timers.delete(id);
+    const log = state.logs.find(l => l.id === id);
+    if (!log || log.rx) return;
+    const before = boardRows();
+    const beforeAhead = new Set(before.filter(r => !r.you && r.points > userAgg().points).map(r => r.name));
+    log.rx = answersFor(log);
+    const afterPoints = userAgg().points;
+    const passed = [...beforeAhead].filter(name => {
+      const row = boardRows().find(r => r.name === name && !r.you);
+      return row && row.points <= afterPoints;
+    });
+    log.note = passed.length ? "You passed " + passed.join(" and ") + "." : "";
+    save();
+    const msg = log.note || ("The circle answered. " + gapCopy());
+    if (screen !== "log") render({ keepScroll: screen === "circle" });
+    say(msg);
+  }, delay);
+  timers.set(id, t);
+}
+function settlePending() {
+  for (const log of state.logs) {
+    if (log.posted && !log.rx) {
+      const age = Date.now() - log.at;
+      if (age > 4000) {
+        log.rx = answersFor(log);
+      } else {
+        scheduleAnswers(log.id, Math.max(300, 1600 - age));
+      }
+    }
+  }
+  save();
+}
+
+document.getElementById("app").addEventListener("click", (e) => {
+  const t = e.target.closest("[data-act]");
+  if (!t) return;
+  const act = t.dataset.act;
+  if (act === "chip") {
+    const input = document.getElementById("name");
+    input.value = t.dataset.name;
+    document.getElementById("join").disabled = false;
+    input.focus();
+    return;
+  }
+  if (act === "join") {
+    const name = document.getElementById("name").value.trim().replace(/\s+/g, " ").slice(0, 18);
+    if (name.length < 2 || !/[a-z0-9]/i.test(name)) return;
+    state.name = name;
+    screen = "today";
+    save();
+    render();
+    say("Welcome in, " + name + ". One motion is enough.");
+    return;
+  }
+  if (act === "go") {
+    screen = t.dataset.screen;
+    resetArmed = false;
+    render();
+    return;
+  }
+  if (act === "did") {
+    draft = { flicker: 1, punch: 0, own: false };
+    screen = "log";
+    render();
+    return;
+  }
+  if (act === "back") { screen = "today"; render(); return; }
+  if (act === "deck") { screen = "deck"; render(); return; }
+  if (act === "draw") {
+    const done = new Set(state.logs.filter(l => sameDay(l.at, Date.now())).map(l => l.motionId));
+    const pool = MOTIONS.filter(m => m.id !== state.motionId && !done.has(m.id));
+    const next = pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+    if (!next) { say("That's the whole deck for today."); return; }
+    state.motionId = next.id;
+    save();
+    screen = "today";
+    render();
+    return;
+  }
+  if (act === "shuffle") {
+    draft.punch += 1;
+    draft.own = false;
+    document.getElementById("customwrap").hidden = true;
+    document.getElementById("ownbtn").textContent = "Write my own line";
+    refreshLogUI();
+    return;
+  }
+  if (act === "own") {
+    draft.own = !draft.own;
+    document.getElementById("customwrap").hidden = !draft.own;
+    document.getElementById("ownbtn").textContent = draft.own ? "Use Kindling's line" : "Write my own line";
+    if (draft.own) document.getElementById("custom").focus();
+    refreshLogUI();
+    return;
+  }
+  if (act === "post") { submit(true); return; }
+  if (act === "keep") { submit(false); return; }
+  if (act === "tab") { tab = t.dataset.tab; render(); return; }
+  if (act === "react") {
+    const id = t.dataset.id;
+    const kind = t.dataset.kind;
+    if (state.reactions[id] === kind) delete state.reactions[id];
+    else state.reactions[id] = kind;
+    save();
+    render({ keepScroll: true });
+    return;
+  }
+  if (act === "pick") {
+    if (logForMotionToday(t.dataset.id)) { say("Already logged today."); return; }
+    state.motionId = t.dataset.id;
+    save();
+    screen = "today";
+    render();
+    return;
+  }
+  if (act === "postlater") {
+    const log = state.logs.find(l => l.id === t.dataset.id);
+    if (!log || log.posted) return;
+    const err = validate(log.outside, log.punch);
+    if (err) { say(err); return; }
+    log.posted = true;
+    save();
+    screen = "circle";
+    tab = "bits";
+    render();
+    scheduleAnswers(log.id, 1200);
+    return;
+  }
+  if (act === "copy") {
+    const note = document.getElementById("copynote");
+    const done = () => { note.textContent = "Copied. It's a sketch code. It doesn't open another phone yet."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText("KINDLE-482").then(done, () => { note.textContent = "KINDLE-482"; });
+    } else note.textContent = "KINDLE-482";
+    return;
+  }
+  if (act === "reset") {
+    const note = document.getElementById("resetnote");
+    if (!resetArmed) {
+      resetArmed = true;
+      note.textContent = "Tap again to clear your name, bits, and reactions on this phone.";
+      return;
+    }
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    state = fresh();
+    screen = "welcome";
+    tab = "bits";
+    resetArmed = false;
+    render();
+  }
+});
+document.getElementById("app").addEventListener("input", (e) => {
+  if (e.target.id === "name") {
+    const join = document.getElementById("join");
+    if (join) join.disabled = e.target.value.trim().length < 2;
+  }
+  if (e.target.id === "outside" || e.target.id === "flick" || e.target.id === "custom") refreshLogUI();
+});
+document.getElementById("app").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && e.target.id === "name") {
+    e.preventDefault();
+    const btn = document.getElementById("join");
+    if (btn && !btn.disabled) btn.click();
+  }
+});
+
+state = load();
+screen = state.name ? "today" : "welcome";
+settlePending();
+render();
+</script>
+</body>
+</html>
